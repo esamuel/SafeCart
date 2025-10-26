@@ -119,11 +119,7 @@ export default function Profile({ user }: any) {
     <div className="max-w-2xl mx-auto">
       {/* Profile Header */}
       <div className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-8 rounded-3xl mb-6 text-center shadow-lg">
-        <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-          <span className="text-4xl">👤</span>
-        </div>
-        <h2 className="text-3xl font-bold mb-1">{user?.name || 'User'}</h2>
-        <p className="text-lg opacity-90">{user?.email}</p>
+        <h2 className="text-3xl font-bold">{displayName || user?.name || user?.displayName || 'User'}</h2>
       </div>
 
       {/* Success Message */}
