@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllergyGuard - App Wireframes & Mockups</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 20px;
+            opacity: 0.9;
+        }
+
+        .mockup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .phone-mockup {
+            background: white;
+            border-radius: 40px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            aspect-ratio: 9/19.5;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .phone-header {
+            text-align: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .phone-header .notch {
+            width: 120px;
+            height: 25px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            margin: 0 auto 10px;
+        }
+
+        .phone-header .time {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .screen {
+            height: calc(100% - 70px);
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .screen h2 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        .screen p {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 12px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: border 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-item {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .checkbox-item:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .checkbox-item.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .scanner-view {
+            background: #000;
+            border-radius: 20px;
+            height: 300px;
+            position: relative;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scanner-frame {
+            width: 200px;
+            height: 200px;
+            border: 3px solid #667eea;
+            border-radius: 20px;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .scanner-line {
+            width: 100%;
+            height: 3px;
+            background: #667eea;
+            position: absolute;
+            top: 50%;
+            animation: scan 2s infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            50% { top: 100%; }
+            100% { top: 0; }
+        }
+
+        .product-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .product-image {
+            width: 60px;
+            height: 60px;
+            background: #ddd;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+
+        .product-info {
+            flex-grow: 1;
+        }
+
+        .product-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .product-brand {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .safety-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge-safe {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .nutrition-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .nutrition-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .nutrition-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .shopping-list-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .checkbox.checked {
+            background: #667eea;
+            border-color: #667eea;
+            position: relative;
+        }
+
+        .checkbox.checked::after {
+            content: '✓';
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .tab-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .tab-item {
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .tab-item:hover,
+        .tab-item.active {
+            color: #667eea;
+        }
+
+        .tab-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 25px 0 15px;
+            color: #1a1a1a;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .recipe-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .recipe-image {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, #ffa751 0%, #ffe259 100%);
+        }
+
+        .recipe-content {
+            padding: 15px;
+        }
+
+        .recipe-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .recipe-meta {
+            font-size: 13px;
+            color: #666;
+            display: flex;
+            gap: 15px;
+        }
+
+        .profile-header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: white;
+            margin: 0 auto 15px;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .profile-subtitle {
+            opacity: 0.9;
+        }
+
+        .settings-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .settings-item:hover {
+            background: #e9ecef;
+        }
+
+        .mockup-label {
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛡️ AllergyGuard</h1>
+            <p>Interactive Wireframes & Mockups</p>
+        </div>
+
+        <div class="mockup-grid">
+            <!-- Screen 1: Onboarding Welcome -->
+            <div>
+                <div class="phone-mockup">
+                    <div class="phone-header">
+                        <div class="notch"></div>
+                        <div class="time">9:41</div>
+                    </div>
+                    <div class="screen">
+                        <div style="text-align: center; padding: 40px 0;">
+                            <div style="font-size: 80px; margin-bottom: 20px;">🛡️</div>
+                            <h2>Welcome to<br>AllergyGuard</h2>
+                            <p>Shop safely with allergies and diabetes. Scan products, create smart lists, and discover safe foods.</p>
+                        </div>
+                        <div style="position: absolute; bottom: 100px; left: 20px; right: 20px;">
+                            <button class="btn btn-primary">Get Started</button>
+                            <button class="btn btn-secondary">I Already Have an Account</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mockup-label">1. Onboarding - Welcome Screen</div>
+            </div>
+
+            <!-- Screen 2: Health Profile Setup -->
+            <div>
+                <div class="phone-mockup">
+                    <div class="phone-header">
+                        <div class="notch"></div>
+                        <div class="time">9:41</div>
+                    </div>
+                    <div class="screen">
+                        <h2>Your Health Profile</h2>
+                        <p>Help us understand your dietary needs</p>
+
+                        <div class="form-group">
+                            <label>Do you have diabetes?</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item selected">Type 1</div>
+                                <div class="checkbox-item">Type 2</div>
+                                <div class="checkbox-item">Prediabetes</div>
+                                <div class="checkbox-item">No</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Select Your Allergies</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item selected">🥜 Peanuts</div>
+                                <div class="checkbox-item selected">🥛 Dairy</div>
+                                <div class="checkbox-item">🥚 Eggs</div>
+                                <div class="checkbox-item">🐟 Fish</div>
+                                <div class="checkbox-item">🦐 Shellfish</div>
+                                <div class="checkbox-item">🌾 Wheat</div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary">Continue</button>
+                    </div>
+                </div>
+                <div class="mockup-label">2. Health Profile Setup</div>
+            </div>
+
+            <!-- Screen 3: Barcode Scanner -->
+            <div>
+                <div class="phone-mockup">
+                    <div class="phone-header">
+                        <div class="notch"></div>
+                        <div class="time">9:41</div>
+                    </div>
+                    <div class="screen" style="padding: 0;">
+                        <div class="scanner-view">
+                            <div class="scanner-frame">
+                                <div class="scanner-line"></div>
+                            </div>
+                        </div>
+                        <div style="padding: 0 20px;">
+                            <h2 style="text-align: center;">Scan Product</h2>
+                            <p style="text-align: center;">Position barcode in the frame</p>
+
+                            <div class="product-card">
+                                <div class="product-image"></div>
+                                <div class="product-info">
+                                    <div class="product-name">Almond Milk</div>
+                                    <div class="product-brand">Silk Original</div>
+                                </div>
+                                <div class="safety-badge badge-safe">✓ SAFE</div>
+                            </div>
+
+                            <div class="nutrition-grid">
+                                <div class="nutrition-item">
+                                    <div class="nutrition-label">Net Carbs</div>
+                                    <div class="nutrition-value">2g</div>
+                                </div>
+                                <div class="nutrition-item">
+                                    <div class="nutrition-label">Glycemic Index</div>
+                                    <div class="nutrition-value">25</div>
+                                </div>
+                                <div class="nutrition-item">
+                                    <div class="nutrition-label">Sugar</div>
+                                    <div class="nutrition-value">0g</div>
+                                </div>
+                                <div class="nutrition-item">
+                                    <div class="nutrition-label">Fiber</div>
+                                    <div class="nutrition-value">1g</div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary">Add to Shopping List</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mockup-label">3. Barcode Scanner & Results</div>
+            </div>
+
+            <!-- Screen 4: Product Detail -->
+            <div>
+                <div class="phone-mockup">
+                    <div class="phone-header">
+                        <div class="notch"></div>
+                        <div class="time">9:41</div>
+                    </div>
+                    <div class="screen">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="width: 100px; height: 100px; background: #f0f0f0; border-radius: 15px; margin: 0 auto 15px;"></div>
+                            <h2 style="font-size: 22px;">Organic Peanut Butter</h2>
+                            <p style="margin: 5px 0;">Skippy Natural</p>
+                            <div class="safety-badge badge-danger">⚠️ CONTAINS ALLERGEN</div>
+                        </div>
+
+                        <div class="section-title">Allergen Information</div>
+                        <div style="background: #fff3cd; padding: 15px; border-radius: 12px; margin-bottom: 15px; border-left: 4px solid #ffc107;">
+                            <strong>⚠️ Contains: Peanuts</strong><br>
+                            <small>This product is in your allergen list</small>
+                        </div>
+
+                        <div class="section-title">Diabetes Info</div>
+                        <div class="nutrition-grid">
+                            <div class="nutrition-item">
+                                <div class="nutrition-label">Net Carbs</div>
+                                <div class="nutrition-value" style="color: #dc3545;">14g</div>
+                            </div>
+                            <div class="nutrition-item">
+                                <div class="nutrition-label">GI Score</div>
+                                <div class="nutrition-value" style="color: #28a745;">14</div>
+                            </div>
+                            <div class="nutrition-item">
+                                <div class="nutrition-label">Sugar</div>
+                                <div class="nutrition-value">3g</div>
+                            </div>
+                            <div class="nutrition-item">
+                                <div class="nutrition-label">Protein</div>
+                                <div class="nutrition-value">8g</div>
+                            </div>
+                        </div>
+
+                        <div class="section-title">Ingredients</div>
+                        <p style="font-size: 13px; line-height: 1.6; background: #f8f9fa; padding: 12px; border-radius: 10px;">
+                            Roasted peanuts, sugar, palm oil, salt
+                        </p>
+
+                        <button class="btn btn-secondary">Find Alternatives</button>
+                    </div>
+                </div>
+                <div class="mockup-label">4. Product Detail View</div>
+            </div>
+
+            <!-- Screen 5: Shopping List -->
+            <div>
+                <div class="phone-mockup">
+                    <div class="phone-header">
+                        <div class="notch"></div>
+                        <div class="time">9:41</div>
+                    </div>
+                    <div class="screen">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h2>My Shopping List</h2>
+                            <button style="background: #667eea; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 600;">+ Add</button>
+                        </div>
+
+                        <div style="background: #f0f4ff; padding: 15px; border-radius: 12px; margin-bottom: 20px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                <span style="font-weight: 600;">Weekly Grocery</span>
+                                <span style="color: #667eea;">12 items</span>
+                            </div>
+                            <div style="width: 100%; background: #ddd; height: 8px; border-radius: 4px;">
+                                <div style="width: 60%; background: linear-gradient(90deg, #667eea, #764ba2); height: 100%; border-radius: 4px;"></div>
+                            </div>
+                        </div>
+
+                        <div class="section-title">🥬 Produce</div>
+                        <div class="shopping-list-item">
+                            <div class="checkbox checked"></div>
+                            <div style="flex-grow: 1;">
+                                <div style="font-weight: 600;">Bananas</div>
+                                <div style="font-size: 13px; color: #666;">Organic, 2 lbs</div>
+                            </div>
+                            <div style="color: #667eea; font-weight: 600;">$2.99</div>
+                        </div>
+
+                        <div class="shopping-list-item">
+                            <div class="checkbox"></div>
+                            <div style="flex-grow: 1;">
+                                <div style="font-weight: 600;">Spinach</div>
+                                <div style="font-size: 13px; color: #666;">Fresh, 1 bag</div>
+                            </div>
+                            <div style="color: #667eea; font-weight: 600;">$3.49</div>
+                        </div>
+
+                        <div class="section-title">🥛 Dairy Alternatives</div>
+                        <div class="shopping-list-item">
+                            <div class="checkbox"></div>
+                            <div style="flex-grow: 1;">
+                                <div style="font-weight: 600;">Almond Milk</div>
+                                <div style="font-size: 13px; color: #666;">Silk Unsweetened</div>
+                            </div>
+                            <div style="color: #667eea; font-weight: 600;">$4.99</div>
+                        </div>
+
+                        <div style="position: absolute; bottom: 80px; left: 20px; right: 20px;">
+                            <div style="background: #1a1a1a; color: white; padding: 20px; border-radius: 15px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <span>Total (7 items)</span>
+                                    <span style="font-size: 24px; font-weight: 700;">$42.87</span>
+                                </div>
+                                <button class="btn btn-primary">Start Shopping</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-bar">
+                        <div class="tab-item">
+                            <div class="tab-icon">🏠</div>
+                            <div>Home</div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-icon">📷</div>
+                            <div>Scan</div>
+                        </div>
+                        <div class="tab-item active">
+                            <div class="tab-icon">📝</div>
+                            <div>Lists</div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-icon">👤</div>
+                            <div>Profile</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mockup-label">5. Shopping List</div>
+            </div>
+
+            <!-- Screen 6: Meal Planning -->
+            <div>
+                <div class="phone-mockup">
+                    <div class="phone-header">
+                        <div class="notch"></div>
+                        <div class="time">9:41</div>
+                    </div>
+                    <div class="screen">
+                        <h2>Meal Planner</h2>
+                        <p>This week's safe & delicious meals</p>
+
+                        <div class="metric-card">
+                            <div class="metric-value">127g</div>
+                            <div class="metric-label">Daily Carb Budget Remaining</div>
+                        </div>
+
+                        <div class="section-title">Monday, Oct 25</div>
+                        
+                        <div class="recipe-card">
+                            <div class="recipe-image"></div>
+                            <div class="recipe-content">
+                                <div class="recipe-title">🍳 Breakfast: Veggie Omelet</div>
+                                <div class="recipe-meta">
+                                    <span>⏱️ 15 min</span>
+                                    <span>💚 Low GI</span>
+                                    <span>🛡️ Dairy-free</span>
+                                </div>
+                                <div style="margin-top: 10px; font-size: 13px; color: #667eea; font-weight: 600;">
+                                    Net Carbs: 8g
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recipe-card">
+                            <div class="recipe-image"></div>
+                            <div class="recipe-content">
+                                <div class="recipe-title">🥗 Lunch: Quinoa Power Bowl</div>
+                                <div class="recipe-meta">
+                                    <span>⏱️ 25 min</span>
+                                    <span>💚 Balanced</span>
+                                    <span>🛡️ Allergy-safe</span>
+                                </div>
+                                <div style="margin-top: 10px; font-size: 13px; color: #667eea; font-weight: 600;">
+                                    Net Carbs: 35g
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary">Generate Shopping List</button>
+                    </div>
+                    <div class="tab-bar">
+                        <div class="tab-item">
+                            <div class="tab-icon">🏠</div>
+                            <div>Home</div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-icon">📷</div>
+                            <div>Scan</div>
+                        </div>
+                        <div class="tab-item active">
+                            <div class="tab-icon">📅</div>
+                            <div>Meals</div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-icon">👤</div>
+                            <div>Profile</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mockup-label">6. Meal Planning</div>
+            </div>
+
+            <!-- Screen 7: Product Search -->
+            <div>
+                <div class="phone-mockup">
+                    <div class="phone-header">
+                        <div class="notch"></div>
+                        <div class="time">9:41</div>
+                    </div>
+                    <div class="screen">
+                        <h2>Discover Safe Foods</h2>
+                        <p>200,000+ products filtered for you</p>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="🔍 Search products...">
+                        </div>
+
+                        <div style="display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto;">
+                            <div style="padding: 8px 16px; background: #667eea; color: white; border-radius: 20px; font-size: 13px; white-space: nowrap;">All</div>
+                            <div style="padding: 8px 16px; background: #f0f0f0; color: #666; border-radius: 20px; font-size: 13px; white-space: nowrap;">Low GI</div>
+                            <div style="padding: 8px 16px; background: #f0f0f0; color: #666; border-radius: 20px; font-size: 13px; white-space: nowrap;">Dairy-Free</div>
+                            <div style="padding: 8px 16px; background: #f0f0f0; color: #666; border-radius: 20px; font-size: 13px; white-space: nowrap;">High Protein</div>
+                        </div>
+
+                        <div class="section-title">Recommended for You</div>
+
+                        <div class="product-card">
+                            <div class="product-image"></div>
+                            <div class="product-info">
+                                <div class="product-name">Coconut Yogurt</div>
+                                <div class="product-brand">So Delicious</div>
+                            </div>
+                            <div class="safety-badge badge-safe">✓</div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image"></div>
+                            <div class="product-info">
+                                <div class="product-name">Gluten-Free Bread</div>
+                                <div class="product-brand">Canyon Bakehouse</div>
+                            </div>
+                            <div class="safety-badge badge-safe">✓</div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image"></div>
+                            <div class="product-info">
+                                <div class="product-name">Almond Butter</div>
+                                <div class="product-brand">Justin's</div>
+                            </div>
+                            <div class="safety-badge badge-warning">!</div>
+                        </div>
+
+                        <div class="product-card">
+                            <div class="product-image"></div>
+                            <div class="product-info">
+                                <div class="product-name">Chickpea Pasta</div>
+                                <div class="product-brand">Banza</div>
+                            </div>
+                            <div class="safety-badge badge-safe">✓</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mockup-label">7. Product Discovery</div>
+            </div>
+
+            <!-- Screen 8: User Profile -->
+            <div>
+                <div class="phone-mockup">
+                    <div class="phone-header">
+                        <div class="notch"></div>
+                        <div class="time">9:41</div>
+                    </div>
+                    <div class="screen">
+                        <div class="profile-header">
+                            <div class="avatar"></div>
+                            <div class="profile-name">Sarah Johnson</div>
+                            <div class="profile-subtitle">Premium Member</div>
+                        </div>
+
+                        <div class="section-title">Health Profiles</div>
+                        <div class="settings-item">
+                            <div>
+                                <div style="font-weight: 600;">Sarah (Main)</div>
+                                <div style="font-size: 13px; color: #666;">Type 1 Diabetes, Peanut & Dairy</div>
+                            </div>
+                            <div>→</div>
+                        </div>
+
+                        <div class="settings-item">
+                            <div>
+                                <div style="font-weight: 600;">Emma (Daughter)</div>
+                                <div style="font-size: 13px; color: #666;">Tree Nut & Egg Allergy</div>
+                            </div>
+                            <div>→</div>
+                        </div>
+
+                        <div class="section-title">Statistics</div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 12px; text-align: center;">
+                                <div style="font-size: 28px; font-weight: 700; color: #667eea;">127</div>
+                                <div style="font-size: 13px; color: #666;">Products Scanned</div>
+                            </div>
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 12px; text-align: center;">
+                                <div style="font-size: 28px; font-weight: 700; color: #667eea;">2.5h</div>
+                                <div style="font-size: 13px; color: #666;">Time Saved</div>
+                            </div>
+                        </div>
+
+                        <div class="section-title">Settings</div>
+                        <div class="settings-item">
+                            <div style="font-weight: 600;">Notifications</div>
+                            <div>→</div>
+                        </div>
+                        <div class="settings-item">
+                            <div style="font-weight: 600;">Upgrade to Premium</div>
+                            <div>→</div>
+                        </div>
+                        <div class="settings-item">
+                            <div style="font-weight: 600;">Help & Support</div>
+                            <div>→</div>
+                        </div>
+                        <div class="settings-item">
+                            <div style="font-weight: 600; color: #dc3545;">Sign Out</div>
+                            <div>→</div>
+                        </div>
+                    </div>
+                    <div class="tab-bar">
+                        <div class="tab-item">
+                            <div class="tab-icon">🏠</div>
+                            <div>Home</div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-icon">📷</div>
+                            <div>Scan</div>
+                        </div>
+                        <div class="tab-item">
+                            <div class="tab-icon">📝</div>
+                            <div>Lists</div>
+                        </div>
+                        <div class="tab-item active">
+                            <div class="tab-icon">👤</div>
+                            <div>Profile</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mockup-label">8. User Profile</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; color: white; margin-top: 50px; padding: 30px; background: rgba(0, 0, 0, 0.3); border-radius: 20px;">
+            <h2 style="margin-bottom: 15px;">Design System</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px;">
+                <div>
+                    <h3 style="margin-bottom: 10px;">Colors</h3>
+                    <div style="display: flex; gap: 10px; justify-content: center;">
+                        <div style="width: 50px; height: 50px; background: #667eea; border-radius: 10px;"></div>
+                        <div style="width: 50px; height: 50px; background: #764ba2; border-radius: 10px;"></div>
+                        <div style="width: 50px; height: 50px; background: #1a1a1a; border-radius: 10px;"></div>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 10px;">Typography</h3>
+                    <p>Inter (Body)<br>Poppins (Headings)</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 10px;">Spacing</h3>
+                    <p>8px base unit<br>Multiples of 4</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 10px;">Border Radius</h3>
+                    <p>10-15px (Cards)<br>20-40px (Buttons)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

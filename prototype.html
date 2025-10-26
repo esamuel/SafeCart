@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllergyGuard - Interactive Prototype</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .app-container {
+            background: white;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            height: 700px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .status-bar {
+            padding: 15px 20px;
+            text-align: center;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .notch {
+            width: 100px;
+            height: 20px;
+            background: #000;
+            border-radius: 0 0 15px 15px;
+            margin: 0 auto 8px;
+        }
+
+        .time {
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .screen {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #fafafa;
+        }
+
+        .tab-bar {
+            display: flex;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            padding: 10px 0;
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #999;
+            user-select: none;
+        }
+
+        .tab:hover {
+            background: #f8f9fa;
+        }
+
+        .tab.active {
+            color: #667eea;
+        }
+
+        .tab-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .tab-label {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin: 25px 0 15px;
+            color: #1a1a1a;
+        }
+
+        p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 12px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            border-radius: 10px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .product-info {
+            flex-grow: 1;
+        }
+
+        .product-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .product-brand {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .safety-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge-safe {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .scanner-container {
+            background: #000;
+            border-radius: 20px;
+            height: 300px;
+            position: relative;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scanner-frame {
+            width: 200px;
+            height: 200px;
+            border: 3px solid #667eea;
+            border-radius: 20px;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.98); }
+        }
+
+        .scanner-line {
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            position: absolute;
+            animation: scan 2s infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            50% { top: 100%; }
+            100% { top: 0; }
+        }
+
+        .nutrition-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .nutrition-item {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .nutrition-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 6px;
+        }
+
+        .nutrition-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        .welcome-container {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .welcome-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s;
+        }
+
+        .shopping-list-item {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .checkbox.checked {
+            background: #667eea;
+            border-color: #667eea;
+            color: white;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .filter-chips {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            padding-bottom: 5px;
+        }
+
+        .chip {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .chip.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .chip:not(.active) {
+            background: white;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="app-container">
+            <div class="status-bar">
+                <div class="notch"></div>
+                <div class="time" id="current-time">9:41 AM</div>
+            </div>
+
+            <div class="screen" id="app-screen">
+                <!-- Content will be injected here -->
+            </div>
+
+            <div class="tab-bar">
+                <div class="tab active" data-tab="home" onclick="switchTab('home')">
+                    <div class="tab-icon">🏠</div>
+                    <div class="tab-label">Home</div>
+                </div>
+                <div class="tab" data-tab="scan" onclick="switchTab('scan')">
+                    <div class="tab-icon">📷</div>
+                    <div class="tab-label">Scan</div>
+                </div>
+                <div class="tab" data-tab="discover" onclick="switchTab('discover')">
+                    <div class="tab-icon">🔍</div>
+                    <div class="tab-label">Discover</div>
+                </div>
+                <div class="tab" data-tab="list" onclick="switchTab('list')">
+                    <div class="tab-icon">📝</div>
+                    <div class="tab-label">List</div>
+                </div>
+                <div class="tab" data-tab="profile" onclick="switchTab('profile')">
+                    <div class="tab-icon">👤</div>
+                    <div class="tab-label">Profile</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock data
+        const PRODUCTS = [
+            { id: 1, name: 'Almond Milk', brand: 'Silk Original', emoji: '🥛', allergens: ['tree nuts'], carbs: 2, sugar: 0, fiber: 1, gi: 25, price: 4.99 },
+            { id: 2, name: 'Organic Peanut Butter', brand: 'Skippy Natural', emoji: '🥜', allergens: ['peanuts'], carbs: 14, sugar: 3, fiber: 2, gi: 14, price: 6.99 },
+            { id: 3, name: 'Coconut Yogurt', brand: 'So Delicious', emoji: '🥥', allergens: [], carbs: 15, sugar: 12, fiber: 0, gi: 35, price: 5.49 },
+            { id: 4, name: 'Gluten-Free Bread', brand: 'Canyon Bakehouse', emoji: '🍞', allergens: [], carbs: 18, sugar: 2, fiber: 3, gi: 55, price: 7.99 },
+            { id: 5, name: 'Greek Yogurt', brand: 'Chobani', emoji: '🥛', allergens: ['dairy'], carbs: 9, sugar: 6, fiber: 0, gi: 33, price: 1.29 },
+            { id: 6, name: 'Chickpea Pasta', brand: 'Banza', emoji: '🍝', allergens: [], carbs: 32, sugar: 5, fiber: 8, gi: 44, price: 3.99 }
+        ];
+
+        const USER_PROFILE = {
+            name: 'Sarah Johnson',
+            diabetes: 'type1',
+            allergies: ['peanuts', 'dairy'],
+            scannedCount: 127,
+            timeSaved: 2.5
+        };
+
+        let shoppingList = [
+            { id: 1, name: 'Bananas', detail: 'Organic, 2 lbs', price: 2.99, checked: true, category: 'Produce' },
+            { id: 2, name: 'Spinach', detail: 'Fresh, 1 bag', price: 3.49, checked: false, category: 'Produce' },
+            { id: 3, name: 'Almond Milk', detail: 'Silk Unsweetened', price: 4.99, checked: false, category: 'Dairy Alternatives' },
+            { id: 4, name: 'Chicken Breast', detail: 'Organic, 2 lbs', price: 12.99, checked: false, category: 'Protein' }
+        ];
+
+        let currentTab = 'home';
+        let scannedProduct = null;
+        let searchQuery = '';
+        let activeFilter = 'all';
+
+        // Update time
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = hours % 12 || 12;
+            const displayMinutes = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById('current-time').textContent = `${displayHours}:${displayMinutes} ${ampm}`;
+        }
+        updateTime();
+        setInterval(updateTime, 60000);
+
+        // Tab switching
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+            renderScreen();
+        }
+
+        // Check product safety
+        function checkProductSafety(product) {
+            return !product.allergens.some(a => USER_PROFILE.allergies.includes(a));
+        }
+
+        // Get safety badge
+        function getSafetyBadge(product) {
+            const safe = checkProductSafety(product);
+            if (safe && product.gi < 40) {
+                return '<span class="safety-badge badge-safe">✓ SAFE</span>';
+            } else if (safe) {
+                return '<span class="safety-badge badge-warning">! MODERATE GI</span>';
+            } else {
+                return '<span class="safety-badge badge-danger">⚠ ALLERGEN</span>';
+            }
+        }
+
+        // Render screens
+        function renderScreen() {
+            const screen = document.getElementById('app-screen');
+            
+            switch(currentTab) {
+                case 'home':
+                    renderHome(screen);
+                    break;
+                case 'scan':
+                    renderScan(screen);
+                    break;
+                case 'discover':
+                    renderDiscover(screen);
+                    break;
+                case 'list':
+                    renderList(screen);
+                    break;
+                case 'profile':
+                    renderProfile(screen);
+                    break;
+            }
+        }
+
+        function renderHome(screen) {
+            const uncheckedItems = shoppingList.filter(item => !item.checked).length;
+            const progress = ((shoppingList.length - uncheckedItems) / shoppingList.length) * 100;
+
+            screen.innerHTML = `
+                <div class="welcome-container">
+                    <div class="welcome-icon">🛡️</div>
+                    <h1>Welcome back,<br/>${USER_PROFILE.name.split(' ')[0]}!</h1>
+                    <p>Shop safely with allergies & diabetes</p>
+                </div>
+
+                <div class="stat-card">
+                    <h2 style="margin: 0; margin-bottom: 10px;">Today's Progress</h2>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span>Shopping List</span>
+                        <span style="color: #667eea; font-weight: 600;">${uncheckedItems} items left</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${progress}%"></div>
+                    </div>
+                </div>
+
+                <h2>Quick Stats</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="stat-card">
+                        <div class="stat-value">${USER_PROFILE.scannedCount}</div>
+                        <div class="stat-label">Products Scanned</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${USER_PROFILE.timeSaved}h</div>
+                        <div class="stat-label">Time Saved</div>
+                    </div>
+                </div>
+
+                <h2>Your Health Profile</h2>
+                <div class="alert alert-success">
+                    <strong>Active Filters:</strong><br/>
+                    • ${USER_PROFILE.diabetes === 'type1' ? 'Type 1 Diabetes' : 'Type 2 Diabetes'}<br/>
+                    • Allergies: ${USER_PROFILE.allergies.map(a => a.charAt(0).toUpperCase() + a.slice(1)).join(', ')}
+                </div>
+
+                <button class="btn btn-primary" onclick="switchTab('scan')">Scan a Product Now</button>
+            `;
+        }
+
+        function renderScan(screen) {
+            if (!scannedProduct) {
+                screen.innerHTML = `
+                    <h1>Scan Product</h1>
+                    <p>Position barcode in the frame below</p>
+
+                    <div class="scanner-container">
+                        <div class="scanner-frame">
+                            <div class="scanner-line"></div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="simulateScan()">📷 Start Scanning</button>
+                `;
+            } else {
+                const hasAllergen = scannedProduct.allergens.some(a => USER_PROFILE.allergies.includes(a));
+                
+                screen.innerHTML = `
+                    <h1>Scan Product</h1>
+                    <p>Product analyzed successfully!</p>
+
+                    <div class="product-card" style="cursor: default;">
+                        <div class="product-image">${scannedProduct.emoji}</div>
+                        <div class="product-info">
+                            <div class="product-name">${scannedProduct.name}</div>
+                            <div class="product-brand">${scannedProduct.brand}</div>
+                        </div>
+                        ${getSafetyBadge(scannedProduct)}
+                    </div>
+
+                    ${hasAllergen ? `
+                        <div class="alert alert-danger">
+                            <strong>⚠️ Contains Allergen</strong><br/>
+                            This product contains: ${scannedProduct.allergens.filter(a => USER_PROFILE.allergies.includes(a)).join(', ')}
+                        </div>
+                    ` : `
+                        <div class="alert alert-success">
+                            <strong>✓ Safe to Consume</strong><br/>
+                            No allergens detected from your profile
+                        </div>
+                    `}
+
+                    <h2>Diabetes Info</h2>
+                    <div class="nutrition-grid">
+                        <div class="nutrition-item">
+                            <div class="nutrition-label">Net Carbs</div>
+                            <div class="nutrition-value">${scannedProduct.carbs - scannedProduct.fiber}g</div>
+                        </div>
+                        <div class="nutrition-item">
+                            <div class="nutrition-label">Glycemic Index</div>
+                            <div class="nutrition-value" style="color: ${scannedProduct.gi < 40 ? '#28a745' : scannedProduct.gi < 70 ? '#ffc107' : '#dc3545'}">
+                                ${scannedProduct.gi}
+                            </div>
+                        </div>
+                        <div class="nutrition-item">
+                            <div class="nutrition-label">Sugar</div>
+                            <div class="nutrition-value">${scannedProduct.sugar}g</div>
+                        </div>
+                        <div class="nutrition-item">
+                            <div class="nutrition-label">Fiber</div>
+                            <div class="nutrition-value">${scannedProduct.fiber}g</div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="addToList()">Add to Shopping List</button>
+                    <button class="btn btn-secondary" onclick="simulateScan()">Scan Another</button>
+                `;
+            }
+        }
+
+        function renderDiscover(screen) {
+            const filteredProducts = PRODUCTS.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                                    p.brand.toLowerCase().includes(searchQuery.toLowerCase());
+                
+                if (activeFilter === 'all') return matchesSearch;
+                if (activeFilter === 'safe') return matchesSearch && checkProductSafety(p);
+                if (activeFilter === 'lowgi') return matchesSearch && p.gi < 40;
+                if (activeFilter === 'highfiber') return matchesSearch && p.fiber >= 3;
+                
+                return matchesSearch;
+            });
+
+            screen.innerHTML = `
+                <h1>Discover Safe Foods</h1>
+                <p>200,000+ products filtered for you</p>
+
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    placeholder="🔍 Search products..."
+                    value="${searchQuery}"
+                    oninput="searchQuery = this.value; renderScreen();"
+                />
+
+                <div class="filter-chips">
+                    <div class="chip ${activeFilter === 'all' ? 'active' : ''}" onclick="activeFilter='all'; renderScreen();">All</div>
+                    <div class="chip ${activeFilter === 'safe' ? 'active' : ''}" onclick="activeFilter='safe'; renderScreen();">Safe for Me</div>
+                    <div class="chip ${activeFilter === 'lowgi' ? 'active' : ''}" onclick="activeFilter='lowgi'; renderScreen();">Low GI</div>
+                    <div class="chip ${activeFilter === 'highfiber' ? 'active' : ''}" onclick="activeFilter='highfiber'; renderScreen();">High Fiber</div>
+                </div>
+
+                <h2>Products (${filteredProducts.length})</h2>
+                
+                ${filteredProducts.map(product => `
+                    <div class="product-card">
+                        <div class="product-image">${product.emoji}</div>
+                        <div class="product-info">
+                            <div class="product-name">${product.name}</div>
+                            <div class="product-brand">${product.brand}</div>
+                            <div style="font-size: 12px; color: #667eea; margin-top: 4px;">
+                                $${product.price} • GI: ${product.gi} • Carbs: ${product.carbs}g
+                            </div>
+                        </div>
+                        ${getSafetyBadge(product)}
+                    </div>
+                `).join('')}
+            `;
+        }
+
+        function renderList(screen) {
+            const totalPrice = shoppingList.reduce((sum, item) => sum + item.price, 0);
+            const checkedCount = shoppingList.filter(item => item.checked).length;
+            const progress = (checkedCount / shoppingList.length) * 100;
+
+            const groupedList = shoppingList.reduce((acc, item) => {
+                if (!acc[item.category]) acc[item.category] = [];
+                acc[item.category].push(item);
+                return acc;
+            }, {});
+
+            screen.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h1 style="margin: 0;">Shopping List</h1>
+                    <button style="background: #667eea; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; cursor: pointer;">+ Add</button>
+                </div>
+
+                <div class="stat-card">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span style="font-weight: 600;">Weekly Grocery</span>
+                        <span style="color: #667eea;">${checkedCount}/${shoppingList.length} items</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${progress}%"></div>
+                    </div>
+                </div>
+
+                ${Object.entries(groupedList).map(([category, items]) => `
+                    <h2>${category}</h2>
+                    ${items.map(item => `
+                        <div class="shopping-list-item">
+                            <div class="checkbox ${item.checked ? 'checked' : ''}" onclick="toggleItem(${item.id})">
+                                ${item.checked ? '✓' : ''}
+                            </div>
+                            <div style="flex-grow: 1;">
+                                <div style="font-weight: 600; text-decoration: ${item.checked ? 'line-through' : 'none'}; opacity: ${item.checked ? 0.5 : 1};">
+                                    ${item.name}
+                                </div>
+                                <div style="font-size: 13px; color: #666;">${item.detail}</div>
+                            </div>
+                            <div style="color: #667eea; font-weight: 600;">$${item.price}</div>
+                        </div>
+                    `).join('')}
+                `).join('')}
+
+                <div style="height: 120px;"></div>
+
+                <div style="position: fixed; bottom: 60px; left: 20px; right: 20px; max-width: 360px; margin: 0 auto;">
+                    <div style="background: #1a1a1a; color: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                            <span>Total (${shoppingList.length} items)</span>
+                            <span style="font-size: 24px; font-weight: 700;">$${totalPrice.toFixed(2)}</span>
+                        </div>
+                        <button class="btn btn-primary" style="margin: 0;">Start Shopping</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderProfile(screen) {
+            screen.innerHTML = `
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 20px;">
+                    <div style="width: 80px; height: 80px; background: white; border-radius: 50%; margin: 0 auto 15px;"></div>
+                    <h1 style="color: white; font-size: 24px; margin-bottom: 5px;">${USER_PROFILE.name}</h1>
+                    <p style="color: white; opacity: 0.9; margin: 0;">Premium Member</p>
+                </div>
+
+                <h2>Health Profiles</h2>
+                <div class="stat-card" style="cursor: pointer;">
+                    <div style="font-weight: 600; margin-bottom: 5px;">${USER_PROFILE.name.split(' ')[0]} (Main)</div>
+                    <div style="font-size: 13px; color: #666;">
+                        ${USER_PROFILE.diabetes === 'type1' ? 'Type 1' : 'Type 2'} Diabetes • ${USER_PROFILE.allergies.map(a => a.charAt(0).toUpperCase() + a.slice(1)).join(' & ')} Allergy
+                    </div>
+                </div>
+
+                <h2>Statistics</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="stat-card">
+                        <div class="stat-value">${USER_PROFILE.scannedCount}</div>
+                        <div class="stat-label">Products Scanned</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${USER_PROFILE.timeSaved}h</div>
+                        <div class="stat-label">Time Saved</div>
+                    </div>
+                </div>
+
+                <h2>Settings</h2>
+                <div class="stat-card" style="cursor: pointer; margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: 600;">Notifications</span>
+                        <span>→</span>
+                    </div>
+                </div>
+                <div class="stat-card" style="cursor: pointer; margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: 600;">Upgrade to Premium</span>
+                        <span>→</span>
+                    </div>
+                </div>
+                <div class="stat-card" style="cursor: pointer; margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: 600;">Help & Support</span>
+                        <span>→</span>
+                    </div>
+                </div>
+                <div class="stat-card" style="cursor: pointer;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: 600; color: #dc3545;">Sign Out</span>
+                        <span>→</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function simulateScan() {
+            scannedProduct = null;
+            renderScreen();
+            
+            setTimeout(() => {
+                scannedProduct = PRODUCTS[Math.floor(Math.random() * PRODUCTS.length)];
+                renderScreen();
+            }, 2000);
+        }
+
+        function toggleItem(id) {
+            const item = shoppingList.find(i => i.id === id);
+            if (item) {
+                item.checked = !item.checked;
+                renderScreen();
+            }
+        }
+
+        function addToList() {
+            alert('Product added to shopping list!');
+        }
+
+        // Initialize
+        renderScreen();
+    </script>
+</body>
+</html>

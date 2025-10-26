@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+packages/*/node_modules/
+
+# Build outputs
+.next/
+packages/frontend/.next/
+dist/
+build/
+coverage/
+
+# Env & secrets
+.env
+.env.*
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+
+# Tooling
+.turbo/
+.vercel/
+.netlify/
+.pnpm-store/
+
+# OS/Editor
+.DS_Store
+.idea/
+.vscode/
+
