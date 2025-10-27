@@ -244,6 +244,27 @@ export const recipesAPI = {
   },
 }
 
+// Analytics API
+export const analyticsAPI = {
+  getDashboard: async (userId: string, days = 7) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/analytics/dashboard/${userId}?days=${days}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!response.ok) throw new Error('Failed to fetch dashboard analytics')
+    return response.json()
+  },
+
+  getNutritionChart: async (userId: string, days = 7) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/analytics/nutrition-chart/${userId}?days=${days}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!response.ok) throw new Error('Failed to fetch nutrition chart')
+    return response.json()
+  },
+}
+
 // Shopping Lists API
 export const shoppingListsAPI = {
   getUserLists: async (userId: string) => {

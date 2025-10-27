@@ -76,6 +76,9 @@ export default function ProductDiscovery() {
       setProducts([])
       setLoading(true)
       setError('')
+      
+      // Small delay to ensure UI update
+      await new Promise(resolve => setTimeout(resolve, 50))
 
       const filters: any = {}
       if (selectedCategory) filters.category = selectedCategory
@@ -89,9 +92,10 @@ export default function ProductDiscovery() {
 
       const results = await productsAPI.search(query, filters)
 
-      console.log('Results received:', results.length) // Debug log
+      console.log('Results received:', results?.length || 0) // Debug log
 
-      setProducts(results)
+      // Ensure results is an array
+      setProducts(Array.isArray(results) ? results : [])
     } catch (err: any) {
       setError('Failed to search products: ' + err.message)
       console.error('Search error:', err)

@@ -10,6 +10,7 @@ import ShoppingList from './ShoppingList'
 import MealPlanner from './MealPlanner'
 import Profile from './Profile'
 import ProductDiscovery from './ProductDiscovery'
+import EnhancedDashboard from './EnhancedDashboard'
 import Logo from './Logo'
 
 export default function Dashboard({ user }: any) {
@@ -158,107 +159,7 @@ export default function Dashboard({ user }: any) {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-8">
-        {activeTab === 'home' && (
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-3xl font-bold mb-2">Dashboard</h2>
-              <p className="text-gray-600 mb-6">Your SafeCart overview</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="bg-gradient-to-br from-purple-600 to-purple-800 text-white p-6 rounded-2xl shadow-lg">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm opacity-90">Shopping List Items</p>
-                    <p className="text-4xl font-bold">{stats.totalItems}</p>
-                  </div>
-                  <ShoppingCart className="w-10 h-10 opacity-80" />
-                </div>
-              </div>
-              <div className="bg-gradient-to-br from-green-500 to-green-600 text-white p-6 rounded-2xl shadow-lg">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm opacity-90">Safe Products</p>
-                    <p className="text-4xl font-bold">{stats.safeProducts}</p>
-                  </div>
-                  <BarChart3 className="w-10 h-10 opacity-80" />
-                </div>
-              </div>
-              <div className="bg-gradient-to-br from-orange-500 to-orange-600 text-white p-6 rounded-2xl shadow-lg">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm opacity-90">Meals Planned</p>
-                    <p className="text-4xl font-bold">{stats.mealsPlanned}</p>
-                  </div>
-                  <Utensils className="w-10 h-10 opacity-80" />
-                </div>
-              </div>
-              <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-2xl shadow-lg">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm opacity-90">Avg GI Score</p>
-                    <p className="text-4xl font-bold">{stats.avgGI}</p>
-                  </div>
-                  <Search className="w-10 h-10 opacity-80" />
-                </div>
-              </div>
-            </div>
-            
-            {/* Quick Actions */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 mt-6">
-              <h3 className="text-xl font-bold mb-4">Quick Actions</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <button
-                  onClick={() => setActiveTab('scanner')}
-                  className="bg-purple-50 hover:bg-purple-100 p-4 rounded-xl flex items-center gap-3 transition"
-                >
-                  <div className="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center text-2xl">
-                    📷
-                  </div>
-                  <div className="text-left">
-                    <p className="font-semibold text-gray-900">Scan Product</p>
-                    <p className="text-sm text-gray-600">Check allergen safety</p>
-                  </div>
-                </button>
-                <button
-                  onClick={() => setActiveTab('discover')}
-                  className="bg-blue-50 hover:bg-blue-100 p-4 rounded-xl flex items-center gap-3 transition"
-                >
-                  <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-2xl">
-                    🔍
-                  </div>
-                  <div className="text-left">
-                    <p className="font-semibold text-gray-900">Discover Products</p>
-                    <p className="text-sm text-gray-600">Browse 50+ products</p>
-                  </div>
-                </button>
-                <button
-                  onClick={() => setActiveTab('shopping')}
-                  className="bg-green-50 hover:bg-green-100 p-4 rounded-xl flex items-center gap-3 transition"
-                >
-                  <div className="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center text-2xl">
-                    📝
-                  </div>
-                  <div className="text-left">
-                    <p className="font-semibold text-gray-900">Shopping Lists</p>
-                    <p className="text-sm text-gray-600">Manage your lists</p>
-                  </div>
-                </button>
-                <button
-                  onClick={() => setActiveTab('meals')}
-                  className="bg-orange-50 hover:bg-orange-100 p-4 rounded-xl flex items-center gap-3 transition"
-                >
-                  <div className="w-12 h-12 bg-orange-600 rounded-xl flex items-center justify-center text-2xl">
-                    📅
-                  </div>
-                  <div className="text-left">
-                    <p className="font-semibold text-gray-900">Meal Planner</p>
-                    <p className="text-sm text-gray-600">Plan your meals</p>
-                  </div>
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+        {activeTab === 'home' && <EnhancedDashboard />}
 
         {activeTab === 'scanner' && <Scanner products={products} />}
         {activeTab === 'shopping' && <ShoppingList />}
