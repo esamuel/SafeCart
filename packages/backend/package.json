@@ -7,7 +7,10 @@
     "dev": "nodemon src/index.js",
     "build": "echo 'Backend ready for deployment'",
     "start": "node src/index.js",
-    "seed": "node src/seeds/products.js"
+    "seed": "node src/seeds/products.js",
+    "seed:all": "node src/seeds/seedAll.js",
+    "seed:recipes": "node src/seeds/recipes.js",
+    "seed:products": "node src/seeds/expandedProducts.js"
   },
   "dependencies": {
     "express": "^4.18.0",

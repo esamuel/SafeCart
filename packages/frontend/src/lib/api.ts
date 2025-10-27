@@ -75,7 +75,15 @@ export const usersAPI = {
 // Products API
 export const productsAPI = {
   search: async (query: string, filters?: any) => {
-    const params = new URLSearchParams({ search: query, ...filters })
+    const params = new URLSearchParams()
+    if (query) params.append('search', query)
+    if (filters) {
+      Object.keys(filters).forEach(key => {
+        if (filters[key] !== undefined && filters[key] !== null && filters[key] !== '') {
+          params.append(key, filters[key].toString())
+        }
+      })
+    }
     const response = await fetch(`${API_BASE_URL}/products?${params}`)
     if (!response.ok) throw new Error('Failed to search products')
     return response.json()
@@ -100,6 +108,138 @@ export const productsAPI = {
       body: JSON.stringify({ allergies }),
     })
     if (!response.ok) throw new Error('Failed to check product safety')
+    return response.json()
+  },
+}
+
+// Meals API
+export const mealsAPI = {
+  getUserMeals: async (userId: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/meals/user/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!response.ok) throw new Error('Failed to fetch meals')
+    return response.json()
+  },
+
+  getMealsByDateRange: async (userId: string, startDate: string, endDate: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/meals/user/${userId}/range?startDate=${startDate}&endDate=${endDate}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!response.ok) throw new Error('Failed to fetch meals')
+    return response.json()
+  },
+
+  createMeal: async (mealData: any) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/meals`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(mealData),
+    })
+    if (!response.ok) throw new Error('Failed to create meal')
+    return response.json()
+  },
+
+  updateMeal: async (mealId: string, mealData: any) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/meals/${mealId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(mealData),
+    })
+    if (!response.ok) throw new Error('Failed to update meal')
+    return response.json()
+  },
+
+  deleteMeal: async (mealId: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/meals/${mealId}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!response.ok) throw new Error('Failed to delete meal')
+    return response.json()
+  },
+
+  getNutritionSummary: async (userId: string, date: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/meals/user/${userId}/nutrition/${date}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!response.ok) throw new Error('Failed to fetch nutrition summary')
+    return response.json()
+  },
+}
+
+// Recipes API
+export const recipesAPI = {
+  getAll: async (filters?: any) => {
+    const params = new URLSearchParams(filters || {})
+    const response = await fetch(`${API_BASE_URL}/recipes?${params}`)
+    if (!response.ok) throw new Error('Failed to fetch recipes')
+    return response.json()
+  },
+
+  getById: async (recipeId: string) => {
+    const response = await fetch(`${API_BASE_URL}/recipes/${recipeId}`)
+    if (!response.ok) throw new Error('Recipe not found')
+    return response.json()
+  },
+
+  getSafeRecipes: async (userId: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/recipes/safe/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!response.ok) throw new Error('Failed to fetch safe recipes')
+    return response.json()
+  },
+
+  getRecommendations: async (userId: string, mealType?: string) => {
+    const token = await getAuthToken()
+    const params = new URLSearchParams()
+    if (mealType) params.append('mealType', mealType)
+
+    const response = await fetch(`${API_BASE_URL}/recipes/recommendations/${userId}?${params}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!response.ok) throw new Error('Failed to fetch recommendations')
+    return response.json()
+  },
+
+  getMealPlan: async (userId: string, startDate?: string, endDate?: string) => {
+    const token = await getAuthToken()
+    const params = new URLSearchParams()
+    if (startDate) params.append('startDate', startDate)
+    if (endDate) params.append('endDate', endDate)
+
+    const response = await fetch(`${API_BASE_URL}/recipes/meal-plan/${userId}?${params}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!response.ok) throw new Error('Failed to fetch meal plan')
+    return response.json()
+  },
+
+  generateShoppingList: async (recipeIds: string[]) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/recipes/generate-shopping-list`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ recipeIds }),
+    })
+    if (!response.ok) throw new Error('Failed to generate shopping list')
     return response.json()
   },
 }

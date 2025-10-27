@@ -1,11 +1,22 @@
 const express = require('express')
 const router = express.Router()
 const ShoppingList = require('../models/ShoppingList')
+const User = require('../models/User')
 
-// Get shopping lists for user
+// Get shopping lists for user (accept both Firebase UID and MongoDB ID)
 router.get('/user/:userId', async (req, res) => {
   try {
-    const lists = await ShoppingList.find({ userId: req.params.userId })
+    // Try to find user by Firebase ID first, then by MongoDB ID
+    let user = await User.findById(req.params.userId).catch(() => null)
+    if (!user) {
+      user = await User.findOne({ firebaseId: req.params.userId })
+    }
+    
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' })
+    }
+
+    const lists = await ShoppingList.find({ userId: user._id })
       .sort({ createdAt: -1 })
     res.json(lists)
   } catch (error) {
@@ -30,8 +41,23 @@ router.get('/:listId', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const { userId, name, description } = req.body
+    
+    if (!userId || !name) {
+      return res.status(400).json({ error: 'userId and name are required' })
+    }
+
+    // Try to find user by Firebase ID first, then by MongoDB ID
+    let user = await User.findById(userId).catch(() => null)
+    if (!user) {
+      user = await User.findOne({ firebaseId: userId })
+    }
+    
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' })
+    }
+
     const list = new ShoppingList({
-      userId,
+      userId: user._id,
       name: name || 'New Shopping List',
       description,
       items: [],
