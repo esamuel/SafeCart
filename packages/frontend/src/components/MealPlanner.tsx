@@ -165,6 +165,26 @@ export default function MealPlanner() {
     }
   }
 
+  // Helper functions
+  const getMealIcon = (mealType: string) => {
+    switch (mealType) {
+      case 'breakfast':
+        return '🍳'
+      case 'lunch':
+        return '🥗'
+      case 'dinner':
+        return '🍽️'
+      case 'snack':
+        return '🍎'
+      default:
+        return '🍴'
+    }
+  }
+
+  const getMealTypeName = (mealType: string) => {
+    return mealType.charAt(0).toUpperCase() + mealType.slice(1)
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-96">
@@ -192,26 +212,6 @@ export default function MealPlanner() {
         </div>
       </div>
     )
-  }
-
-  // Helper function to get meal type emoji and name
-  const getMealIcon = (mealType: string) => {
-    switch (mealType) {
-      case 'breakfast':
-        return '🍳'
-      case 'lunch':
-        return '🥗'
-      case 'dinner':
-        return '🍽️'
-      case 'snack':
-        return '🍎'
-      default:
-        return '🍴'
-    }
-  }
-
-  const getMealTypeName = (mealType: string) => {
-    return mealType.charAt(0).toUpperCase() + mealType.slice(1)
   }
 
   return (
@@ -375,8 +375,9 @@ export default function MealPlanner() {
               <li>✓ Auto-generate shopping list with all ingredients</li>
             </ul>
           </div>
+          </div>
         </div>
       </div>
     </>
-  )
-}
+    )
+  }
