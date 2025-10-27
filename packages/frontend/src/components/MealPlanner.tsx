@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { recipesAPI, shoppingListsAPI, usersAPI } from '@/lib/api'
 import { auth } from '@/lib/firebase'
 import { Calendar, Plus, Loader, CheckCircle2, AlertCircle, ShoppingCart, RefreshCw, ChefHat } from 'lucide-react'
+import RecipeDetails from './RecipeDetails'
 
 export default function MealPlanner() {
   const [mealPlan, setMealPlan] = useState<any[]>([])
@@ -12,6 +13,7 @@ export default function MealPlanner() {
   const [error, setError] = useState('')
   const [carbBudget, setCarbBudget] = useState(200)
   const [userAllergies, setUserAllergies] = useState<string[]>([])
+  const [selectedRecipe, setSelectedRecipe] = useState<any>(null)
 
   const user = auth.currentUser
 
@@ -45,6 +47,59 @@ export default function MealPlanner() {
       setError(err.message || 'Failed to load meal plan')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleRecipeClick = async (recipeId: string) => {
+    try {
+      const recipe = await recipesAPI.getById(recipeId)
+      setSelectedRecipe(recipe)
+    } catch (err: any) {
+      console.error('Failed to load recipe details:', err)
+      alert('Failed to load recipe details')
+    }
+  }
+
+  const handleGenerateShoppingList = async (recipe: any) => {
+    if (!user) {
+      alert('Please log in to add to shopping list')
+      return
+    }
+
+    try {
+      const shoppingListData = await recipesAPI.generateShoppingList([recipe._id])
+
+      // Get user's shopping lists
+      const lists = await shoppingListsAPI.getUserLists(user.uid)
+
+      let targetList: any
+
+      if (lists.length === 0) {
+        // Create a new list
+        targetList = await shoppingListsAPI.create(
+          user.uid,
+          'Recipe Ingredients - ' + new Date().toLocaleDateString(),
+          'Auto-generated from recipe'
+        )
+      } else {
+        // Use first list
+        targetList = lists[0]
+      }
+
+      // Add ingredients to shopping list
+      for (const ingredient of shoppingListData.shoppingList) {
+        await shoppingListsAPI.addItem(targetList._id, {
+          name: ingredient.name,
+          quantity: ingredient.quantity,
+          unit: ingredient.unit || 'unit',
+        })
+      }
+
+      alert(`✅ Added ${shoppingListData.totalItems} items to your shopping list!`)
+      setSelectedRecipe(null)
+    } catch (err: any) {
+      alert('Failed to add to shopping list: ' + err.message)
+      console.error(err)
     }
   }
 
@@ -160,21 +215,31 @@ export default function MealPlanner() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h2 className="text-3xl font-bold mb-2">Weekly Meal Plan</h2>
-          <p className="text-gray-600">Personalized for your dietary needs</p>
+    <>
+      {/* Recipe Details Modal */}
+      {selectedRecipe && (
+        <RecipeDetails
+          recipe={selectedRecipe}
+          onClose={() => setSelectedRecipe(null)}
+          onGenerateShoppingList={handleGenerateShoppingList}
+        />
+      )}
+
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h2 className="text-3xl font-bold mb-2">Weekly Meal Plan</h2>
+            <p className="text-gray-600">Personalized for your dietary needs</p>
+          </div>
+          <button
+            onClick={loadMealPlan}
+            className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition flex items-center gap-2"
+          >
+            <RefreshCw className="w-4 h-4" />
+            Refresh
+          </button>
         </div>
-        <button
-          onClick={loadMealPlan}
-          className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition flex items-center gap-2"
-        >
-          <RefreshCw className="w-4 h-4" />
-          Refresh
-        </button>
-      </div>
 
       {/* Carb Budget Summary */}
       {mealPlan.length > 0 && mealPlan[0].dailyNutrition && (
@@ -221,6 +286,7 @@ export default function MealPlanner() {
                   <div
                     key={mealType}
                     className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition cursor-pointer"
+                    onClick={() => meal._id && handleRecipeClick(meal._id)}
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
@@ -311,6 +377,6 @@ export default function MealPlanner() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
