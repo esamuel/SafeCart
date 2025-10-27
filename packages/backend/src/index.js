@@ -28,6 +28,8 @@ app.use('/api/shopping-lists', require('./routes/shoppingLists'))
 app.use('/api/meals', require('./routes/meals'))
 app.use('/api/recipes', require('./routes/recipes'))
 app.use('/api/analytics', require('./routes/analytics'))
+app.use('/api/shares', require('./routes/shares'))
+app.use('/api/social', require('./routes/social'))
 
 // Health check
 app.get('/health', (req, res) => {

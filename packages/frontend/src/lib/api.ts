@@ -347,3 +347,247 @@ export const shoppingListsAPI = {
     return response.json()
   },
 }
+
+// Shares API
+export const sharesAPI = {
+  create: async (data: {
+    resourceId: string
+    resourceType: 'shopping_list' | 'recipe' | 'meal_plan'
+    isPublic?: boolean
+    permissions?: { canView: boolean; canEdit: boolean; canCopy: boolean }
+    expiresIn?: number
+    userId: string
+    userName: string
+  }) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/shares`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    })
+    if (!response.ok) throw new Error('Failed to create share')
+    return response.json()
+  },
+
+  get: async (shareToken: string) => {
+    const response = await fetch(`${API_BASE_URL}/shares/${shareToken}`)
+    if (!response.ok) throw new Error('Failed to fetch shared resource')
+    return response.json()
+  },
+
+  copy: async (shareToken: string, userId: string, userName: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/shares/${shareToken}/copy`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userId, userName }),
+    })
+    if (!response.ok) throw new Error('Failed to copy shared resource')
+    return response.json()
+  },
+
+  update: async (shareToken: string, items: any[], userId: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/shares/${shareToken}/update`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ items, userId }),
+    })
+    if (!response.ok) throw new Error('Failed to update shared list')
+    return response.json()
+  },
+
+  revoke: async (shareToken: string, userId: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/shares/${shareToken}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userId }),
+    })
+    if (!response.ok) throw new Error('Failed to revoke share')
+    return response.json()
+  },
+
+  getUserShares: async (userId: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/shares/user/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!response.ok) throw new Error('Failed to fetch user shares')
+    return response.json()
+  },
+}
+
+// Social API
+export const socialAPI = {
+  getFeed: async (userId?: string, page = 1, limit = 20, filter = 'all', tags?: string) => {
+    const params = new URLSearchParams({
+      page: page.toString(),
+      limit: limit.toString(),
+      filter,
+    })
+    if (userId) params.append('userId', userId)
+    if (tags) params.append('tags', tags)
+
+    const response = await fetch(`${API_BASE_URL}/social/feed?${params}`)
+    if (!response.ok) throw new Error('Failed to fetch feed')
+    return response.json()
+  },
+
+  createPost: async (data: {
+    userId: string
+    userName: string
+    userAvatar?: string
+    type: 'recipe' | 'tip' | 'success_story' | 'meal_plan' | 'shopping_list'
+    title: string
+    content: string
+    attachments?: any
+    tags?: string[]
+    visibility?: 'public' | 'followers' | 'private'
+  }) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/social/posts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    })
+    if (!response.ok) throw new Error('Failed to create post')
+    return response.json()
+  },
+
+  getPost: async (postId: string, userId?: string) => {
+    const params = userId ? `?userId=${userId}` : ''
+    const response = await fetch(`${API_BASE_URL}/social/posts/${postId}${params}`)
+    if (!response.ok) throw new Error('Failed to fetch post')
+    return response.json()
+  },
+
+  likePost: async (postId: string, userId: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/social/posts/${postId}/like`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userId }),
+    })
+    if (!response.ok) throw new Error('Failed to like post')
+    return response.json()
+  },
+
+  bookmarkPost: async (postId: string, userId: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/social/posts/${postId}/bookmark`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userId }),
+    })
+    if (!response.ok) throw new Error('Failed to bookmark post')
+    return response.json()
+  },
+
+  addComment: async (postId: string, userId: string, userName: string, content: string, userAvatar?: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/social/posts/${postId}/comments`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userId, userName, content, userAvatar }),
+    })
+    if (!response.ok) throw new Error('Failed to add comment')
+    return response.json()
+  },
+
+  deletePost: async (postId: string, userId: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/social/posts/${postId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userId }),
+    })
+    if (!response.ok) throw new Error('Failed to delete post')
+    return response.json()
+  },
+
+  getUserPosts: async (userId: string, page = 1, limit = 20) => {
+    const params = new URLSearchParams({
+      page: page.toString(),
+      limit: limit.toString(),
+    })
+    const response = await fetch(`${API_BASE_URL}/social/users/${userId}/posts?${params}`)
+    if (!response.ok) throw new Error('Failed to fetch user posts')
+    return response.json()
+  },
+
+  getBookmarks: async (userId: string, page = 1, limit = 20) => {
+    const token = await getAuthToken()
+    const params = new URLSearchParams({
+      page: page.toString(),
+      limit: limit.toString(),
+    })
+    const response = await fetch(`${API_BASE_URL}/social/users/${userId}/bookmarks?${params}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!response.ok) throw new Error('Failed to fetch bookmarks')
+    return response.json()
+  },
+
+  follow: async (followerId: string, followingId: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/social/follow`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ followerId, followingId }),
+    })
+    if (!response.ok) throw new Error('Failed to follow user')
+    return response.json()
+  },
+
+  unfollow: async (followerId: string, followingId: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/social/follow`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ followerId, followingId }),
+    })
+    if (!response.ok) throw new Error('Failed to unfollow user')
+    return response.json()
+  },
+
+  getUserStats: async (userId: string, viewerId?: string) => {
+    const params = viewerId ? `?viewerId=${viewerId}` : ''
+    const response = await fetch(`${API_BASE_URL}/social/users/${userId}/stats${params}`)
+    if (!response.ok) throw new Error('Failed to fetch user stats')
+    return response.json()
+  },
+}

@@ -11,6 +11,7 @@ import MealPlanner from './MealPlanner'
 import Profile from './Profile'
 import ProductDiscovery from './ProductDiscovery'
 import EnhancedDashboard from './EnhancedDashboard'
+import SocialFeed from './SocialFeed'
 import Logo from './Logo'
 
 export default function Dashboard({ user }: any) {
@@ -165,6 +166,7 @@ export default function Dashboard({ user }: any) {
         {activeTab === 'shopping' && <ShoppingList />}
         {activeTab === 'meals' && <MealPlanner />}
         {activeTab === 'discover' && <ProductDiscovery />}
+        {activeTab === 'community' && <SocialFeed />}
         {activeTab === 'profile' && <Profile user={user} />}
       </main>
 
@@ -177,6 +179,7 @@ export default function Dashboard({ user }: any) {
             { id: 'shopping', label: 'Lists', emoji: '📝' },
             { id: 'meals', label: 'Meals', emoji: '📅' },
             { id: 'discover', label: 'Discover', emoji: '🔍' },
+            { id: 'community', label: 'Community', emoji: '👥' },
             { id: 'profile', label: 'Profile', emoji: '👤' },
           ].map(({ id, label, emoji }) => (
             <button
