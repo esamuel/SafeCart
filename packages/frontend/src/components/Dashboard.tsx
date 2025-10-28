@@ -216,8 +216,8 @@ export default function Dashboard({ user }: any) {
       </main>
 
       {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-gray-200 shadow-2xl">
-        <div className="max-w-7xl mx-auto px-4 flex justify-around">
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-gray-200 shadow-2xl safe-area-bottom">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 flex justify-around overflow-x-auto scrollbar-hide">
           {[
             { id: 'home', label: 'Home', emoji: '🏠' },
             { id: 'scanner', label: 'Scan', emoji: '📷' },
@@ -234,14 +234,14 @@ export default function Dashboard({ user }: any) {
             <button
               key={id}
               onClick={() => setActiveTab(id)}
-              className={`flex flex-col items-center gap-1 py-4 px-4 transition ${
+              className={`flex flex-col items-center justify-center gap-1 py-3 px-2 sm:px-4 min-w-[60px] sm:min-w-[80px] transition ${
                 activeTab === id
                   ? 'text-purple-600 border-t-4 border-purple-600'
-                  : 'text-gray-500 hover:text-gray-700'
+                  : 'text-gray-500 hover:text-gray-700 active:bg-gray-100'
               }`}
             >
-              <span className="text-2xl">{emoji}</span>
-              <span className="text-xs font-medium">{label}</span>
+              <span className="text-xl sm:text-2xl">{emoji}</span>
+              <span className="text-[10px] sm:text-xs font-medium truncate max-w-full">{label}</span>
             </button>
           ))}
         </div>

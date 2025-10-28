@@ -6,6 +6,21 @@ export const metadata: Metadata = {
   description: 'AI-powered grocery shopping for allergies and diabetes. Shop safely, live confidently.',
   keywords: ['grocery shopping', 'allergies', 'diabetes', 'safe shopping', 'health', 'barcode scanner'],
   authors: [{ name: 'SafeCart Team' }],
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
+  themeColor: '#7C3AED', // Purple-600
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'SafeCart',
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
     title: 'SafeCart - Safe Grocery Shopping',
     description: 'AI-powered grocery shopping for allergies and diabetes. Shop safely, live confidently.',
@@ -30,6 +45,7 @@ export const metadata: Metadata = {
     icon: '/icon.svg',
     apple: '/icon.svg',
   },
+  manifest: '/manifest.json',
 }
 
 export default function RootLayout({
