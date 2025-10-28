@@ -5,6 +5,8 @@ import { signOut } from 'firebase/auth'
 import { auth } from '@/lib/firebase'
 import { shoppingListsAPI, mealsAPI } from '@/lib/api'
 import { BarChart3, ShoppingCart, Utensils, User, LogOut, Search } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import '@/lib/i18n' // Initialize i18n
 import Scanner from './Scanner'
 import ShoppingList from './ShoppingList'
 import MealPlanner from './MealPlanner'
@@ -16,8 +18,10 @@ import Inventory from './Inventory'
 import HealthAnalytics from './HealthAnalytics'
 import Settings from './Settings'
 import Logo from './Logo'
+import LanguageSwitcher from './LanguageSwitcher'
 
 export default function Dashboard({ user }: any) {
+  const { t } = useTranslation('common')
   const [activeTab, setActiveTab] = useState('home')
   const [tabVisibility, setTabVisibility] = useState<any>({
     home: true,
@@ -187,14 +191,16 @@ export default function Dashboard({ user }: any) {
       <header className="bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-4 py-6 flex justify-between items-center">
           <Logo size="medium" variant="white" />
-          <div className="flex items-center gap-4">
-            <span className="text-sm opacity-90">{user?.email}</span>
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
+            <span className="text-sm opacity-90 hidden sm:inline">{user?.email}</span>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 rounded-lg transition font-medium"
+              className="flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 rounded-lg transition font-medium text-sm"
             >
               <LogOut className="w-4 h-4" />
-              Logout
+              <span className="hidden sm:inline">{t('buttons.logout', 'Logout')}</span>
+              <span className="sm:hidden">Out</span>
             </button>
           </div>
         </div>
@@ -219,18 +225,18 @@ export default function Dashboard({ user }: any) {
       <nav className="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-gray-200 shadow-2xl safe-area-bottom">
         <div className="max-w-7xl mx-auto px-2 sm:px-4 flex justify-around overflow-x-auto scrollbar-hide">
           {[
-            { id: 'home', label: 'Home', emoji: '🏠' },
-            { id: 'scanner', label: 'Scan', emoji: '📷' },
-            { id: 'shopping', label: 'Lists', emoji: '📝' },
-            { id: 'meals', label: 'Meals', emoji: '📅' },
-            { id: 'inventory', label: 'Inventory', emoji: '📦' },
-            { id: 'discover', label: 'Discover', emoji: '🔍' },
-            { id: 'analytics', label: 'Analytics', emoji: '📊' },
-            { id: 'community', label: 'Community', emoji: '👥' },
-            { id: 'settings', label: 'Settings', emoji: '⚙️' },
+            { id: 'home', labelKey: 'navigation.home', emoji: '🏠' },
+            { id: 'scanner', labelKey: 'navigation.scanner', emoji: '📷' },
+            { id: 'shopping', labelKey: 'navigation.shopping', emoji: '📝' },
+            { id: 'meals', labelKey: 'navigation.meals', emoji: '📅' },
+            { id: 'inventory', labelKey: 'navigation.inventory', emoji: '📦' },
+            { id: 'discover', labelKey: 'navigation.discover', emoji: '🔍' },
+            { id: 'analytics', labelKey: 'navigation.analytics', emoji: '📊' },
+            { id: 'community', labelKey: 'navigation.community', emoji: '👥' },
+            { id: 'settings', labelKey: 'navigation.settings', emoji: '⚙️' },
           ]
             .filter(tab => tabVisibility[tab.id] !== false) // Filter out hidden tabs
-            .map(({ id, label, emoji }) => (
+            .map(({ id, labelKey, emoji }) => (
             <button
               key={id}
               onClick={() => setActiveTab(id)}
@@ -241,7 +247,7 @@ export default function Dashboard({ user }: any) {
               }`}
             >
               <span className="text-xl sm:text-2xl">{emoji}</span>
-              <span className="text-[10px] sm:text-xs font-medium truncate max-w-full">{label}</span>
+              <span className="text-[10px] sm:text-xs font-medium truncate max-w-full">{t(labelKey)}</span>
             </button>
           ))}
         </div>
