@@ -21,8 +21,25 @@ export default function Scanner({ products }: any) {
   const startCamera = async () => {
     try {
       setCameraError('')
+
+      // Check if getUserMedia is available
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        setCameraError('Camera API not supported on this device. Please use manual entry below.')
+        return
+      }
+
+      // Check if we're on HTTPS (required for camera access on mobile)
+      if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
+        setCameraError('Camera requires secure connection (HTTPS). Please use manual barcode entry below, or access via HTTPS.')
+        return
+      }
+
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment' },
+        video: {
+          facingMode: 'environment',
+          width: { ideal: 1280 },
+          height: { ideal: 720 }
+        },
       })
       if (videoRef.current) {
         videoRef.current.srcObject = stream
@@ -30,8 +47,36 @@ export default function Scanner({ products }: any) {
         setCameraActive(true)
       }
     } catch (err: any) {
-      setCameraError('Unable to access camera. Please check permissions.')
-      console.error(err)
+      console.error('Camera error:', err)
+
+      // Provide specific error messages based on error type
+      if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+        setCameraError('Camera access denied. Please allow camera permissions in your browser settings and try again.')
+      } else if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
+        setCameraError('No camera found on this device. Please use manual barcode entry below.')
+      } else if (err.name === 'NotReadableError' || err.name === 'TrackStartError') {
+        setCameraError('Camera is already in use by another app. Please close other apps and try again.')
+      } else if (err.name === 'OverconstrainedError' || err.name === 'ConstraintNotSatisfiedError') {
+        setCameraError('Camera constraints not supported. Trying again with default settings...')
+        // Retry with minimal constraints
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: 'environment' }
+          })
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream
+            streamRef.current = stream
+            setCameraActive(true)
+            setCameraError('')
+          }
+        } catch (retryErr) {
+          setCameraError('Unable to access camera. Please use manual barcode entry below.')
+        }
+      } else if (err.name === 'SecurityError') {
+        setCameraError('Camera access blocked by security settings. Try accessing via HTTPS or use manual entry.')
+      } else {
+        setCameraError(`Unable to access camera: ${err.message || 'Unknown error'}. Please use manual barcode entry below.`)
+      }
     }
   }
 
@@ -116,10 +161,38 @@ export default function Scanner({ products }: any) {
       <h2 className="text-3xl font-bold mb-2">Scan Product</h2>
       <p className="text-gray-600 mb-6">Use your camera or enter barcode manually</p>
 
+      {/* Info Box - Camera Requirements */}
+      {!cameraActive && (
+        <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 mb-6">
+          <p className="text-blue-800 text-sm">
+            <strong>💡 Tip:</strong> Camera access requires HTTPS on mobile devices.
+            If camera doesn't work, you can always use manual barcode entry below - it works just as well!
+          </p>
+        </div>
+      )}
+
       {cameraError && (
-        <div className="bg-red-50 border border-red-200 rounded-2xl p-4 mb-6 flex items-start gap-3">
-          <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-          <p className="text-red-700 text-sm">{cameraError}</p>
+        <div className="bg-red-50 border border-red-200 rounded-2xl p-4 mb-6">
+          <div className="flex items-start gap-3 mb-3">
+            <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+            <p className="text-red-700 text-sm font-medium">{cameraError}</p>
+          </div>
+          {cameraError.includes('HTTPS') && (
+            <div className="mt-3 pt-3 border-t border-red-200">
+              <p className="text-red-600 text-xs">
+                <strong>Why?</strong> Mobile browsers require a secure connection (HTTPS) for camera access.
+                You can still use manual barcode entry below, or ask your administrator to enable HTTPS.
+              </p>
+            </div>
+          )}
+          {cameraError.includes('permissions') && (
+            <div className="mt-3 pt-3 border-t border-red-200">
+              <p className="text-red-600 text-xs">
+                <strong>How to fix:</strong> Go to your browser settings → Site permissions → Camera →
+                Allow access for this site, then refresh and try again.
+              </p>
+            </div>
+          )}
         </div>
       )}
 
