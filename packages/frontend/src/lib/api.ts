@@ -44,17 +44,35 @@ export const usersAPI = {
   },
 
   saveHealthProfile: async (userId: string, data: any) => {
-    const token = await getAuthToken()
-    const response = await fetch(`${API_BASE_URL}/users/${userId}/health-profile`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
-    if (!response.ok) throw new Error('Failed to save health profile')
-    return response.json()
+    console.log('[API] saveHealthProfile called with userId:', userId)
+    try {
+      const token = await getAuthToken()
+      console.log('[API] Got auth token, making request to:', `${API_BASE_URL}/users/${userId}/health-profile`)
+
+      const response = await fetch(`${API_BASE_URL}/users/${userId}/health-profile`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      })
+
+      console.log('[API] Response status:', response.status, response.statusText)
+
+      if (!response.ok) {
+        const errorText = await response.text()
+        console.error('[API] Error response:', errorText)
+        throw new Error('Failed to save health profile')
+      }
+
+      const result = await response.json()
+      console.log('[API] Success response:', result)
+      return result
+    } catch (error) {
+      console.error('[API] saveHealthProfile error:', error)
+      throw error
+    }
   },
 
   updatePreferences: async (userId: string, preferences: any) => {
@@ -588,6 +606,168 @@ export const socialAPI = {
     const params = viewerId ? `?viewerId=${viewerId}` : ''
     const response = await fetch(`${API_BASE_URL}/social/users/${userId}/stats${params}`)
     if (!response.ok) throw new Error('Failed to fetch user stats')
+    return response.json()
+  },
+}
+
+// Inventory API
+export const inventoryAPI = {
+  add: async (data: {
+    userId: string
+    productId?: string
+    name: string
+    barcode?: string
+    category?: string
+    brand?: string
+    quantity: number
+    unit?: string
+    location?: string
+    expirationDate?: string
+    minThreshold?: number
+    autoAddToList?: boolean
+    allergens?: string[]
+    nutritionInfo?: any
+    notes?: string
+  }) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/inventory`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    })
+    if (!response.ok) throw new Error('Failed to add inventory item')
+    return response.json()
+  },
+
+  getAll: async (userId: string, filters?: { location?: string; category?: string; status?: string; search?: string }) => {
+    const token = await getAuthToken()
+    const params = new URLSearchParams()
+    if (filters?.location) params.append('location', filters.location)
+    if (filters?.category) params.append('category', filters.category)
+    if (filters?.status) params.append('status', filters.status)
+    if (filters?.search) params.append('search', filters.search)
+
+    const response = await fetch(`${API_BASE_URL}/inventory/${userId}?${params}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!response.ok) throw new Error('Failed to fetch inventory')
+    return response.json()
+  },
+
+  getItem: async (userId: string, itemId: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/inventory/${userId}/${itemId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!response.ok) throw new Error('Failed to fetch item')
+    return response.json()
+  },
+
+  update: async (itemId: string, updates: any) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/inventory/${itemId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(updates),
+    })
+    if (!response.ok) throw new Error('Failed to update item')
+    return response.json()
+  },
+
+  delete: async (itemId: string, userId: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/inventory/${itemId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userId }),
+    })
+    if (!response.ok) throw new Error('Failed to delete item')
+    return response.json()
+  },
+
+  batchAdd: async (userId: string, items: any[]) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/inventory/batch`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userId, items }),
+    })
+    if (!response.ok) throw new Error('Failed to batch add items')
+    return response.json()
+  },
+
+  getExpiring: async (userId: string, days = 3) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/inventory/${userId}/expiring?days=${days}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!response.ok) throw new Error('Failed to fetch expiring items')
+    return response.json()
+  },
+
+  getExpired: async (userId: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/inventory/${userId}/expired`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!response.ok) throw new Error('Failed to fetch expired items')
+    return response.json()
+  },
+
+  getLowStock: async (userId: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/inventory/${userId}/low-stock`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!response.ok) throw new Error('Failed to fetch low stock items')
+    return response.json()
+  },
+
+  generateRestockList: async (userId: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/inventory/${userId}/restock-list`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    if (!response.ok) throw new Error('Failed to generate restock list')
+    return response.json()
+  },
+
+  getStats: async (userId: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/inventory/${userId}/stats`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    if (!response.ok) throw new Error('Failed to fetch stats')
+    return response.json()
+  },
+
+  scanBarcode: async (userId: string, barcode: string, quantity: number, location: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/inventory/scan`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userId, barcode, quantity, location }),
+    })
+    if (!response.ok) throw new Error('Failed to scan item')
     return response.json()
   },
 }

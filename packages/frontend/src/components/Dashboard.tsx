@@ -12,10 +12,24 @@ import Profile from './Profile'
 import ProductDiscovery from './ProductDiscovery'
 import EnhancedDashboard from './EnhancedDashboard'
 import SocialFeed from './SocialFeed'
+import Inventory from './Inventory'
+import HealthAnalytics from './HealthAnalytics'
+import Settings from './Settings'
 import Logo from './Logo'
 
 export default function Dashboard({ user }: any) {
   const [activeTab, setActiveTab] = useState('home')
+  const [tabVisibility, setTabVisibility] = useState<any>({
+    home: true,
+    scanner: true,
+    shopping: true,
+    meals: true,
+    inventory: true,
+    discover: true,
+    analytics: true,
+    community: true,
+    settings: true,
+  })
   const [products, setProducts] = useState([
     {
       id: 1,
@@ -48,6 +62,34 @@ export default function Dashboard({ user }: any) {
     mealsPlanned: 0,
     avgGI: 0,
   })
+
+  // Load tab visibility from localStorage
+  useEffect(() => {
+    const loadTabVisibility = () => {
+      const savedPrefs = localStorage.getItem('tabVisibility')
+      if (savedPrefs) {
+        try {
+          setTabVisibility(JSON.parse(savedPrefs))
+        } catch (e) {
+          console.error('Failed to load tab preferences:', e)
+        }
+      }
+    }
+
+    // Load on mount
+    loadTabVisibility()
+
+    // Listen for changes from Settings page
+    const handleVisibilityChange = () => {
+      loadTabVisibility()
+    }
+
+    window.addEventListener('tabVisibilityChanged', handleVisibilityChange)
+
+    return () => {
+      window.removeEventListener('tabVisibilityChanged', handleVisibilityChange)
+    }
+  }, [])
 
   useEffect(() => {
     loadStats()
@@ -160,14 +202,17 @@ export default function Dashboard({ user }: any) {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-8">
-        {activeTab === 'home' && <EnhancedDashboard />}
+        {activeTab === 'home' && <EnhancedDashboard onNavigateToAnalytics={() => setActiveTab('analytics')} />}
 
         {activeTab === 'scanner' && <Scanner products={products} />}
         {activeTab === 'shopping' && <ShoppingList />}
         {activeTab === 'meals' && <MealPlanner />}
+        {activeTab === 'inventory' && <Inventory />}
         {activeTab === 'discover' && <ProductDiscovery />}
+        {activeTab === 'analytics' && <HealthAnalytics user={user} />}
         {activeTab === 'community' && <SocialFeed />}
         {activeTab === 'profile' && <Profile user={user} />}
+        {activeTab === 'settings' && <Settings user={user} onNavigateToProfile={() => setActiveTab('profile')} />}
       </main>
 
       {/* Bottom Navigation */}
@@ -178,10 +223,14 @@ export default function Dashboard({ user }: any) {
             { id: 'scanner', label: 'Scan', emoji: '📷' },
             { id: 'shopping', label: 'Lists', emoji: '📝' },
             { id: 'meals', label: 'Meals', emoji: '📅' },
+            { id: 'inventory', label: 'Inventory', emoji: '📦' },
             { id: 'discover', label: 'Discover', emoji: '🔍' },
+            { id: 'analytics', label: 'Analytics', emoji: '📊' },
             { id: 'community', label: 'Community', emoji: '👥' },
-            { id: 'profile', label: 'Profile', emoji: '👤' },
-          ].map(({ id, label, emoji }) => (
+            { id: 'settings', label: 'Settings', emoji: '⚙️' },
+          ]
+            .filter(tab => tabVisibility[tab.id] !== false) // Filter out hidden tabs
+            .map(({ id, label, emoji }) => (
             <button
               key={id}
               onClick={() => setActiveTab(id)}

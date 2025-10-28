@@ -17,7 +17,11 @@ import {
   Loader
 } from 'lucide-react'
 
-export default function EnhancedDashboard() {
+interface EnhancedDashboardProps {
+  onNavigateToAnalytics?: () => void
+}
+
+export default function EnhancedDashboard({ onNavigateToAnalytics }: EnhancedDashboardProps) {
   const [analytics, setAnalytics] = useState<any>(null)
   const [chartData, setChartData] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
@@ -177,6 +181,30 @@ export default function EnhancedDashboard() {
           </div>
         </div>
       </div>
+
+      {/* View Detailed Analytics Button */}
+      {onNavigateToAnalytics && (
+        <div className="bg-gradient-to-r from-purple-600 to-purple-800 rounded-2xl shadow-xl p-6 text-white">
+          <div className="flex items-center justify-between">
+            <div className="flex-1">
+              <h3 className="text-xl font-bold mb-2 flex items-center gap-2">
+                <Activity className="w-6 h-6" />
+                Want More Insights?
+              </h3>
+              <p className="text-purple-100 text-sm">
+                View detailed analytics, trends, AI recommendations, and track your progress over time
+              </p>
+            </div>
+            <button
+              onClick={onNavigateToAnalytics}
+              className="ml-4 bg-white text-purple-600 px-6 py-3 rounded-xl font-bold hover:bg-purple-50 transition-all transform hover:scale-105 shadow-lg flex items-center gap-2"
+            >
+              <TrendingUp className="w-5 h-5" />
+              View Analytics
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Nutrition Chart */}
       {chartData.length > 0 && (

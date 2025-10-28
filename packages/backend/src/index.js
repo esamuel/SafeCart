@@ -30,6 +30,7 @@ app.use('/api/recipes', require('./routes/recipes'))
 app.use('/api/analytics', require('./routes/analytics'))
 app.use('/api/shares', require('./routes/shares'))
 app.use('/api/social', require('./routes/social'))
+app.use('/api/inventory', require('./routes/inventory'))
 
 // Health check
 app.get('/health', (req, res) => {

@@ -77,14 +77,18 @@ export default function Profile({ user }: any) {
   const handleSaveProfile = async () => {
     // Support both database user (id) and Firebase user (uid)
     const userId = user?.id || user?.uid
-    if (!userId) return
+    console.log('[PROFILE] Starting save with userId:', userId)
+    if (!userId) {
+      console.error('[PROFILE] No userId found!')
+      return
+    }
 
     setSaving(true)
     setError('')
     setSuccess('')
 
     try {
-      await usersAPI.saveHealthProfile(userId, {
+      const data = {
         displayName,
         age: age || undefined,
         height: height || undefined,
@@ -95,17 +99,39 @@ export default function Profile({ user }: any) {
         dailyCarbLimit,
         allergies,
         usesInsulin,
-      })
+      }
+      console.log('[PROFILE] Sending data:', data)
+
+      const response = await usersAPI.saveHealthProfile(userId, data)
+      console.log('[PROFILE] Save successful! Response:', response)
+
+      // Update local state with saved values from response
+      if (response.user) {
+        if (response.user.displayName !== undefined) setDisplayName(response.user.displayName)
+        if (response.user.age !== undefined) setAge(response.user.age)
+        if (response.user.height !== undefined) setHeight(response.user.height)
+        if (response.user.weight !== undefined) setWeight(response.user.weight)
+      }
+      if (response.healthProfile) {
+        if (response.healthProfile.diabetesType) setDiabetesType(response.healthProfile.diabetesType)
+        if (response.healthProfile.targetGlucoseMin) setTargetGlucoseMin(response.healthProfile.targetGlucoseMin)
+        if (response.healthProfile.targetGlucoseMax) setTargetGlucoseMax(response.healthProfile.targetGlucoseMax)
+        if (response.healthProfile.dailyCarbLimit) setDailyCarbLimit(response.healthProfile.dailyCarbLimit)
+        if (response.healthProfile.allergies) setAllergies(response.healthProfile.allergies)
+        if (response.healthProfile.usesInsulin !== undefined) setUsesInsulin(response.healthProfile.usesInsulin)
+      }
 
       setSuccess('Profile saved successfully!')
       setIsEditing(false)
 
       setTimeout(() => setSuccess(''), 3000)
     } catch (err: any) {
-      console.error('Failed to save profile:', err)
+      console.error('[PROFILE] Save failed with error:', err)
+      console.error('[PROFILE] Error details:', err.message, err.stack)
       setError('Failed to save profile. Please try again.')
     } finally {
       setSaving(false)
+      console.log('[PROFILE] Save process completed')
     }
   }
 
