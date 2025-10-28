@@ -1,0 +1,75 @@
+{
+  "title": "Planificador de Comidas",
+  "subtitle": "Planifica tus comidas para la semana",
+  "tabs": {
+    "mealPlan": "Plan de Comidas",
+    "recipes": "Recetas"
+  },
+  "mealPlan": {
+    "generate": "Generar Plan de 7 Días",
+    "regenerate": "Regenerar Plan",
+    "generating": "Generando plan de comidas...",
+    "viewRecipe": "Ver Receta",
+    "swap": "Cambiar Receta",
+    "addToList": "Añadir a Lista de Compras",
+    "carbBudget": "Presupuesto Diario de Carbohidratos",
+    "carbsConsumed": "Carbohidratos Consumidos",
+    "remaining": "Restante",
+    "dayOfWeek": {
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sábado",
+      "sunday": "Domingo"
+    },
+    "mealTypes": {
+      "breakfast": "Desayuno",
+      "lunch": "Almuerzo",
+      "dinner": "Cena",
+      "snack": "Merienda"
+    }
+  },
+  "recipes": {
+    "search": "Buscar recetas...",
+    "filters": {
+      "all": "Todas las Recetas",
+      "breakfast": "Desayuno",
+      "lunch": "Almuerzo",
+      "dinner": "Cena",
+      "snacks": "Meriendas"
+    },
+    "details": {
+      "servings": "Porciones",
+      "prepTime": "Tiempo de Prep.",
+      "cookTime": "Tiempo de Cocción",
+      "totalTime": "Tiempo Total",
+      "difficulty": "Dificultad",
+      "minutes": "minutos",
+      "carbs": "Carbohidratos",
+      "protein": "Proteína",
+      "calories": "Calorías",
+      "fiber": "Fibra",
+      "ingredients": "Ingredientes",
+      "instructions": "Instrucciones",
+      "nutritionFacts": "Información Nutricional",
+      "perServing": "Por Porción",
+      "allergens": "Alérgenos",
+      "tags": "Etiquetas"
+    }
+  },
+  "shopping": {
+    "generateList": "Generar Lista de Compras desde el Plan de Comidas",
+    "generating": "Generando lista de compras...",
+    "success": "¡Lista de compras creada exitosamente!",
+    "error": "Error al generar lista de compras"
+  },
+  "messages": {
+    "planGenerated": "¡Plan de comidas de 7 días generado!",
+    "recipeSwapped": "Receta cambiada exitosamente",
+    "addedToList": "Ingredientes añadidos a la lista de compras",
+    "noRecipes": "No se encontraron recetas",
+    "loadingRecipes": "Cargando recetas..."
+  }
+}

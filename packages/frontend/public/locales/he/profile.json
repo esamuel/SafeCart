@@ -1,0 +1,71 @@
+{
+  "title": "פרופיל בריאות",
+  "subtitle": "נהל את המידע הבריאותי שלך",
+  "onboarding": {
+    "welcome": "ברוכים הבאים ל-SafeCart",
+    "subtitle": "בואו נגדיר את פרופיל הבריאות שלך",
+    "step": "שלב",
+    "of": "מתוך",
+    "next": "הבא",
+    "previous": "הקודם",
+    "finish": "סיים",
+    "skip": "דלג לעת עתה"
+  },
+  "basicInfo": {
+    "title": "מידע בסיסי",
+    "displayName": "שם תצוגה",
+    "displayNamePlaceholder": "השם שלך",
+    "age": "גיל",
+    "agePlaceholder": "הגיל שלך",
+    "height": "גובה (ס\"מ)",
+    "heightPlaceholder": "170",
+    "weight": "משקל (ק\"ג)",
+    "weightPlaceholder": "70"
+  },
+  "diabetes": {
+    "title": "מידע על סוכרת",
+    "type": "סוג סוכרת",
+    "types": {
+      "none": "ללא סוכרת",
+      "prediabetes": "פרה-סוכרת",
+      "type1": "סוג 1",
+      "type2": "סוג 2",
+      "gestational": "הריונית"
+    },
+    "targetGlucose": "טווח גלוקוז יעד",
+    "min": "מינימום (mg/dL)",
+    "max": "מקסימום (mg/dL)",
+    "dailyCarbLimit": "מגבלת פחמימות יומית (גרם)",
+    "usesInsulin": "משתמש באינסולין",
+    "yes": "כן",
+    "no": "לא"
+  },
+  "allergies": {
+    "title": "אלרגיות והגבלות תזונתיות",
+    "selectAllergies": "בחר את האלרגיות שלך",
+    "common": {
+      "peanuts": "בוטנים",
+      "treeNuts": "אגוזים",
+      "milk": "חלב/מוצרי חלב",
+      "eggs": "ביצים",
+      "wheat": "חיטה/גלוטן",
+      "soy": "סויה",
+      "fish": "דגים",
+      "shellfish": "פירות ים",
+      "sesame": "שומשום"
+    },
+    "dietary": {
+      "vegetarian": "צמחוני",
+      "vegan": "טבעוני",
+      "kosher": "כשר",
+      "halal": "חלאל"
+    }
+  },
+  "profile": {
+    "edit": "ערוך פרופיל",
+    "save": "שמור שינויים",
+    "saving": "שומר...",
+    "saved": "הפרופיל נשמר בהצלחה!",
+    "error": "שמירת הפרופיל נכשלה"
+  }
+}

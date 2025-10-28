@@ -1,0 +1,14 @@
+{
+  "title": "Comunidad",
+  "subtitle": "Comparte y descubre",
+  "tabs": {
+    "feed": "Feed",
+    "recipes": "Recetas",
+    "tips": "Consejos"
+  },
+  "post": {
+    "share": "Compartir",
+    "like": "Me gusta",
+    "comment": "Comentar"
+  }
+}

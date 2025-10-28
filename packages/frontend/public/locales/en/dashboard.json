@@ -1,0 +1,21 @@
+{
+  "welcome": "Welcome back",
+  "quickStats": {
+    "title": "Quick Stats",
+    "shoppingItems": "Shopping Items",
+    "safeProducts": "Safe Products",
+    "mealsPlanned": "Meals Planned",
+    "avgGI": "Avg GI"
+  },
+  "quickActions": {
+    "title": "Quick Actions",
+    "scanProduct": "Scan Product",
+    "viewLists": "View Lists",
+    "planMeals": "Plan Meals",
+    "discover": "Discover"
+  },
+  "insights": {
+    "title": "Today's Insights",
+    "viewAnalytics": "View Detailed Analytics"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "title": "גילוי מוצרים",
+  "subtitle": "מצא מוצרים בטוחים עבורך",
+  "search": {
+    "placeholder": "חפש מוצרים...",
+    "searching": "מחפש...",
+    "noResults": "לא נמצאו מוצרים",
+    "results": "תוצאות"
+  },
+  "filters": {
+    "title": "מסננים",
+    "clear": "נקה הכל",
+    "apply": "החל מסננים",
+    "category": "קטגוריה",
+    "dietary": "תזונתי",
+    "allergens": "אלרגנים",
+    "glycemicIndex": "מדד גליקמי",
+    "categories": {
+      "all": "כל המוצרים",
+      "dairy": "מוצרי חלב",
+      "proteins": "חלבונים",
+      "grains": "דגנים",
+      "vegetables": "ירקות",
+      "fruits": "פירות",
+      "snacks": "חטיפים"
+    },
+    "gi": {
+      "low": "GI נמוך (< 55)",
+      "medium": "GI בינוני (55-70)",
+      "high": "GI גבוה (> 70)"
+    }
+  },
+  "product": {
+    "viewDetails": "צפה בפרטים",
+    "addToList": "הוסף לרשימה",
+    "nutrition": "תזונה",
+    "ingredients": "מרכיבים",
+    "safeForYou": "בטוח עבורך",
+    "checkAllergens": "בדוק אלרגנים",
+    "contains": "מכיל"
+  },
+  "browse": {
+    "all": "עיין בכל המוצרים",
+    "showing": "מציג",
+    "products": "מוצרים"
+  }
+}

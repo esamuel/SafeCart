@@ -1,0 +1,71 @@
+{
+  "title": "Health Profile",
+  "subtitle": "Manage your health information",
+  "onboarding": {
+    "welcome": "Welcome to SafeCart",
+    "subtitle": "Let's set up your health profile",
+    "step": "Step",
+    "of": "of",
+    "next": "Next",
+    "previous": "Previous",
+    "finish": "Finish",
+    "skip": "Skip for now"
+  },
+  "basicInfo": {
+    "title": "Basic Information",
+    "displayName": "Display Name",
+    "displayNamePlaceholder": "Your name",
+    "age": "Age",
+    "agePlaceholder": "Your age",
+    "height": "Height (cm)",
+    "heightPlaceholder": "170",
+    "weight": "Weight (kg)",
+    "weightPlaceholder": "70"
+  },
+  "diabetes": {
+    "title": "Diabetes Information",
+    "type": "Diabetes Type",
+    "types": {
+      "none": "No Diabetes",
+      "prediabetes": "Prediabetes",
+      "type1": "Type 1",
+      "type2": "Type 2",
+      "gestational": "Gestational"
+    },
+    "targetGlucose": "Target Glucose Range",
+    "min": "Min (mg/dL)",
+    "max": "Max (mg/dL)",
+    "dailyCarbLimit": "Daily Carb Limit (g)",
+    "usesInsulin": "Uses Insulin",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "allergies": {
+    "title": "Allergies & Dietary Restrictions",
+    "selectAllergies": "Select your allergies",
+    "common": {
+      "peanuts": "Peanuts",
+      "treeNuts": "Tree Nuts",
+      "milk": "Milk/Dairy",
+      "eggs": "Eggs",
+      "wheat": "Wheat/Gluten",
+      "soy": "Soy",
+      "fish": "Fish",
+      "shellfish": "Shellfish",
+      "sesame": "Sesame"
+    },
+    "dietary": {
+      "vegetarian": "Vegetarian",
+      "vegan": "Vegan",
+      "kosher": "Kosher",
+      "halal": "Halal"
+    }
+  },
+  "profile": {
+    "edit": "Edit Profile",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "saved": "Profile saved successfully!",
+    "error": "Failed to save profile"
+  }
+}

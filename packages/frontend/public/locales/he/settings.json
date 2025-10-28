@@ -1,0 +1,27 @@
+{
+  "title": "הגדרות",
+  "subtitle": "התאם אישית את החוויה שלך",
+  "tabs": {
+    "general": "כללי",
+    "profile": "פרופיל",
+    "appearance": "מראה",
+    "notifications": "התראות"
+  },
+  "tabVisibility": {
+    "title": "נראות לשוניות",
+    "description": "בחר אילו לשוניות להציג בניווט",
+    "alwaysVisible": "תמיד גלוי",
+    "save": "שמור שינויים",
+    "saving": "שומר...",
+    "saved": "ההגדרות נשמרו!",
+    "reset": "אפס לברירת מחדל"
+  },
+  "profile": {
+    "viewProfile": "צפה בפרופיל שלך",
+    "edit": "ערוך פרופיל"
+  },
+  "language": {
+    "title": "שפה",
+    "description": "בחר את השפה המועדפת עליך"
+  }
+}

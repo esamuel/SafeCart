@@ -1,0 +1,62 @@
+{
+  "title": "רשימות קניות",
+  "subtitle": "נהל את רשימות הקניות שלך",
+  "createList": {
+    "button": "צור רשימה חדשה",
+    "title": "צור רשימת קניות",
+    "nameLabel": "שם הרשימה",
+    "namePlaceholder": "רשימת הקניות שלי",
+    "descriptionLabel": "תיאור (אופציונלי)",
+    "descriptionPlaceholder": "מצרכים שבועיים...",
+    "creating": "יוצר..."
+  },
+  "list": {
+    "items": "פריטים",
+    "noItems": "אין פריטים עדיין",
+    "addItem": "הוסף פריט",
+    "deleteList": "מחק רשימה",
+    "shareList": "שתף רשימה"
+  },
+  "addItem": {
+    "title": "הוסף פריט",
+    "nameLabel": "שם הפריט",
+    "namePlaceholder": "חלב שקדים, לחם, וכו'",
+    "quantityLabel": "כמות",
+    "unitLabel": "יחידה",
+    "units": {
+      "unit": "יחידה",
+      "kg": "ק\"ג",
+      "g": "גרם",
+      "lb": "ליברה",
+      "oz": "אונקיה",
+      "l": "ליטר",
+      "ml": "מ\"ל"
+    },
+    "adding": "מוסיף..."
+  },
+  "item": {
+    "checked": "נרכש",
+    "unchecked": "לא נרכש",
+    "delete": "מחק"
+  },
+  "empty": {
+    "title": "אין רשימות קניות עדיין",
+    "description": "צור את רשימת הקניות הראשונה שלך כדי להתחיל!",
+    "action": "צור רשימה"
+  },
+  "allergenWarning": {
+    "title": "אזהרת אלרגן",
+    "contains": "מוצר זה מכיל",
+    "youAreAllergicTo": "יש לך אלרגיה ל",
+    "proceed": "הוסף בכל זאת",
+    "cancel": "בטל"
+  },
+  "messages": {
+    "listCreated": "רשימת קניות נוצרה!",
+    "listDeleted": "רשימת קניות נמחקה",
+    "itemAdded": "פריט נוסף לרשימה",
+    "itemRemoved": "פריט הוסר",
+    "itemChecked": "פריט סומן כנרכש",
+    "itemUnchecked": "פריט סומן כלא נרכש"
+  }
+}

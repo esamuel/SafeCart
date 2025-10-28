@@ -1,0 +1,46 @@
+{
+  "title": "Scan Product",
+  "subtitle": "Use your camera or enter barcode manually",
+  "infoTip": "Camera access requires HTTPS on mobile devices. If camera doesn't work, you can always use manual barcode entry below - it works just as well!",
+  "cameraError": {
+    "notSupported": "Camera API not supported on this device. Please use manual entry below.",
+    "httpsRequired": "Camera requires secure connection (HTTPS). Please use manual barcode entry below, or access via HTTPS.",
+    "permissionDenied": "Camera access denied. Please allow camera permissions in your browser settings and try again.",
+    "noCamera": "No camera found on this device. Please use manual barcode entry below.",
+    "inUse": "Camera is already in use by another app. Please close other apps and try again.",
+    "constraintsFailed": "Camera constraints not supported. Trying again with default settings...",
+    "securityError": "Camera access blocked by security settings. Try accessing via HTTPS or use manual entry.",
+    "unknown": "Unable to access camera. Please use manual barcode entry below.",
+    "whyHttps": "Why? Mobile browsers require a secure connection (HTTPS) for camera access. You can still use manual barcode entry below, or ask your administrator to enable HTTPS.",
+    "howToFix": "How to fix: Go to your browser settings → Site permissions → Camera → Allow access for this site, then refresh and try again."
+  },
+  "camera": {
+    "start": "Start Camera",
+    "stop": "Stop Camera",
+    "pointAtBarcode": "Point camera at barcode"
+  },
+  "manualEntry": {
+    "title": "Manual Entry",
+    "placeholder": "Enter barcode or scan...",
+    "scanButton": "Scan",
+    "scanning": "Scanning..."
+  },
+  "results": {
+    "productNotFound": "Product not found. Try another barcode.",
+    "upc": "UPC",
+    "nutrition": {
+      "netCarbs": "Net Carbs",
+      "glycemicIndex": "Glycemic Index",
+      "sugar": "Sugar",
+      "glScore": "GL Score"
+    },
+    "allergens": "Allergens",
+    "actions": {
+      "scanAnother": "Scan Another",
+      "addToList": "Add to Shopping List",
+      "adding": "Adding..."
+    },
+    "addedSuccess": "✅ Product added to shopping list!",
+    "addedToNewList": "✅ Product added to your new shopping list!"
+  }
+}

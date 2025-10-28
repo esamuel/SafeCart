@@ -1,0 +1,47 @@
+{
+  "title": "Descubrir Productos",
+  "subtitle": "Encuentra productos seguros para ti",
+  "search": {
+    "placeholder": "Buscar productos...",
+    "searching": "Buscando...",
+    "noResults": "No se encontraron productos",
+    "results": "resultados"
+  },
+  "filters": {
+    "title": "Filtros",
+    "clear": "Limpiar Todo",
+    "apply": "Aplicar Filtros",
+    "category": "Categoría",
+    "dietary": "Dietético",
+    "allergens": "Alérgenos",
+    "glycemicIndex": "Índice Glicémico",
+    "categories": {
+      "all": "Todos los Productos",
+      "dairy": "Lácteos",
+      "proteins": "Proteínas",
+      "grains": "Granos",
+      "vegetables": "Verduras",
+      "fruits": "Frutas",
+      "snacks": "Meriendas"
+    },
+    "gi": {
+      "low": "IG Bajo (< 55)",
+      "medium": "IG Medio (55-70)",
+      "high": "IG Alto (> 70)"
+    }
+  },
+  "product": {
+    "viewDetails": "Ver Detalles",
+    "addToList": "Añadir a Lista",
+    "nutrition": "Nutrición",
+    "ingredients": "Ingredientes",
+    "safeForYou": "Seguro para ti",
+    "checkAllergens": "Verificar alérgenos",
+    "contains": "Contiene"
+  },
+  "browse": {
+    "all": "Explorar Todos los Productos",
+    "showing": "Mostrando",
+    "products": "productos"
+  }
+}

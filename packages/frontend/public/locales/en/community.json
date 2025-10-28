@@ -1,0 +1,14 @@
+{
+  "title": "Community",
+  "subtitle": "Share and discover",
+  "tabs": {
+    "feed": "Feed",
+    "recipes": "Recipes",
+    "tips": "Tips"
+  },
+  "post": {
+    "share": "Share",
+    "like": "Like",
+    "comment": "Comment"
+  }
+}

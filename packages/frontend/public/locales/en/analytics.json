@@ -1,0 +1,39 @@
+{
+  "title": "Health Analytics",
+  "subtitle": "Track your health progress",
+  "timeRange": {
+    "label": "Time Range",
+    "7days": "Last 7 Days",
+    "14days": "Last 14 Days",
+    "30days": "Last 30 Days"
+  },
+  "safetyScore": {
+    "title": "Safety Score",
+    "excellent": "Excellent",
+    "good": "Good",
+    "fair": "Fair",
+    "poor": "Poor"
+  },
+  "streak": {
+    "title": "Safety Streak",
+    "days": "days",
+    "current": "Current Streak"
+  },
+  "carbs": {
+    "title": "Daily Carb Intake",
+    "average": "Average",
+    "target": "Target",
+    "consumed": "Consumed",
+    "remaining": "Remaining"
+  },
+  "insights": {
+    "title": "AI Insights & Recommendations",
+    "noData": "Not enough data yet",
+    "keepTracking": "Keep tracking to see insights"
+  },
+  "charts": {
+    "glucose": "Glucose Trends",
+    "carbs": "Carb Consumption",
+    "meals": "Meal History"
+  }
+}

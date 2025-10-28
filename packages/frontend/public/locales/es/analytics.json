@@ -1,0 +1,39 @@
+{
+  "title": "Análisis de Salud",
+  "subtitle": "Sigue tu progreso de salud",
+  "timeRange": {
+    "label": "Rango de Tiempo",
+    "7days": "Últimos 7 Días",
+    "14days": "Últimos 14 Días",
+    "30days": "Últimos 30 Días"
+  },
+  "safetyScore": {
+    "title": "Puntuación de Seguridad",
+    "excellent": "Excelente",
+    "good": "Bueno",
+    "fair": "Regular",
+    "poor": "Malo"
+  },
+  "streak": {
+    "title": "Racha de Seguridad",
+    "days": "días",
+    "current": "Racha Actual"
+  },
+  "carbs": {
+    "title": "Ingesta Diaria de Carbohidratos",
+    "average": "Promedio",
+    "target": "Objetivo",
+    "consumed": "Consumido",
+    "remaining": "Restante"
+  },
+  "insights": {
+    "title": "Perspectivas y Recomendaciones de IA",
+    "noData": "Aún no hay suficientes datos",
+    "keepTracking": "Sigue rastreando para ver perspectivas"
+  },
+  "charts": {
+    "glucose": "Tendencias de Glucosa",
+    "carbs": "Consumo de Carbohidratos",
+    "meals": "Historial de Comidas"
+  }
+}

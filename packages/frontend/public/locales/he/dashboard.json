@@ -1,0 +1,21 @@
+{
+  "welcome": "ברוך שובך",
+  "quickStats": {
+    "title": "סטטיסטיקות מהירות",
+    "shoppingItems": "פריטי קניה",
+    "safeProducts": "מוצרים בטוחים",
+    "mealsPlanned": "ארוחות מתוכננות",
+    "avgGI": "ממוצע GI"
+  },
+  "quickActions": {
+    "title": "פעולות מהירות",
+    "scanProduct": "סרוק מוצר",
+    "viewLists": "צפה ברשימות",
+    "planMeals": "תכנן ארוחות",
+    "discover": "גלה"
+  },
+  "insights": {
+    "title": "תובנות להיום",
+    "viewAnalytics": "צפה בניתוח מפורט"
+  }
+}

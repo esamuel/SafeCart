@@ -1,0 +1,75 @@
+{
+  "title": "Meal Planner",
+  "subtitle": "Plan your meals for the week",
+  "tabs": {
+    "mealPlan": "Meal Plan",
+    "recipes": "Recipes"
+  },
+  "mealPlan": {
+    "generate": "Generate 7-Day Plan",
+    "regenerate": "Regenerate Plan",
+    "generating": "Generating meal plan...",
+    "viewRecipe": "View Recipe",
+    "swap": "Swap Recipe",
+    "addToList": "Add to Shopping List",
+    "carbBudget": "Daily Carb Budget",
+    "carbsConsumed": "Carbs Consumed",
+    "remaining": "Remaining",
+    "dayOfWeek": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "mealTypes": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snack": "Snack"
+    }
+  },
+  "recipes": {
+    "search": "Search recipes...",
+    "filters": {
+      "all": "All Recipes",
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snacks": "Snacks"
+    },
+    "details": {
+      "servings": "Servings",
+      "prepTime": "Prep Time",
+      "cookTime": "Cook Time",
+      "totalTime": "Total Time",
+      "difficulty": "Difficulty",
+      "minutes": "minutes",
+      "carbs": "Carbs",
+      "protein": "Protein",
+      "calories": "Calories",
+      "fiber": "Fiber",
+      "ingredients": "Ingredients",
+      "instructions": "Instructions",
+      "nutritionFacts": "Nutrition Facts",
+      "perServing": "Per Serving",
+      "allergens": "Allergens",
+      "tags": "Tags"
+    }
+  },
+  "shopping": {
+    "generateList": "Generate Shopping List from Meal Plan",
+    "generating": "Generating shopping list...",
+    "success": "Shopping list created successfully!",
+    "error": "Failed to generate shopping list"
+  },
+  "messages": {
+    "planGenerated": "7-day meal plan generated!",
+    "recipeSwapped": "Recipe swapped successfully",
+    "addedToList": "Ingredients added to shopping list",
+    "noRecipes": "No recipes found",
+    "loadingRecipes": "Loading recipes..."
+  }
+}

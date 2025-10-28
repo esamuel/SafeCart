@@ -1,0 +1,27 @@
+{
+  "title": "Ajustes",
+  "subtitle": "Personaliza tu experiencia",
+  "tabs": {
+    "general": "General",
+    "profile": "Perfil",
+    "appearance": "Apariencia",
+    "notifications": "Notificaciones"
+  },
+  "tabVisibility": {
+    "title": "Visibilidad de Pestañas",
+    "description": "Elige qué pestañas mostrar en la navegación",
+    "alwaysVisible": "Siempre visible",
+    "save": "Guardar Cambios",
+    "saving": "Guardando...",
+    "saved": "¡Ajustes guardados!",
+    "reset": "Restablecer a Predeterminado"
+  },
+  "profile": {
+    "viewProfile": "Ver Tu Perfil",
+    "edit": "Editar Perfil"
+  },
+  "language": {
+    "title": "Idioma",
+    "description": "Elige tu idioma preferido"
+  }
+}

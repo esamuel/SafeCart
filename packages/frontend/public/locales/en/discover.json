@@ -1,0 +1,47 @@
+{
+  "title": "Product Discovery",
+  "subtitle": "Find safe products for you",
+  "search": {
+    "placeholder": "Search products...",
+    "searching": "Searching...",
+    "noResults": "No products found",
+    "results": "results"
+  },
+  "filters": {
+    "title": "Filters",
+    "clear": "Clear All",
+    "apply": "Apply Filters",
+    "category": "Category",
+    "dietary": "Dietary",
+    "allergens": "Allergens",
+    "glycemicIndex": "Glycemic Index",
+    "categories": {
+      "all": "All Products",
+      "dairy": "Dairy",
+      "proteins": "Proteins",
+      "grains": "Grains",
+      "vegetables": "Vegetables",
+      "fruits": "Fruits",
+      "snacks": "Snacks"
+    },
+    "gi": {
+      "low": "Low GI (< 55)",
+      "medium": "Medium GI (55-70)",
+      "high": "High GI (> 70)"
+    }
+  },
+  "product": {
+    "viewDetails": "View Details",
+    "addToList": "Add to List",
+    "nutrition": "Nutrition",
+    "ingredients": "Ingredients",
+    "safeForYou": "Safe for you",
+    "checkAllergens": "Check allergens",
+    "contains": "Contains"
+  },
+  "browse": {
+    "all": "Browse All Products",
+    "showing": "Showing",
+    "products": "products"
+  }
+}

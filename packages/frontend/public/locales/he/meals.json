@@ -1,0 +1,75 @@
+{
+  "title": "תכנון ארוחות",
+  "subtitle": "תכנן את הארוחות שלך לשבוע",
+  "tabs": {
+    "mealPlan": "תוכנית ארוחות",
+    "recipes": "מתכונים"
+  },
+  "mealPlan": {
+    "generate": "צור תוכנית ל-7 ימים",
+    "regenerate": "צור תוכנית מחדש",
+    "generating": "יוצר תוכנית ארוחות...",
+    "viewRecipe": "צפה במתכון",
+    "swap": "החלף מתכון",
+    "addToList": "הוסף לרשימת קניות",
+    "carbBudget": "תקציב פחמימות יומי",
+    "carbsConsumed": "פחמימות שנצרכו",
+    "remaining": "נותר",
+    "dayOfWeek": {
+      "monday": "יום שני",
+      "tuesday": "יום שלישי",
+      "wednesday": "יום רביעי",
+      "thursday": "יום חמישי",
+      "friday": "יום שישי",
+      "saturday": "שבת",
+      "sunday": "יום ראשון"
+    },
+    "mealTypes": {
+      "breakfast": "ארוחת בוקר",
+      "lunch": "ארוחת צהריים",
+      "dinner": "ארוחת ערב",
+      "snack": "חטיף"
+    }
+  },
+  "recipes": {
+    "search": "חפש מתכונים...",
+    "filters": {
+      "all": "כל המתכונים",
+      "breakfast": "ארוחת בוקר",
+      "lunch": "ארוחת צהריים",
+      "dinner": "ארוחת ערב",
+      "snacks": "חטיפים"
+    },
+    "details": {
+      "servings": "מנות",
+      "prepTime": "זמן הכנה",
+      "cookTime": "זמן בישול",
+      "totalTime": "זמן כולל",
+      "difficulty": "רמת קושי",
+      "minutes": "דקות",
+      "carbs": "פחמימות",
+      "protein": "חלבון",
+      "calories": "קלוריות",
+      "fiber": "סיבים",
+      "ingredients": "מרכיבים",
+      "instructions": "הוראות הכנה",
+      "nutritionFacts": "ערכים תזונתיים",
+      "perServing": "למנה",
+      "allergens": "אלרגנים",
+      "tags": "תגיות"
+    }
+  },
+  "shopping": {
+    "generateList": "צור רשימת קניות מתוכנית הארוחות",
+    "generating": "יוצר רשימת קניות...",
+    "success": "רשימת קניות נוצרה בהצלחה!",
+    "error": "יצירת רשימת קניות נכשלה"
+  },
+  "messages": {
+    "planGenerated": "תוכנית ארוחות ל-7 ימים נוצרה!",
+    "recipeSwapped": "המתכון הוחלף בהצלחה",
+    "addedToList": "המרכיבים נוספו לרשימת הקניות",
+    "noRecipes": "לא נמצאו מתכונים",
+    "loadingRecipes": "טוען מתכונים..."
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "title": "Settings",
+  "subtitle": "Customize your experience",
+  "tabs": {
+    "general": "General",
+    "profile": "Profile",
+    "appearance": "Appearance",
+    "notifications": "Notifications"
+  },
+  "tabVisibility": {
+    "title": "Tab Visibility",
+    "description": "Choose which tabs to show in navigation",
+    "alwaysVisible": "Always visible",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "saved": "Settings saved!",
+    "reset": "Reset to Default"
+  },
+  "profile": {
+    "viewProfile": "View Your Profile",
+    "edit": "Edit Profile"
+  },
+  "language": {
+    "title": "Language",
+    "description": "Choose your preferred language"
+  }
+}

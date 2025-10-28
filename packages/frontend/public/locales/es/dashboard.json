@@ -1,0 +1,21 @@
+{
+  "welcome": "Bienvenido de nuevo",
+  "quickStats": {
+    "title": "Estadísticas Rápidas",
+    "shoppingItems": "Artículos de Compra",
+    "safeProducts": "Productos Seguros",
+    "mealsPlanned": "Comidas Planeadas",
+    "avgGI": "IG Promedio"
+  },
+  "quickActions": {
+    "title": "Acciones Rápidas",
+    "scanProduct": "Escanear Producto",
+    "viewLists": "Ver Listas",
+    "planMeals": "Planear Comidas",
+    "discover": "Descubrir"
+  },
+  "insights": {
+    "title": "Perspectivas de Hoy",
+    "viewAnalytics": "Ver Análisis Detallado"
+  }
+}
