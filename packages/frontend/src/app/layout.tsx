@@ -1,18 +1,19 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: '#7C3AED', // Purple-600
+}
 
 export const metadata: Metadata = {
   title: 'SafeCart - Safe Grocery Shopping',
   description: 'AI-powered grocery shopping for allergies and diabetes. Shop safely, live confidently.',
   keywords: ['grocery shopping', 'allergies', 'diabetes', 'safe shopping', 'health', 'barcode scanner'],
   authors: [{ name: 'SafeCart Team' }],
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
-  themeColor: '#7C3AED', // Purple-600
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
