@@ -3,8 +3,9 @@ import { auth } from './firebase'
 // Determine API URL based on environment
 const getApiUrl = () => {
   if (typeof window !== 'undefined') {
-    // Browser environment - use localhost with correct port
-    return 'http://localhost:5002/api'
+    // Browser environment - use current hostname with backend port
+    const hostname = window.location.hostname
+    return `http://${hostname}:5002/api`
   }
   // Server environment
   return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5002/api'
