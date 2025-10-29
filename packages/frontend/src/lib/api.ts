@@ -611,6 +611,35 @@ export const socialAPI = {
   },
 }
 
+// Scanner API
+export const scannerAPI = {
+  scan: async (barcode: string, userId?: string) => {
+    const response = await fetch(`${API_BASE_URL}/scanner/scan`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ barcode, userId }),
+    })
+    if (!response.ok) throw new Error('Failed to scan product')
+    return response.json()
+  },
+
+  addManual: async (barcode: string, productData: any, userId: string, region: string) => {
+    const token = await getAuthToken()
+    const response = await fetch(`${API_BASE_URL}/scanner/add-manual`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ barcode, productData, userId, region }),
+    })
+    if (!response.ok) throw new Error('Failed to add manual product')
+    return response.json()
+  },
+}
+
 // Inventory API
 export const inventoryAPI = {
   add: async (data: {

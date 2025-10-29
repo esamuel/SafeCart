@@ -32,6 +32,7 @@ export default function Onboarding({ onComplete }: any) {
     age: '',
     height: '',
     weight: '',
+    region: 'US',
     diabetesType: 'Type 1',
     allergies: [] as string[],
     targetGlucoseMin: 80,
@@ -63,6 +64,7 @@ export default function Onboarding({ onComplete }: any) {
         age: parseInt(formData.age),
         height: parseInt(formData.height),
         weight: parseInt(formData.weight),
+        region: formData.region,
         diabetesType: formData.diabetesType,
         allergies: formData.allergies,
         targetGlucoseMin: formData.targetGlucoseMin,
@@ -154,6 +156,31 @@ export default function Onboarding({ onComplete }: any) {
                     className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none"
                   />
                 </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  {t('personalInfo.region', { defaultValue: 'Your Region' })}
+                </label>
+                <select
+                  value={formData.region}
+                  onChange={e => setFormData({ ...formData, region: e.target.value })}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none"
+                >
+                  <option value="US">🇺🇸 United States</option>
+                  <option value="IL">🇮🇱 Israel (ישראל)</option>
+                  <option value="MX">🇲🇽 Mexico (México)</option>
+                  <option value="AR">🇦🇷 Argentina</option>
+                  <option value="CL">🇨🇱 Chile</option>
+                  <option value="CO">🇨🇴 Colombia</option>
+                  <option value="ES">🇪🇸 Spain (España)</option>
+                  <option value="PE">🇵🇪 Peru (Perú)</option>
+                  <option value="VE">🇻🇪 Venezuela</option>
+                  <option value="OTHER">🌍 Other</option>
+                </select>
+                <p className="text-xs text-gray-500 mt-2">
+                  {t('personalInfo.regionHelp', { defaultValue: 'This helps us show you products available in your country' })}
+                </p>
               </div>
 
               <button

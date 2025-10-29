@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Search, AlertCircle, CheckCircle, Loader, Camera, Copy } from 'lucide-react'
-import { productsAPI, shoppingListsAPI } from '@/lib/api'
+import { scannerAPI, shoppingListsAPI } from '@/lib/api'
 import { auth } from '@/lib/firebase'
 
 export default function Scanner({ products }: any) {
@@ -112,18 +112,26 @@ export default function Scanner({ products }: any) {
     setError('')
     setLoading(true)
     try {
-      // Try to fetch from API first
-      const product = await productsAPI.getByBarcode(barcode)
-      setScannedProduct(product)
-    } catch (err: any) {
-      // Fallback to local products if API fails
-      const localProduct = products.find((p: any) => p.barcode === barcode)
-      if (localProduct) {
-        setScannedProduct(localProduct)
+      // Use the new scanner API with multi-region support
+      const result = await scannerAPI.scan(barcode, user?.uid)
+
+      if (result.found) {
+        // Product found - show it with safety analysis
+        setScannedProduct({
+          ...result.product,
+          safetyAnalysis: result.safetyAnalysis,
+          region: result.region,
+          source: result.source
+        })
       } else {
-        setError(t('results.productNotFound'))
+        // Product not found - show error with option to add manually
+        setError(t('results.productNotFound') + ' ' + (result.message || ''))
         setScannedProduct(null)
       }
+    } catch (err: any) {
+      console.error('Scanner error:', err)
+      setError(err.message || t('results.productNotFound'))
+      setScannedProduct(null)
     } finally {
       setLoading(false)
     }
@@ -301,21 +309,85 @@ export default function Scanner({ products }: any) {
             <div className="flex-1">
               <h3 className="text-lg font-bold">{scannedProduct.name}</h3>
               <p className="text-gray-600 text-sm">{t('results.upc')}: {scannedProduct.barcode || scannedProduct.upc}</p>
+              {scannedProduct.region && (
+                <p className="text-gray-500 text-xs mt-1">
+                  📍 {scannedProduct.region} • {scannedProduct.source === 'cache' ? 'Cached' : 'Live data'}
+                </p>
+              )}
             </div>
             <div>
-              {scannedProduct.safe !== false ? (
-                <div className="bg-green-100 text-green-700 px-4 py-2 rounded-full font-semibold text-sm flex items-center gap-1">
-                  <CheckCircle className="w-4 h-4" />
-                  {t('results.badges.safe', { defaultValue: 'SAFE' })}
-                </div>
+              {scannedProduct.safetyAnalysis ? (
+                scannedProduct.safetyAnalysis.overallSafety === 'safe' ? (
+                  <div className="bg-green-100 text-green-700 px-4 py-2 rounded-full font-semibold text-sm flex items-center gap-1">
+                    <CheckCircle className="w-4 h-4" />
+                    {t('results.badges.safe', { defaultValue: 'SAFE' })}
+                  </div>
+                ) : scannedProduct.safetyAnalysis.overallSafety === 'warning' ? (
+                  <div className="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-full font-semibold text-sm flex items-center gap-1">
+                    <AlertCircle className="w-4 h-4" />
+                    WARNING
+                  </div>
+                ) : (
+                  <div className="bg-red-100 text-red-700 px-4 py-2 rounded-full font-semibold text-sm flex items-center gap-1">
+                    <AlertCircle className="w-4 h-4" />
+                    DANGER
+                  </div>
+                )
               ) : (
-                <div className="bg-red-100 text-red-700 px-4 py-2 rounded-full font-semibold text-sm flex items-center gap-1">
+                <div className="bg-gray-100 text-gray-700 px-4 py-2 rounded-full font-semibold text-sm flex items-center gap-1">
                   <AlertCircle className="w-4 h-4" />
                   {t('results.badges.check', { defaultValue: 'CHECK' })}
                 </div>
               )}
             </div>
           </div>
+
+          {/* Safety Warnings */}
+          {scannedProduct.safetyAnalysis && (
+            <>
+              {/* Allergen Warnings */}
+              {scannedProduct.safetyAnalysis.allergenWarnings?.length > 0 && (
+                <div className="mb-6">
+                  {scannedProduct.safetyAnalysis.allergenWarnings.map((warning: any, idx: number) => (
+                    <div
+                      key={idx}
+                      className={`p-4 rounded-xl mb-2 ${
+                        warning.severity === 'danger'
+                          ? 'bg-red-50 border-2 border-red-200'
+                          : 'bg-yellow-50 border-2 border-yellow-200'
+                      }`}
+                    >
+                      <p className={`font-semibold ${warning.severity === 'danger' ? 'text-red-700' : 'text-yellow-700'}`}>
+                        {warning.message}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Diabetes Warnings */}
+              {scannedProduct.safetyAnalysis.diabetesWarnings?.length > 0 && (
+                <div className="mb-6">
+                  {scannedProduct.safetyAnalysis.diabetesWarnings.map((warning: any, idx: number) => (
+                    <div key={idx} className="bg-orange-50 border-2 border-orange-200 p-4 rounded-xl mb-2">
+                      <p className="text-orange-700 font-semibold">{warning.message}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Recommendations */}
+              {scannedProduct.safetyAnalysis.recommendations?.length > 0 && (
+                <div className="mb-6">
+                  {scannedProduct.safetyAnalysis.recommendations.map((rec: string, idx: number) => (
+                    <div key={idx} className="bg-blue-50 border-2 border-blue-200 p-3 rounded-xl mb-2">
+                      <p className="text-blue-700 text-sm">{rec}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
 
           {/* Nutrition Grid */}
           <div className="grid grid-cols-2 gap-4 mb-6">

@@ -33,6 +33,20 @@ const productSchema = new mongoose.Schema({
     available: Boolean,
     lastUpdated: Date,
   }],
+  // Multi-region support
+  regions: [{
+    country: { type: String, enum: ['US', 'IL', 'MX', 'AR', 'CL', 'CO', 'ES', 'PE', 'VE'] },
+    available: { type: Boolean, default: true },
+    barcode: String, // Can differ by region
+    localName: String, // Localized product name
+    localBrand: String,
+    stores: [String], // Region-specific stores
+    source: { type: String, enum: ['openfoodfacts', 'usda', 'manual', 'retailer'] },
+    lastUpdated: Date,
+  }],
+  source: { type: String, default: 'openfoodfacts' }, // Primary data source
+  userSubmitted: { type: Boolean, default: false },
+  verified: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 })

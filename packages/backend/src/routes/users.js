@@ -21,6 +21,7 @@ router.get('/:userId', async (req, res) => {
       age: user.age,
       height: user.height,
       weight: user.weight,
+      region: user.region,
       healthProfiles: user.healthProfiles,
       preferences: user.preferences,
     })
@@ -40,6 +41,7 @@ router.post('/:userId/health-profile', async (req, res) => {
       age,
       height,
       weight,
+      region,
       diabetesType,
       allergies,
       targetGlucoseMin,
@@ -70,6 +72,7 @@ router.post('/:userId/health-profile', async (req, res) => {
     if (age !== undefined) user.age = age
     if (height !== undefined) user.height = height
     if (weight !== undefined) user.weight = weight
+    if (region !== undefined) user.region = region
 
     // Create health profile with proper structure
     const healthProfile = {
