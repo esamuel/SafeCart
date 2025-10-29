@@ -1,6 +1,74 @@
 {
-  "title": "Inventario",
+  "title": "Mi Inventario",
   "subtitle": "Rastrea los artículos de tu despensa",
-  "coming": "Próximamente",
-  "description": "La función de gestión de inventario está en desarrollo"
+  "loading": "Cargando inventario...",
+  "buttons": {
+    "quickScan": "Escanear Rápido",
+    "addItem": "Añadir Artículo"
+  },
+  "stats": {
+    "totalItems": "Artículos Totales",
+    "expiringSoon": "Expirando Pronto",
+    "expired": "Expirados",
+    "lowStock": "Stock Bajo"
+  },
+  "search": {
+    "placeholder": "Buscar en inventario..."
+  },
+  "filters": {
+    "all": "Todos",
+    "locations": {
+      "pantry": "Despensa",
+      "fridge": "Refrigerador",
+      "freezer": "Congelador",
+      "other": "Otros"
+    }
+  },
+  "empty": {
+    "title": "No hay artículos en el inventario",
+    "description": "Comienza escaneando códigos de barras o añadiendo artículos manualmente",
+    "action": "Iniciar Modo Escaneo Rápido"
+  },
+  "badges": {
+    "lowStock": "Stock Bajo"
+  },
+  "status": {
+    "noExpiration": "Sin expiración",
+    "expired": "Expirado",
+    "expiresToday": "¡Expira hoy!",
+    "expiresTomorrow": "Expira mañana",
+    "daysLeft": "Quedan {{count}} días",
+    "daysRemaining": "{{count}} días",
+    "fresh": "Fresco"
+  },
+  "delete": {
+    "confirm": "¿Eliminar este artículo del inventario?",
+    "error": "Error al eliminar artículo"
+  },
+  "scanning": {
+    "title": "Modo Escaneo Rápido",
+    "description": "Escanea códigos de barras mientras desempaquetas las compras. ¡Los artículos se añaden instantáneamente con opciones predeterminadas inteligentes!",
+    "itemsScanned": "Artículos escaneados: {{count}}",
+    "barcode": "Código de Barras",
+    "barcodePlaceholder": "Ingresa o escanea código de barras...",
+    "quantity": "Cantidad",
+    "location": "Ubicación",
+    "scanning": "Escaneando...",
+    "scanAndAdd": "Escanear y Añadir",
+    "success": "¡Artículo añadido! Escanea el siguiente artículo o haz clic en Hecho.",
+    "errors": {
+      "barcodeRequired": "Por favor ingresa un código de barras",
+      "productNotFound": "Producto no encontrado. Intenta entrada manual en su lugar."
+    }
+  },
+  "modals": {
+    "addItem": {
+      "title": "Añadir Artículo Manualmente",
+      "description": "¡Formulario de entrada manual próximamente! Usa Escaneo Rápido por ahora."
+    },
+    "editItem": {
+      "title": "Editar: {{name}}",
+      "description": "¡Formulario de edición próximamente!"
+    }
+  }
 }

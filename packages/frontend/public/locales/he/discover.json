@@ -2,46 +2,74 @@
   "title": "גילוי מוצרים",
   "subtitle": "מצא מוצרים בטוחים עבורך",
   "search": {
-    "placeholder": "חפש מוצרים...",
+    "placeholder": "חפש מוצרים (למשל, חלב שקדים, לחם ללא גלוטן)...",
     "searching": "מחפש...",
-    "noResults": "לא נמצאו מוצרים",
-    "results": "תוצאות"
+    "button": "חפש",
+    "noResults": "לא נמצאו מוצרים. נסה חיפוש אחר!",
+    "browseAll": "עיין בכל המוצרים (50+)"
   },
   "filters": {
     "title": "מסננים",
-    "clear": "נקה הכל",
-    "apply": "החל מסננים",
+    "clear": "נקה",
     "category": "קטגוריה",
-    "dietary": "תזונתי",
-    "allergens": "אלרגנים",
-    "glycemicIndex": "מדד גליקמי",
+    "avoidAllergens": "הימנע מאלרגנים",
+    "maxCarbs": "מקסימום פחמימות (גרם)",
+    "maxCarbsPlaceholder": "השאר ריק ללא הגבלה",
     "categories": {
-      "all": "כל המוצרים",
-      "dairy": "מוצרי חלב",
-      "proteins": "חלבונים",
-      "grains": "דגנים",
-      "vegetables": "ירקות",
-      "fruits": "פירות",
-      "snacks": "חטיפים"
-    },
-    "gi": {
-      "low": "GI נמוך (< 55)",
-      "medium": "GI בינוני (55-70)",
-      "high": "GI גבוה (> 70)"
+      "Dairy": "מוצרי חלב",
+      "Produce": "מוצרים טריים",
+      "Meat & Seafood": "בשר ודגים",
+      "Bakery": "מאפייה",
+      "Snacks": "חטיפים",
+      "Beverages": "משקאות",
+      "Pantry": "מזווה",
+      "Frozen": "קפואים"
     }
   },
-  "product": {
-    "viewDetails": "צפה בפרטים",
-    "addToList": "הוסף לרשימה",
-    "nutrition": "תזונה",
-    "ingredients": "מרכיבים",
-    "safeForYou": "בטוח עבורך",
-    "checkAllergens": "בדוק אלרגנים",
-    "contains": "מכיל"
+  "results": {
+    "found": "נמצאו {{count}} מוצרים",
+    "loading": "מחפש מוצרים...",
+    "empty": {
+      "title": "התחל לחפש מוצרים שאתה אוהב!",
+      "description": "חפש לפי שם מוצר, מותג או מרכיב. השתמש במסננים כדי להתאים לצרכי התזונה שלך."
+    },
+    "noResults": "לא נמצאו מוצרים. נסה חיפוש אחר!"
   },
-  "browse": {
-    "all": "עיין בכל המוצרים",
-    "showing": "מציג",
-    "products": "מוצרים"
+  "product": {
+    "safety": {
+      "safe": "בטוח",
+      "checkLabels": "בדוק תוויות",
+      "danger": "סכנה!"
+    },
+    "dangerWarning": "⚠️ מכיל את האלרגנים שלך!",
+    "containsAllergens": "מוצר זה מכיל: {{allergens}}",
+    "nutrition": {
+      "netCarbs": "פחמימות נטו",
+      "sugar": "סוכר",
+      "protein": "חלבון",
+      "calories": "קלוריות"
+    },
+    "contains": "מכיל:",
+    "allergens": {
+      "peanuts": "בוטנים",
+      "tree_nuts": "אגוזים",
+      "milk": "חלב",
+      "eggs": "ביצים",
+      "soy": "סויה",
+      "wheat": "חיטה",
+      "fish": "דגים",
+      "shellfish": "מאכלי ים"
+    }
+  },
+  "errors": {
+    "search": "אנא הזן מונח חיפוש או בחר מסננים כדי לעיין במוצרים",
+    "searchFailed": "חיפוש מוצרים נכשל: {{message}}"
+  },
+  "badges": {
+    "gi": "GI",
+    "gl": "GL",
+    "netCarbs": "גרם",
+    "sugar": "גרם",
+    "protein": "גרם"
   }
 }

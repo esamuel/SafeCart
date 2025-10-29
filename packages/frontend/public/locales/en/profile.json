@@ -1,14 +1,80 @@
 {
   "title": "Health Profile",
   "subtitle": "Manage your health information",
+  "profileTitle": "User",
+  "personalInfo": {
+    "title": "Personal Information",
+    "displayName": "Display Name",
+    "displayNamePlaceholder": "Your preferred name",
+    "age": "Age",
+    "agePlaceholder": "25",
+    "height": "Height (cm)",
+    "heightPlaceholder": "170",
+    "weight": "Weight (kg)",
+    "weightPlaceholder": "70",
+    "name": "Name",
+    "ageUnit": "years",
+    "heightUnit": "cm",
+    "weightUnit": "kg",
+    "noInfo": "No personal information added yet"
+  },
+  "healthProfile": {
+    "title": "Health Profile",
+    "diabetesType": "Diabetes Type",
+    "types": {
+      "Type 1": "Type 1",
+      "Type 2": "Type 2",
+      "Prediabetes": "Prediabetes",
+      "Gestational": "Gestational",
+      "No Diabetes": "No Diabetes"
+    },
+    "targetGlucose": "Target Blood Glucose Range (mg/dL)",
+    "min": "Min",
+    "max": "Max",
+    "to": "to",
+    "dailyCarbLimit": "Daily Carb Limit (grams)",
+    "dailyCarbPlaceholder": "200",
+    "usesInsulin": "I use insulin",
+    "yes": "Yes",
+    "no": "No",
+    "targetGlucoseDisplay": "Target Blood Glucose",
+    "dailyCarbDisplay": "Daily Carb Limit",
+    "insulinUse": "Insulin Use"
+  },
+  "allergies": {
+    "title": "Allergies & Intolerances",
+    "selectAll": "Select all that apply:",
+    "noneSpecified": "No allergies specified"
+  },
+  "settings": {
+    "notifications": "Notification Settings",
+    "privacy": "Privacy & Security",
+    "logout": "Logout"
+  },
+  "buttons": {
+    "edit": "Edit",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "cancel": "Cancel"
+  },
+  "profile": {
+    "edit": "Edit",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "saved": "Profile saved successfully!",
+    "error": "Failed to save profile"
+  },
+  "errors": {
+    "noUser": "Not logged in. Please sign in."
+  },
   "onboarding": {
     "welcome": "Welcome to SafeCart",
     "subtitle": "Let's set up your health profile",
     "step": "Step",
     "of": "of",
     "next": "Next",
-    "previous": "Previous",
-    "finish": "Finish",
+    "previous": "Back",
+    "finish": "Complete Setup",
     "skip": "Skip for now"
   },
   "basicInfo": {
@@ -40,8 +106,8 @@
     "yes": "Yes",
     "no": "No"
   },
-  "allergies": {
-    "title": "Allergies & Dietary Restrictions",
+  "allergiesSection": {
+    "title": "Allergies & Intolerances",
     "selectAllergies": "Select your allergies",
     "common": {
       "peanuts": "Peanuts",
@@ -60,12 +126,5 @@
       "kosher": "Kosher",
       "halal": "Halal"
     }
-  },
-  "profile": {
-    "edit": "Edit Profile",
-    "save": "Save Changes",
-    "saving": "Saving...",
-    "saved": "Profile saved successfully!",
-    "error": "Failed to save profile"
   }
 }

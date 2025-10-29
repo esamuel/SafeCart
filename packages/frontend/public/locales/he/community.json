@@ -1,14 +1,45 @@
 {
-  "title": "קהילה",
+  "title": "פיד קהילה",
   "subtitle": "שתף וגלה",
-  "tabs": {
-    "feed": "פיד",
-    "recipes": "מתכונים",
-    "tips": "טיפים"
+  "loading": "טוען פוסטים של הקהילה...",
+  "filters": {
+    "all": "הכל",
+    "recipe": "מתכון",
+    "tip": "טיפ",
+    "success_story": "סיפור הצלחה",
+    "following": "מעקב"
+  },
+  "createPost": {
+    "title": "צור פוסט",
+    "shareButton": "שתף משהו עם הקהילה",
+    "type": "סוג",
+    "titleLabel": "כותרת",
+    "contentLabel": "תוכן",
+    "tagsLabel": "תגיות (מופרדות בפסיקים)",
+    "titlePlaceholder": "תן לפוסט שלך כותרת קליטה...",
+    "contentPlaceholder": "שתף את המחשבות, הטיפים או סיפור ההצלחה שלך...",
+    "tagsPlaceholder": "סוכרת, דל פחמימות, ללא גלוטן...",
+    "post": "פרסם",
+    "cancel": "בטל"
+  },
+  "postTypes": {
+    "recipe": "מתכון",
+    "tip": "טיפ",
+    "success_story": "סיפור הצלחה",
+    "meal_plan": "תוכנית ארוחות",
+    "shopping_list": "רשימת קניות"
+  },
+  "empty": {
+    "title": "אין עדיין פוסטים בקטגוריה זו.",
+    "subtitle": "היה הראשון לשתף משהו!"
   },
   "post": {
-    "share": "שתף",
-    "like": "אהבתי",
-    "comment": "הגב"
+    "comments": "תגובות",
+    "commentPlaceholder": "כתוב תגובה...",
+    "loadMore": "טען עוד"
+  },
+  "errors": {
+    "fillRequired": "אנא מלא כותרת ותוכן",
+    "createFailed": "יצירת הפוסט נכשלה. אנא נסה שוב."
   }
 }

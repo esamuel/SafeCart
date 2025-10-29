@@ -1,6 +1,68 @@
 {
   "title": "Settings",
-  "subtitle": "Customize your experience",
+  "subtitle": "Customize your SafeCart experience",
+  "navigation": {
+    "title": "Navigation Tabs",
+    "description": "Choose which tabs to show in the bottom navigation",
+    "visible": "visible",
+    "required": "Required",
+    "tabNames": {
+      "home": "Home",
+      "scanner": "Scanner",
+      "shopping": "Shopping Lists",
+      "meals": "Meal Planner",
+      "inventory": "Inventory",
+      "discover": "Product Discovery",
+      "analytics": "Analytics",
+      "community": "Community",
+      "profile": "Profile"
+    },
+    "tabDescriptions": {
+      "home": "Dashboard with quick stats",
+      "scanner": "Scan product barcodes",
+      "shopping": "Manage your shopping lists",
+      "meals": "Plan diabetes-friendly meals",
+      "inventory": "Track pantry items",
+      "discover": "Browse safe products",
+      "analytics": "Detailed health insights & AI recommendations",
+      "community": "Share tips and recipes",
+      "profile": "Your health profile & settings"
+    },
+    "tips": {
+      "title": "💡 Tip:",
+      "text": "Hide tabs you don't use to simplify your navigation. You can always show them again later. The Analytics tab will always be accessible from the \"View Analytics\" button on the Home page, even if hidden."
+    },
+    "alerts": {
+      "requiredTab": "{{tab}} tab is required and cannot be hidden"
+    },
+    "confirmation": {
+      "reset": "Reset all tabs to default visibility?"
+    }
+  },
+  "buttons": {
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "saved": "Saved!",
+    "reset": "Reset to Default"
+  },
+  "sections": {
+    "profile": {
+      "title": "Your Profile",
+      "description": "Manage health profile and personal info"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "description": "Manage alerts and reminders"
+    },
+    "privacy": {
+      "title": "Privacy & Security",
+      "description": "Control your data and permissions"
+    },
+    "appearance": {
+      "title": "Appearance",
+      "description": "Theme, colors, and display options"
+    }
+  },
   "tabs": {
     "general": "General",
     "profile": "Profile",

@@ -1,12 +1,14 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { shoppingListsAPI, productsAPI, usersAPI } from '@/lib/api'
 import { auth } from '@/lib/firebase'
 import { Plus, Trash2, Check, X, ShoppingCart, Loader, AlertCircle, CheckCircle2 } from 'lucide-react'
 import ShoppingListItem from './ShoppingListItem'
 
 export default function ShoppingList() {
+  const { t } = useTranslation('shopping')
   const [lists, setLists] = useState<any[]>([])
   const [selectedList, setSelectedList] = useState<any>(null)
   const [newItemName, setNewItemName] = useState('')
@@ -34,7 +36,7 @@ export default function ShoppingList() {
         setSelectedList(userLists[0])
       }
     } catch (err: any) {
-      setError('Failed to load shopping lists')
+      setError(t('errors.load'))
       console.error(err)
     } finally {
       setLoading(false)
@@ -51,7 +53,7 @@ export default function ShoppingList() {
       setNewListName('')
       setShowNewListForm(false)
     } catch (err: any) {
-      setError('Failed to create list')
+      setError(t('errors.createList'))
       console.error(err)
     } finally {
       setCreatingList(false)
@@ -111,7 +113,7 @@ export default function ShoppingList() {
       
       // STEP 5: Show warning if product contains user's allergens
       if (dangerousAllergens.length > 0) {
-        const warningMessage = `⚠️ DANGER: "${productInfo.name}" contains: ${dangerousAllergens.join(', ')}\n\nYou are allergic to these! Please do not consume this product!`
+        const warningMessage = `⚠️ ${t('allergenWarning.title')}\n${t('allergenWarning.contains')}: ${dangerousAllergens.join(', ')}\n${t('allergenWarning.youAreAllergicTo')}: ${dangerousAllergens.join(', ')}`
         alert(warningMessage)
       } else if (productInfo && productInfo.allergens?.contains?.length > 0) {
         // Product has allergens, but not ones user is allergic to
@@ -124,7 +126,7 @@ export default function ShoppingList() {
       setSelectedList(updated)
       setNewItemName('')
     } catch (err: any) {
-      setError('Failed to add item')
+      setError(t('errors.addItem'))
       console.error(err)
     }
   }
@@ -139,7 +141,7 @@ export default function ShoppingList() {
       const updated = await shoppingListsAPI.getList(selectedList._id)
       setSelectedList(updated)
     } catch (err: any) {
-      setError('Failed to update item')
+      setError(t('errors.updateItem'))
       console.error(err)
     }
   }
@@ -151,7 +153,7 @@ export default function ShoppingList() {
       const updated = await shoppingListsAPI.getList(selectedList._id)
       setSelectedList(updated)
     } catch (err: any) {
-      setError('Failed to delete item')
+      setError(t('errors.deleteItem'))
       console.error(err)
     }
   }
@@ -163,7 +165,7 @@ export default function ShoppingList() {
       const updated = await shoppingListsAPI.getList(selectedList._id)
       setSelectedList(updated)
     } catch (err: any) {
-      setError('Failed to update quantity')
+      setError(t('errors.updateQuantity'))
       console.error(err)
     }
   }
@@ -177,7 +179,7 @@ export default function ShoppingList() {
         setSelectedList(newLists[0] || null)
       }
     } catch (err: any) {
-      setError('Failed to delete list')
+      setError(t('errors.deleteList'))
       console.error(err)
     }
   }
@@ -218,7 +220,7 @@ export default function ShoppingList() {
       <div className="flex items-center justify-center h-96">
         <div className="text-center">
           <Loader className="w-8 h-8 animate-spin text-purple-600 mx-auto mb-2" />
-          <p className="text-gray-600">Loading shopping lists...</p>
+          <p className="text-gray-600">{t('loading')}</p>
         </div>
       </div>
     )
@@ -228,7 +230,7 @@ export default function ShoppingList() {
     <div className="max-w-4xl mx-auto">
       <div className="flex items-center gap-3 mb-6">
         <ShoppingCart className="w-8 h-8 text-purple-600" />
-        <h2 className="text-3xl font-bold">Shopping Lists</h2>
+        <h2 className="text-3xl font-bold">{t('title')}</h2>
       </div>
 
       {error && (
@@ -256,7 +258,7 @@ export default function ShoppingList() {
           onClick={() => setShowNewListForm(!showNewListForm)}
           className="px-4 py-2 rounded-lg font-medium bg-green-100 text-green-700 hover:bg-green-200 transition whitespace-nowrap"
         >
-          + New List
+          + {t('createList.button')}
         </button>
       </div>
 
@@ -268,7 +270,7 @@ export default function ShoppingList() {
               type="text"
               value={newListName}
               onChange={e => setNewListName(e.target.value)}
-              placeholder="List name (e.g., Weekly Shopping)"
+              placeholder={t('createList.namePlaceholder')}
               className="flex-1 px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none"
               onKeyPress={e => e.key === 'Enter' && createNewList()}
             />
@@ -277,13 +279,13 @@ export default function ShoppingList() {
               disabled={creatingList}
               className="bg-green-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-700 transition disabled:opacity-50"
             >
-              Create
+              {t('common:buttons.create')}
             </button>
             <button
               onClick={() => setShowNewListForm(false)}
               className="bg-gray-400 text-white px-4 py-2 rounded-lg font-semibold hover:bg-gray-500 transition"
             >
-              Cancel
+              {t('common:buttons.cancel')}
             </button>
           </div>
         </div>
@@ -296,14 +298,14 @@ export default function ShoppingList() {
             <div>
               <h3 className="text-2xl font-bold">{selectedList.name}</h3>
               <p className="text-gray-600 text-sm">
-                {selectedList.items.filter((i: any) => !i.checked).length} items remaining
+                {t('list.itemsRemaining', { count: selectedList.items.filter((i: any) => !i.checked).length })}
               </p>
             </div>
             <button
               onClick={() => deleteList(selectedList._id)}
               className="text-red-600 hover:text-red-700 font-medium"
             >
-              Delete List
+              {t('list.deleteList')}
             </button>
           </div>
 
@@ -314,7 +316,7 @@ export default function ShoppingList() {
                 type="text"
                 value={newItemName}
                 onChange={e => setNewItemName(e.target.value)}
-                placeholder="Add an item..."
+                placeholder={t('addItem.inputPlaceholder', { defaultValue: t('addItem.namePlaceholder') })}
                 className="flex-1 px-4 py-2 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none"
                 onKeyPress={e => e.key === 'Enter' && addItem()}
               />
@@ -323,7 +325,7 @@ export default function ShoppingList() {
                 className="bg-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-purple-700 transition flex items-center gap-2"
               >
                 <Plus className="w-5 h-5" />
-                Add
+                {t('common:buttons.add')}
               </button>
             </div>
           </div>
@@ -333,7 +335,7 @@ export default function ShoppingList() {
             {selectedList.items.length === 0 ? (
               <div className="p-8 text-center text-gray-500">
                 <ShoppingCart className="w-12 h-12 mx-auto mb-2 opacity-30" />
-                <p>No items yet. Add one to get started!</p>
+                <p>{t('list.emptyMessage', { defaultValue: t('list.noItems') })}</p>
               </div>
             ) : (
               selectedList.items.map((item: any, index: number) => (
@@ -352,20 +354,19 @@ export default function ShoppingList() {
           {/* Summary */}
           {selectedList.items.length > 0 && (
             <div className="bg-purple-50 p-4 text-center text-sm text-gray-600">
-              {selectedList.items.filter((i: any) => i.checked).length} of{' '}
-              {selectedList.items.length} items completed
+              {t('list.summaryCompleted', { completed: selectedList.items.filter((i: any) => i.checked).length, total: selectedList.items.length })}
             </div>
           )}
         </div>
       ) : (
         <div className="bg-white p-12 rounded-lg shadow-lg text-center">
           <ShoppingCart className="w-16 h-16 mx-auto mb-4 text-gray-300" />
-          <p className="text-gray-500 mb-4">No shopping lists yet.</p>
+          <p className="text-gray-500 mb-4">{t('empty.title')}</p>
           <button
             onClick={() => setShowNewListForm(true)}
             className="bg-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-purple-700 transition"
           >
-            Create Your First List
+            {t('empty.action')}
           </button>
         </div>
       )}

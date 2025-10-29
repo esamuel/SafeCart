@@ -1,6 +1,8 @@
 {
   "title": "Planificador de Comidas",
   "subtitle": "Planifica tus comidas para la semana",
+  "refresh": "Actualizar",
+  "loading": "Cargando tu plan de comidas personalizado...",
   "tabs": {
     "mealPlan": "Plan de Comidas",
     "recipes": "Recetas"
@@ -13,6 +15,11 @@
     "swap": "Cambiar Receta",
     "addToList": "Añadir a Lista de Compras",
     "carbBudget": "Presupuesto Diario de Carbohidratos",
+    "avgPerMeal": "Promedio por Comida",
+    "totalCarbs": "Carbohidratos Totales",
+    "percentOfLimit": "{{percent}}% del límite",
+    "servings": "{{count}} porción",
+    "servings_plural": "{{count}} porciones",
     "carbsConsumed": "Carbohidratos Consumidos",
     "remaining": "Restante",
     "dayOfWeek": {
@@ -49,7 +56,7 @@
       "minutes": "minutos",
       "carbs": "Carbohidratos",
       "protein": "Proteína",
-      "calories": "Calorías",
+      "calories": "cal",
       "fiber": "Fibra",
       "ingredients": "Ingredientes",
       "instructions": "Instrucciones",
@@ -62,8 +69,24 @@
   "shopping": {
     "generateList": "Generar Lista de Compras desde el Plan de Comidas",
     "generating": "Generando lista de compras...",
+    "newListName": "Ingredientes de Receta",
+    "newListDescription": "Generado automáticamente desde receta",
+    "weeklyMealPlanName": "Plan de Comidas Semanal",
+    "weeklyMealPlanDescription": "Generado automáticamente desde planificador de comidas",
+    "itemsAddedSuccess": "✅ ¡Se añadieron {{count}} artículos a tu lista de compras!",
+    "itemsAddedError": "Error al añadir a la lista de compras: {{message}}",
+    "generateError": "Error al generar lista de compras: {{message}}",
+    "loginRequiredGenerate": "Por favor inicia sesión para generar una lista de compras",
     "success": "¡Lista de compras creada exitosamente!",
     "error": "Error al generar lista de compras"
+  },
+  "errors": {
+    "loginRequired": "Por favor inicia sesión para ver tu plan de comidas",
+    "loadFailed": "Error al cargar el plan de comidas",
+    "loadTitle": "Error al cargar el plan de comidas",
+    "recipeLoadFailed": "Error al cargar los detalles de la receta",
+    "noRecipesFound": "No se encontraron recetas en el plan de comidas",
+    "loginRequiredAddToList": "Por favor inicia sesión para añadir a la lista de compras"
   },
   "messages": {
     "planGenerated": "¡Plan de comidas de 7 días generado!",
@@ -71,5 +94,14 @@
     "addedToList": "Ingredientes añadidos a la lista de compras",
     "noRecipes": "No se encontraron recetas",
     "loadingRecipes": "Cargando recetas..."
+  },
+  "personalizedPlan": {
+    "title": "Tu Plan Personalizado:",
+    "allergensFiltered": "Todas las comidas filtradas para tus alérgenos: {{allergens}}",
+    "carbBudget": "Presupuesto diario de carbohidratos: {{budget}}g",
+    "daysPlanned": "{{days}} días de comidas adecuadas para diabetes planificadas",
+    "smartRecipes": "Recetas inteligentes con excelente calidad de carbohidratos",
+    "autoGenerate": "Generar automáticamente lista de compras con todos los ingredientes",
+    "none": "Ninguno"
   }
 }

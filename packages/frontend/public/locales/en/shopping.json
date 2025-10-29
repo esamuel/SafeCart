@@ -13,6 +13,8 @@
   "list": {
     "items": "items",
     "noItems": "No items yet",
+    "itemsRemaining": "{{count}} items remaining",
+    "summaryCompleted": "{{completed}} of {{total}} items completed",
     "addItem": "Add Item",
     "deleteList": "Delete List",
     "shareList": "Share List"
@@ -58,5 +60,20 @@
     "itemRemoved": "Item removed",
     "itemChecked": "Item marked as purchased",
     "itemUnchecked": "Item marked as not purchased"
+  },
+  "loading": "Loading shopping lists...",
+  "errors": {
+    "load": "Failed to load shopping lists",
+    "createList": "Failed to create list",
+    "addItem": "Failed to add item",
+    "updateItem": "Failed to update item",
+    "deleteItem": "Failed to delete item",
+    "updateQuantity": "Failed to update quantity",
+    "deleteList": "Failed to delete list"
+  },
+  "safety": {
+    "safeForYou": "Safe for you",
+    "unknown": "Product not found in database",
+    "checking": "Checking..."
   }
 }

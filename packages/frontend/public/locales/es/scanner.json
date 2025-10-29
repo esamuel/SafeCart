@@ -1,6 +1,7 @@
 {
   "title": "Escanear Producto",
   "subtitle": "Usa tu cámara o ingresa el código de barras manualmente",
+  "infoTitle": "Consejo:",
   "infoTip": "El acceso a la cámara requiere HTTPS en dispositivos móviles. Si la cámara no funciona, siempre puedes usar la entrada manual de código de barras a continuación - ¡funciona igual de bien!",
   "cameraError": {
     "notSupported": "API de cámara no compatible con este dispositivo. Por favor usa la entrada manual abajo.",
@@ -26,6 +27,7 @@
     "scanning": "Escaneando..."
   },
   "results": {
+    "na": "N/D",
     "productNotFound": "Producto no encontrado. Intenta otro código de barras.",
     "upc": "UPC",
     "nutrition": {
@@ -34,6 +36,10 @@
       "sugar": "Azúcar",
       "glScore": "Puntuación GL"
     },
+    "badges": {
+      "safe": "SEGURO",
+      "check": "REVISAR"
+    },
     "allergens": "Alérgenos",
     "actions": {
       "scanAnother": "Escanear Otro",
@@ -41,6 +47,7 @@
       "adding": "Añadiendo..."
     },
     "addedSuccess": "✅ ¡Producto añadido a la lista de compras!",
-    "addedToNewList": "✅ ¡Producto añadido a tu nueva lista de compras!"
+    "addedToNewList": "✅ ¡Producto añadido a tu nueva lista de compras!",
+    "addedError": "Error al añadir a la lista de compras: {{message}}"
   }
 }

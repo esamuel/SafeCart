@@ -1,6 +1,68 @@
 {
   "title": "הגדרות",
-  "subtitle": "התאם אישית את החוויה שלך",
+  "subtitle": "התאם את החוויה שלך ב-SafeCart",
+  "navigation": {
+    "title": "כרטיסיות ניווט",
+    "description": "בחר אילו כרטיסיות להציג בניווט התחתון",
+    "visible": "גלוי",
+    "required": "נדרש",
+    "tabNames": {
+      "home": "בית",
+      "scanner": "סורק",
+      "shopping": "רשימות קניות",
+      "meals": "תכנון ארוחות",
+      "inventory": "מלאי",
+      "discover": "גילוי מוצרים",
+      "analytics": "אנליטיקה",
+      "community": "קהילה",
+      "profile": "פרופיל"
+    },
+    "tabDescriptions": {
+      "home": "לוח עם סטטיסטיקות מהירות",
+      "scanner": "סרוק ברקודים של מוצרים",
+      "shopping": "נהל את רשימות הקניות שלך",
+      "meals": "תכנן ארוחות ידידותיות לסוכרת",
+      "inventory": "עקוב אחר פריטי המטבח",
+      "discover": "עיין במוצרים בטוחים",
+      "analytics": "תובנות בריאות מפורטות והמלצות AI",
+      "community": "שתף טיפים ומתכונים",
+      "profile": "פרופיל הבריאות וההגדרות שלך"
+    },
+    "tips": {
+      "title": "💡 טיפ:",
+      "text": "הסתר כרטיסיות שאתה לא משתמש בהן כדי לפשט את הניווט שלך. אתה תמיד יכול להציג אותן שוב מאוחר יותר. כרטיסיית Analytics תמיד תהיה נגישה מהכפתור \"צפה באנליטיקה\" בדף הבית, גם אם היא מוסתרת."
+    },
+    "alerts": {
+      "requiredTab": "כרטיסיית {{tab}} נדרשת ולא ניתן להסתיר אותה"
+    },
+    "confirmation": {
+      "reset": "לאפס את כל הכרטיסיות לנראות ברירת מחדל?"
+    }
+  },
+  "buttons": {
+    "save": "שמור שינויים",
+    "saving": "שומר...",
+    "saved": "נשמר!",
+    "reset": "אפס לברירת מחדל"
+  },
+  "sections": {
+    "profile": {
+      "title": "הפרופיל שלך",
+      "description": "נהל את פרופיל הבריאות והמידע האישי"
+    },
+    "notifications": {
+      "title": "התראות",
+      "description": "נהל התראות ותזכורות"
+    },
+    "privacy": {
+      "title": "פרטיות ואבטחה",
+      "description": "בצע שליטה בנתונים והרשאות"
+    },
+    "appearance": {
+      "title": "מראה",
+      "description": "ערכת נושא, צבעים ואפשרויות תצוגה"
+    }
+  },
   "tabs": {
     "general": "כללי",
     "profile": "פרופיל",
@@ -8,8 +70,8 @@
     "notifications": "התראות"
   },
   "tabVisibility": {
-    "title": "נראות לשוניות",
-    "description": "בחר אילו לשוניות להציג בניווט",
+    "title": "נראות כרטיסיות",
+    "description": "בחר אילו כרטיסיות להציג בניווט",
     "alwaysVisible": "תמיד גלוי",
     "save": "שמור שינויים",
     "saving": "שומר...",
@@ -22,6 +84,6 @@
   },
   "language": {
     "title": "שפה",
-    "description": "בחר את השפה המועדפת עליך"
+    "description": "בחר את השפה המועדפת שלך"
   }
 }

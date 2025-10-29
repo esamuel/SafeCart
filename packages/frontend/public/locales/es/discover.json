@@ -2,46 +2,74 @@
   "title": "Descubrir Productos",
   "subtitle": "Encuentra productos seguros para ti",
   "search": {
-    "placeholder": "Buscar productos...",
+    "placeholder": "Buscar productos (ej., leche de almendras, pan sin gluten)...",
     "searching": "Buscando...",
-    "noResults": "No se encontraron productos",
-    "results": "resultados"
+    "button": "Buscar",
+    "noResults": "No se encontraron productos. ¡Prueba con otra búsqueda!",
+    "browseAll": "Explorar Todos los Productos (50+)"
   },
   "filters": {
     "title": "Filtros",
-    "clear": "Limpiar Todo",
-    "apply": "Aplicar Filtros",
+    "clear": "Limpiar",
     "category": "Categoría",
-    "dietary": "Dietético",
-    "allergens": "Alérgenos",
-    "glycemicIndex": "Índice Glicémico",
+    "avoidAllergens": "Evitar Alérgenos",
+    "maxCarbs": "Carbohidratos Máx. (g)",
+    "maxCarbsPlaceholder": "Deja vacío para sin límite",
     "categories": {
-      "all": "Todos los Productos",
-      "dairy": "Lácteos",
-      "proteins": "Proteínas",
-      "grains": "Granos",
-      "vegetables": "Verduras",
-      "fruits": "Frutas",
-      "snacks": "Meriendas"
-    },
-    "gi": {
-      "low": "IG Bajo (< 55)",
-      "medium": "IG Medio (55-70)",
-      "high": "IG Alto (> 70)"
+      "Dairy": "Lácteos",
+      "Produce": "Productos Frescos",
+      "Meat & Seafood": "Carnes y Mariscos",
+      "Bakery": "Panadería",
+      "Snacks": "Meriendas",
+      "Beverages": "Bebidas",
+      "Pantry": "Despensa",
+      "Frozen": "Congelados"
     }
   },
-  "product": {
-    "viewDetails": "Ver Detalles",
-    "addToList": "Añadir a Lista",
-    "nutrition": "Nutrición",
-    "ingredients": "Ingredientes",
-    "safeForYou": "Seguro para ti",
-    "checkAllergens": "Verificar alérgenos",
-    "contains": "Contiene"
+  "results": {
+    "found": "Se encontraron {{count}} productos",
+    "loading": "Buscando productos...",
+    "empty": {
+      "title": "¡Comienza a buscar productos que te gusten!",
+      "description": "Busca por nombre de producto, marca o ingrediente. Usa filtros para coincidir con tus necesidades dietéticas."
+    },
+    "noResults": "No se encontraron productos. ¡Prueba con otra búsqueda!"
   },
-  "browse": {
-    "all": "Explorar Todos los Productos",
-    "showing": "Mostrando",
-    "products": "productos"
+  "product": {
+    "safety": {
+      "safe": "Seguro",
+      "checkLabels": "Verifica Etiquetas",
+      "danger": "¡Peligro!"
+    },
+    "dangerWarning": "⚠️ ¡Contiene tus Alérgenos!",
+    "containsAllergens": "Este producto contiene: {{allergens}}",
+    "nutrition": {
+      "netCarbs": "Carbohidratos Netos",
+      "sugar": "Azúcar",
+      "protein": "Proteína",
+      "calories": "Calorías"
+    },
+    "contains": "Contiene:",
+    "allergens": {
+      "peanuts": "Cacahuetes",
+      "tree_nuts": "Frutos Secos",
+      "milk": "Leche",
+      "eggs": "Huevos",
+      "soy": "Soja",
+      "wheat": "Trigo",
+      "fish": "Pescado",
+      "shellfish": "Mariscos"
+    }
+  },
+  "errors": {
+    "search": "Por favor ingresa un término de búsqueda o selecciona filtros para explorar productos",
+    "searchFailed": "Error al buscar productos: {{message}}"
+  },
+  "badges": {
+    "gi": "GI",
+    "gl": "GL",
+    "netCarbs": "g",
+    "sugar": "g",
+    "protein": "g"
   }
 }

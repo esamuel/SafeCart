@@ -1,6 +1,7 @@
 {
   "title": "Scan Product",
   "subtitle": "Use your camera or enter barcode manually",
+  "infoTitle": "Tip:",
   "infoTip": "Camera access requires HTTPS on mobile devices. If camera doesn't work, you can always use manual barcode entry below - it works just as well!",
   "cameraError": {
     "notSupported": "Camera API not supported on this device. Please use manual entry below.",
@@ -26,6 +27,7 @@
     "scanning": "Scanning..."
   },
   "results": {
+    "na": "N/A",
     "productNotFound": "Product not found. Try another barcode.",
     "upc": "UPC",
     "nutrition": {
@@ -34,6 +36,10 @@
       "sugar": "Sugar",
       "glScore": "GL Score"
     },
+    "badges": {
+      "safe": "SAFE",
+      "check": "CHECK"
+    },
     "allergens": "Allergens",
     "actions": {
       "scanAnother": "Scan Another",
@@ -41,6 +47,7 @@
       "adding": "Adding..."
     },
     "addedSuccess": "✅ Product added to shopping list!",
-    "addedToNewList": "✅ Product added to your new shopping list!"
+    "addedToNewList": "✅ Product added to your new shopping list!",
+    "addedError": "Failed to add to shopping list: {{message}}"
   }
 }

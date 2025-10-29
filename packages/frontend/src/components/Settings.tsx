@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Settings as SettingsIcon, Eye, EyeOff, Save, Bell, Lock, Palette } from 'lucide-react'
 
 interface SettingsProps {
@@ -45,6 +46,7 @@ const TAB_INFO = [
 ]
 
 export default function Settings({ user, onNavigateToProfile }: SettingsProps) {
+  const { t } = useTranslation('settings')
   const [tabVisibility, setTabVisibility] = useState<TabVisibility>(DEFAULT_TABS)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
@@ -64,7 +66,8 @@ export default function Settings({ user, onNavigateToProfile }: SettingsProps) {
   const toggleTab = (tabId: keyof TabVisibility) => {
     // Prevent hiding home and profile tabs (required)
     if (tabId === 'home' || tabId === 'profile') {
-      alert(`${tabId === 'home' ? 'Home' : 'Profile'} tab is required and cannot be hidden`)
+      const tabName = tabId === 'home' ? t('navigation.tabNames.home') : t('navigation.tabNames.profile')
+      alert(t('navigation.alerts.requiredTab', { tab: tabName }))
       return
     }
 
@@ -93,7 +96,7 @@ export default function Settings({ user, onNavigateToProfile }: SettingsProps) {
   }
 
   const handleResetToDefault = () => {
-    if (confirm('Reset all tabs to default visibility?')) {
+    if (confirm(t('navigation.confirmation.reset'))) {
       setTabVisibility(DEFAULT_TABS)
       localStorage.removeItem('tabVisibility')
     }
@@ -107,23 +110,23 @@ export default function Settings({ user, onNavigateToProfile }: SettingsProps) {
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2">
           <SettingsIcon className="w-7 h-7" />
-          Settings
+          {t('title')}
         </h2>
-        <p className="text-gray-600">Customize your SafeCart experience</p>
+        <p className="text-gray-600">{t('subtitle')}</p>
       </div>
 
       {/* Tab Visibility Section */}
       <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h3 className="text-xl font-bold text-gray-900 mb-1">Navigation Tabs</h3>
+            <h3 className="text-xl font-bold text-gray-900 mb-1">{t('navigation.title')}</h3>
             <p className="text-sm text-gray-600">
-              Choose which tabs to show in the bottom navigation
+              {t('navigation.description')}
             </p>
           </div>
           <div className="text-right">
             <p className="text-2xl font-bold text-purple-600">{visibleCount}/{TAB_INFO.length}</p>
-            <p className="text-xs text-gray-500">visible</p>
+            <p className="text-xs text-gray-500">{t('navigation.visible')}</p>
           </div>
         </div>
 
@@ -146,14 +149,14 @@ export default function Settings({ user, onNavigateToProfile }: SettingsProps) {
                   <span className="text-3xl">{tab.emoji}</span>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <p className="font-bold text-gray-900">{tab.label}</p>
+                      <p className="font-bold text-gray-900">{t(`navigation.tabNames.${tab.id}`)}</p>
                       {isRequired && (
                         <span className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded-full font-semibold">
-                          Required
+                          {t('navigation.required')}
                         </span>
                       )}
                     </div>
-                    <p className="text-sm text-gray-600">{tab.description}</p>
+                    <p className="text-sm text-gray-600">{t(`navigation.tabDescriptions.${tab.id}`)}</p>
                   </div>
                 </div>
 
@@ -180,9 +183,7 @@ export default function Settings({ user, onNavigateToProfile }: SettingsProps) {
         {/* Info Box */}
         <div className="mt-6 bg-blue-50 border-2 border-blue-200 rounded-xl p-4">
           <p className="text-sm text-blue-800">
-            <strong>💡 Tip:</strong> Hide tabs you don't use to simplify your navigation.
-            You can always show them again later. The Analytics tab will always be accessible
-            from the "View Analytics" button on the Home page, even if hidden.
+            <strong>{t('navigation.tips.title')}</strong> {t('navigation.tips.text')}
           </p>
         </div>
 
@@ -194,13 +195,13 @@ export default function Settings({ user, onNavigateToProfile }: SettingsProps) {
             className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 px-6 rounded-xl font-bold transition flex items-center justify-center gap-2 disabled:opacity-50"
           >
             <Save className="w-5 h-5" />
-            {saving ? 'Saving...' : saved ? 'Saved!' : 'Save Changes'}
+            {saving ? t('buttons.saving') : saved ? t('buttons.saved') : t('buttons.save')}
           </button>
           <button
             onClick={handleResetToDefault}
             className="px-6 bg-gray-200 hover:bg-gray-300 text-gray-900 py-3 rounded-xl font-semibold transition"
           >
-            Reset to Default
+            {t('buttons.reset')}
           </button>
         </div>
       </div>
@@ -218,8 +219,8 @@ export default function Settings({ user, onNavigateToProfile }: SettingsProps) {
               <SettingsIcon className="w-6 h-6 text-purple-600" />
             </div>
             <div className="text-left">
-              <p className="font-bold text-gray-900">Your Profile</p>
-              <p className="text-sm text-gray-600">Manage health profile and personal info</p>
+              <p className="font-bold text-gray-900">{t('sections.profile.title')}</p>
+              <p className="text-sm text-gray-600">{t('sections.profile.description')}</p>
             </div>
           </div>
           <span className="text-gray-400">›</span>
@@ -233,8 +234,8 @@ export default function Settings({ user, onNavigateToProfile }: SettingsProps) {
               <Bell className="w-6 h-6 text-green-600" />
             </div>
             <div className="text-left">
-              <p className="font-bold text-gray-900">Notifications</p>
-              <p className="text-sm text-gray-600">Manage alerts and reminders</p>
+              <p className="font-bold text-gray-900">{t('sections.notifications.title')}</p>
+              <p className="text-sm text-gray-600">{t('sections.notifications.description')}</p>
             </div>
           </div>
           <span className="text-gray-400">›</span>
@@ -247,8 +248,8 @@ export default function Settings({ user, onNavigateToProfile }: SettingsProps) {
               <Lock className="w-6 h-6 text-blue-600" />
             </div>
             <div className="text-left">
-              <p className="font-bold text-gray-900">Privacy & Security</p>
-              <p className="text-sm text-gray-600">Control your data and permissions</p>
+              <p className="font-bold text-gray-900">{t('sections.privacy.title')}</p>
+              <p className="text-sm text-gray-600">{t('sections.privacy.description')}</p>
             </div>
           </div>
           <span className="text-gray-400">›</span>
@@ -261,8 +262,8 @@ export default function Settings({ user, onNavigateToProfile }: SettingsProps) {
               <Palette className="w-6 h-6 text-purple-600" />
             </div>
             <div className="text-left">
-              <p className="font-bold text-gray-900">Appearance</p>
-              <p className="text-sm text-gray-600">Theme, colors, and display options</p>
+              <p className="font-bold text-gray-900">{t('sections.appearance.title')}</p>
+              <p className="text-sm text-gray-600">{t('sections.appearance.description')}</p>
             </div>
           </div>
           <span className="text-gray-400">›</span>

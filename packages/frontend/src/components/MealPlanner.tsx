@@ -1,12 +1,14 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { recipesAPI, shoppingListsAPI, usersAPI } from '@/lib/api'
 import { auth } from '@/lib/firebase'
 import { Calendar, Plus, Loader, CheckCircle2, AlertCircle, ShoppingCart, RefreshCw, ChefHat } from 'lucide-react'
 import RecipeDetails from './RecipeDetails'
 
 export default function MealPlanner() {
+  const { t } = useTranslation('meals')
   const [mealPlan, setMealPlan] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [generating, setGenerating] = useState(false)
@@ -23,7 +25,7 @@ export default function MealPlanner() {
 
   const loadMealPlan = async () => {
     if (!user) {
-      setError('Please log in to view your meal plan')
+      setError(t('errors.loginRequired'))
       setLoading(false)
       return
     }
@@ -44,7 +46,7 @@ export default function MealPlanner() {
       setMealPlan(response.mealPlan)
     } catch (err: any) {
       console.error('Failed to load meal plan:', err)
-      setError(err.message || 'Failed to load meal plan')
+      setError(err.message || t('errors.loadFailed'))
     } finally {
       setLoading(false)
     }
@@ -56,13 +58,13 @@ export default function MealPlanner() {
       setSelectedRecipe(recipe)
     } catch (err: any) {
       console.error('Failed to load recipe details:', err)
-      alert('Failed to load recipe details')
+      alert(t('errors.recipeLoadFailed'))
     }
   }
 
   const handleGenerateShoppingList = async (recipe: any) => {
     if (!user) {
-      alert('Please log in to add to shopping list')
+      alert(t('errors.loginRequiredAddToList'))
       return
     }
 
@@ -78,8 +80,8 @@ export default function MealPlanner() {
         // Create a new list
         targetList = await shoppingListsAPI.create(
           user.uid,
-          'Recipe Ingredients - ' + new Date().toLocaleDateString(),
-          'Auto-generated from recipe'
+          t('shopping.newListName') + ' ' + new Date().toLocaleDateString(),
+          t('shopping.newListDescription')
         )
       } else {
         // Use first list
@@ -95,17 +97,17 @@ export default function MealPlanner() {
         })
       }
 
-      alert(`✅ Added ${shoppingListData.totalItems} items to your shopping list!`)
+      alert(t('shopping.itemsAddedSuccess', { count: shoppingListData.totalItems }))
       setSelectedRecipe(null)
     } catch (err: any) {
-      alert('Failed to add to shopping list: ' + err.message)
+      alert(t('shopping.itemsAddedError', { message: err.message }))
       console.error(err)
     }
   }
 
   const generateShoppingList = async () => {
     if (!user) {
-      alert('Please log in to generate a shopping list')
+      alert(t('shopping.loginRequiredGenerate'))
       return
     }
 
@@ -123,7 +125,7 @@ export default function MealPlanner() {
       })
 
       if (recipeIds.length === 0) {
-        alert('No recipes found in meal plan')
+        alert(t('errors.noRecipesFound'))
         return
       }
 
@@ -139,8 +141,8 @@ export default function MealPlanner() {
         // Create a new list
         targetList = await shoppingListsAPI.create(
           user.uid,
-          'Weekly Meal Plan - ' + new Date().toLocaleDateString(),
-          'Auto-generated from meal planner'
+          t('shopping.weeklyMealPlanName') + ' ' + new Date().toLocaleDateString(),
+          t('shopping.weeklyMealPlanDescription')
         )
       } else {
         // Use first list
@@ -156,9 +158,9 @@ export default function MealPlanner() {
         })
       }
 
-      alert(`✅ Added ${shoppingListData.totalItems} items to your shopping list!`)
+      alert(t('shopping.itemsAddedSuccess', { count: shoppingListData.totalItems }))
     } catch (err: any) {
-      alert('Failed to generate shopping list: ' + err.message)
+      alert(t('shopping.generateError', { message: err.message }))
       console.error(err)
     } finally {
       setGenerating(false)
@@ -182,7 +184,13 @@ export default function MealPlanner() {
   }
 
   const getMealTypeName = (mealType: string) => {
-    return mealType.charAt(0).toUpperCase() + mealType.slice(1)
+    const mealTypes: { [key: string]: string } = {
+      breakfast: t('mealPlan.mealTypes.breakfast'),
+      lunch: t('mealPlan.mealTypes.lunch'),
+      dinner: t('mealPlan.mealTypes.dinner'),
+      snack: t('mealPlan.mealTypes.snack'),
+    }
+    return mealTypes[mealType] || mealType.charAt(0).toUpperCase() + mealType.slice(1)
   }
 
   if (loading) {
@@ -190,7 +198,7 @@ export default function MealPlanner() {
       <div className="flex items-center justify-center h-96">
         <div className="text-center">
           <Loader className="w-8 h-8 animate-spin text-purple-600 mx-auto mb-2" />
-          <p className="text-gray-600">Loading your personalized meal plan...</p>
+          <p className="text-gray-600">{t('loading')}</p>
         </div>
       </div>
     )
@@ -201,13 +209,13 @@ export default function MealPlanner() {
       <div className="flex items-center justify-center h-96">
         <div className="text-center">
           <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-          <p className="text-red-600 font-semibold mb-2">Failed to load meal plan</p>
+          <p className="text-red-600 font-semibold mb-2">{t('errors.loadTitle')}</p>
           <p className="text-gray-600 mb-4">{error}</p>
           <button
             onClick={loadMealPlan}
             className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
           >
-            Try Again
+            {t('common:buttons.retry', { defaultValue: 'Try Again' })}
           </button>
         </div>
       </div>
@@ -229,15 +237,15 @@ export default function MealPlanner() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-3xl font-bold mb-2">Weekly Meal Plan</h2>
-            <p className="text-gray-600">Personalized for your dietary needs</p>
+            <h2 className="text-3xl font-bold mb-2">{t('title')}</h2>
+            <p className="text-gray-600">{t('subtitle')}</p>
           </div>
           <button
             onClick={loadMealPlan}
             className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition flex items-center gap-2"
           >
             <RefreshCw className="w-4 h-4" />
-            Refresh
+            {t('refresh')}
           </button>
         </div>
 
@@ -246,11 +254,11 @@ export default function MealPlanner() {
         <div className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-6 rounded-2xl mb-8 shadow-lg">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-sm opacity-90 mb-1">Daily Carb Budget</div>
+              <div className="text-sm opacity-90 mb-1">{t('mealPlan.carbBudget')}</div>
               <div className="text-3xl font-bold">{carbBudget}g</div>
             </div>
             <div className="text-right">
-              <div className="text-sm opacity-90 mb-1">Avg Per Meal</div>
+              <div className="text-sm opacity-90 mb-1">{t('mealPlan.avgPerMeal')}</div>
               <div className="text-3xl font-bold">{Math.round(carbBudget / 3)}g</div>
             </div>
           </div>
@@ -269,9 +277,9 @@ export default function MealPlanner() {
                   <p className="text-sm opacity-90">{new Date(day.date).toLocaleDateString()}</p>
                 </div>
                 <div className="text-right">
-                  <div className="text-sm opacity-90">Total Carbs</div>
+                  <div className="text-sm opacity-90">{t('mealPlan.totalCarbs')}</div>
                   <div className="text-2xl font-bold">{day.dailyNutrition?.totalCarbs || 0}g</div>
-                  <div className="text-xs opacity-75">{day.dailyNutrition?.percentOfLimit || 0}% of limit</div>
+                  <div className="text-xs opacity-75">{t('mealPlan.percentOfLimit', { percent: day.dailyNutrition?.percentOfLimit || 0 })}</div>
                 </div>
               </div>
             </div>
@@ -314,23 +322,23 @@ export default function MealPlanner() {
 
                         {/* Time & Difficulty */}
                         <div className="flex items-center gap-3 text-xs text-gray-600">
-                          <span>⏱️ {meal.prepTime + meal.cookTime} min</span>
+                          <span>⏱️ {meal.prepTime + meal.cookTime} {t('recipes.details.minutes', { defaultValue: 'minutes' })}</span>
                           <span>👨‍🍳 {meal.difficulty}</span>
-                          <span>🍽️ {meal.servings} serving{meal.servings > 1 ? 's' : ''}</span>
+                          <span>🍽️ {t('mealPlan.servings', { count: meal.servings })}</span>
                         </div>
                       </div>
 
                       {/* Nutrition Info */}
                       <div className="text-right ml-4">
-                        <div className="text-sm font-semibold text-purple-600">Net Carbs</div>
+                        <div className="text-sm font-semibold text-purple-600">{t('recipes.details.carbs', { defaultValue: 'Carbs' })}</div>
                         <div className="text-3xl font-bold text-purple-600">
                           {meal.nutrition?.netCarbs || 0}g
                         </div>
                         <div className="text-xs text-gray-500 mt-1">
-                          {meal.nutrition?.calories || 0} cal
+                          {meal.nutrition?.calories || 0} {t('recipes.details.calories', { defaultValue: 'cal' })}
                         </div>
                         <div className="text-xs text-gray-500">
-                          {meal.nutrition?.protein || 0}g protein
+                          {meal.nutrition?.protein || 0}g {t('recipes.details.protein', { defaultValue: 'protein' })}
                         </div>
                       </div>
                     </div>
@@ -351,12 +359,12 @@ export default function MealPlanner() {
         {generating ? (
           <>
             <Loader className="w-6 h-6 animate-spin" />
-            Generating Shopping List...
+            {t('shopping.generating')}
           </>
         ) : (
           <>
             <ShoppingCart className="w-6 h-6" />
-            Generate Shopping List from Meal Plan
+            {t('shopping.generateList')}
           </>
         )}
       </button>
@@ -366,13 +374,13 @@ export default function MealPlanner() {
         <div className="flex items-start gap-3">
           <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
           <div>
-            <h3 className="font-bold text-blue-900 mb-2">Your Personalized Plan:</h3>
+            <h3 className="font-bold text-blue-900 mb-2">{t('personalizedPlan.title')}</h3>
             <ul className="text-sm text-blue-800 space-y-1">
-              <li>✓ All meals filtered for your allergens: {userAllergies.join(', ') || 'None'}</li>
-              <li>✓ Daily carb budget: {carbBudget}g</li>
-              <li>✓ {mealPlan.length} days of diabetes-friendly meals planned</li>
-              <li>✓ Smart recipes with excellent carb quality</li>
-              <li>✓ Auto-generate shopping list with all ingredients</li>
+              <li>✓ {t('personalizedPlan.allergensFiltered', { allergens: userAllergies.join(', ') || t('personalizedPlan.none') })}</li>
+              <li>✓ {t('personalizedPlan.carbBudget', { budget: carbBudget })}</li>
+              <li>✓ {t('personalizedPlan.daysPlanned', { days: mealPlan.length })}</li>
+              <li>✓ {t('personalizedPlan.smartRecipes')}</li>
+              <li>✓ {t('personalizedPlan.autoGenerate')}</li>
             </ul>
           </div>
           </div>

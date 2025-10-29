@@ -185,19 +185,21 @@ router.get('/dashboard/:userId', async (req, res) => {
       }
     }
 
-    // Generate insights
+    // Generate insights (with translation keys instead of full messages)
     const insights = []
 
     if (safetyScore === 100) {
       insights.push({
         type: 'success',
-        message: `Perfect safety score! All ${totalItems} items are safe for you.`,
+        translationKey: 'insights.perfectSafety',
+        params: { count: totalItems },
         icon: '✅'
       })
     } else if (dangerousItems > 0) {
       insights.push({
         type: 'warning',
-        message: `${dangerousItems} dangerous items detected! Check allergen warnings carefully.`,
+        translationKey: 'insights.dangerousDetected',
+        params: { count: dangerousItems },
         icon: '⚠️'
       })
     }
@@ -205,7 +207,8 @@ router.get('/dashboard/:userId', async (req, res) => {
     if (currentStreak >= 7) {
       insights.push({
         type: 'achievement',
-        message: `Amazing! ${currentStreak}-day streak of allergen-safe shopping!`,
+        translationKey: 'insights.streakAchievement',
+        params: { days: currentStreak },
         icon: '🔥'
       })
     }
@@ -213,13 +216,15 @@ router.get('/dashboard/:userId', async (req, res) => {
     if (carbBudgetAdherence >= 90) {
       insights.push({
         type: 'success',
-        message: `Great carb control! You're staying within your budget.`,
+        translationKey: 'insights.greatCarbControl',
+        params: {},
         icon: '💪'
       })
     } else if (avgDailyCarbs > dailyCarbLimit) {
       insights.push({
         type: 'tip',
-        message: `Consider reducing carbs by ${Math.round(avgDailyCarbs - dailyCarbLimit)}g per day.`,
+        translationKey: 'insights.reduceCarbsTip',
+        params: { amount: Math.round(avgDailyCarbs - dailyCarbLimit) },
         icon: '💡'
       })
     }
@@ -227,7 +232,8 @@ router.get('/dashboard/:userId', async (req, res) => {
     if (mealsCount < parseInt(days) * 2) {
       insights.push({
         type: 'tip',
-        message: 'Try the Meal Planner to get personalized diabetes-friendly recipes!',
+        translationKey: 'insights.tryMealPlanner',
+        params: {},
         icon: '🍽️'
       })
     }

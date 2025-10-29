@@ -13,6 +13,8 @@
   "list": {
     "items": "פריטים",
     "noItems": "אין פריטים עדיין",
+    "itemsRemaining": "נותרו {{count}} פריטים",
+    "summaryCompleted": "{{completed}} מתוך {{total}} פריטים הושלמו",
     "addItem": "הוסף פריט",
     "deleteList": "מחק רשימה",
     "shareList": "שתף רשימה"
@@ -58,5 +60,20 @@
     "itemRemoved": "פריט הוסר",
     "itemChecked": "פריט סומן כנרכש",
     "itemUnchecked": "פריט סומן כלא נרכש"
+  },
+  "loading": "טוען רשימות קניות...",
+  "errors": {
+    "load": "נכשל בטעינת רשימות הקניות",
+    "createList": "נכשל ביצירת רשימה",
+    "addItem": "נכשל בהוספת פריט",
+    "updateItem": "נכשל בעדכון פריט",
+    "deleteItem": "נכשל במחיקת פריט",
+    "updateQuantity": "נכשל בעדכון כמות",
+    "deleteList": "נכשל במחיקת רשימה"
+  },
+  "safety": {
+    "safeForYou": "בטוח עבורך",
+    "unknown": "מוצר לא נמצא במסד הנתונים",
+    "checking": "בודק..."
   }
 }

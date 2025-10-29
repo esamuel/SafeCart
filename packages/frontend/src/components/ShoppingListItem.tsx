@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Check, Trash2, AlertCircle, CheckCircle2 } from 'lucide-react'
 import { productsAPI, usersAPI } from '@/lib/api'
 import { auth } from '@/lib/firebase'
@@ -20,6 +21,7 @@ export default function ShoppingListItem({
   onDelete,
   onUpdateQuantity,
 }: ShoppingListItemProps) {
+  const { t } = useTranslation('shopping')
   const [safety, setSafety] = useState<'safe' | 'danger' | 'unknown' | 'checking'>('checking')
   const [allergens, setAllergens] = useState<string[]>([])
   
@@ -92,10 +94,10 @@ export default function ShoppingListItem({
   }
 
   const getSafetyLabel = () => {
-    if (safety === 'safe') return 'Safe to consume'
-    if (safety === 'danger') return `⚠️ Contains: ${allergens.join(', ')}`
-    if (safety === 'unknown') return 'Product not found in database'
-    return 'Checking...'
+    if (safety === 'safe') return t('safety.safeForYou', { defaultValue: 'Safe for you' })
+    if (safety === 'danger') return `⚠️ ${t('allergenWarning.contains')}: ${allergens.join(', ')}`
+    if (safety === 'unknown') return t('safety.unknown', { defaultValue: 'Product not found in database' })
+    return t('safety.checking', { defaultValue: 'Checking...' })
   }
 
   return (
@@ -133,7 +135,7 @@ export default function ShoppingListItem({
           </p>
           {safety === 'danger' && (
             <span className="bg-red-100 text-red-700 px-2 py-0.5 rounded text-xs font-semibold">
-              ⚠️ ALLERGEN ALERT
+              ⚠️ {t('allergenWarning.title')}
             </span>
           )}
         </div>

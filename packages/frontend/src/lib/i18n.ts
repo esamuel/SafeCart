@@ -46,6 +46,10 @@ import enDashboard from '../../public/locales/en/dashboard.json'
 import heDashboard from '../../public/locales/he/dashboard.json'
 import esDashboard from '../../public/locales/es/dashboard.json'
 
+import enAuth from '../../public/locales/en/auth.json'
+import heAuth from '../../public/locales/he/auth.json'
+import esAuth from '../../public/locales/es/auth.json'
+
 const resources = {
   en: {
     common: enCommon,
@@ -59,6 +63,7 @@ const resources = {
     inventory: enInventory,
     community: enCommunity,
     dashboard: enDashboard,
+    auth: enAuth,
   },
   he: {
     common: heCommon,
@@ -72,6 +77,7 @@ const resources = {
     inventory: heInventory,
     community: heCommunity,
     dashboard: heDashboard,
+    auth: heAuth,
   },
   es: {
     common: esCommon,
@@ -85,6 +91,7 @@ const resources = {
     inventory: esInventory,
     community: esCommunity,
     dashboard: esDashboard,
+    auth: esAuth,
   },
 }
 

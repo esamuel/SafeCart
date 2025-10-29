@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import '@/lib/i18n'
 import { usersAPI } from '@/lib/api'
 import { auth } from '@/lib/firebase'
 import { ChevronRight, AlertCircle } from 'lucide-react'
@@ -20,6 +22,7 @@ const ALLERGENS = [
 const DIABETES_TYPES = ['Type 1', 'Type 2', 'Prediabetes', 'Gestational']
 
 export default function Onboarding({ onComplete }: any) {
+  const { t } = useTranslation('profile')
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -82,8 +85,8 @@ export default function Onboarding({ onComplete }: any) {
       <div className="max-w-2xl w-full">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Welcome to SafeCart!</h1>
-          <p className="text-purple-100">Step {step} of 3: Let's set up your health profile</p>
+          <h1 className="text-4xl font-bold text-white mb-2">{t('onboarding.welcome')}!</h1>
+          <p className="text-purple-100">{t('onboarding.step')} {step} {t('onboarding.of')} 3: {t('onboarding.subtitle')}</p>
         </div>
 
         {error && (
@@ -97,11 +100,11 @@ export default function Onboarding({ onComplete }: any) {
           {/* Step 1: Personal Information */}
           {step === 1 && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-gray-900">Personal Information</h2>
+              <h2 className="text-2xl font-bold text-gray-900">{t('personalInfo.title')}</h2>
 
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Name
+                  {t('personalInfo.name')}
                 </label>
                 <input
                   type="text"
@@ -109,7 +112,7 @@ export default function Onboarding({ onComplete }: any) {
                   onChange={e =>
                     setFormData({ ...formData, displayName: e.target.value })
                   }
-                  placeholder="Your name"
+                  placeholder={t('basicInfo.displayNamePlaceholder')}
                   className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none"
                 />
               </div>
@@ -117,37 +120,37 @@ export default function Onboarding({ onComplete }: any) {
               <div className="grid grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Age
+                    {t('personalInfo.age')}
                   </label>
                   <input
                     type="number"
                     value={formData.age}
                     onChange={e => setFormData({ ...formData, age: e.target.value })}
-                    placeholder="25"
+                    placeholder={t('personalInfo.agePlaceholder')}
                     className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Height (cm)
+                    {t('personalInfo.height')}
                   </label>
                   <input
                     type="number"
                     value={formData.height}
                     onChange={e => setFormData({ ...formData, height: e.target.value })}
-                    placeholder="170"
+                    placeholder={t('personalInfo.heightPlaceholder')}
                     className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Weight (kg)
+                    {t('personalInfo.weight')}
                   </label>
                   <input
                     type="number"
                     value={formData.weight}
                     onChange={e => setFormData({ ...formData, weight: e.target.value })}
-                    placeholder="70"
+                    placeholder={t('personalInfo.weightPlaceholder')}
                     className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none"
                   />
                 </div>
@@ -158,7 +161,7 @@ export default function Onboarding({ onComplete }: any) {
                 disabled={!formData.displayName || !formData.age || !formData.height || !formData.weight}
                 className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-gray-400 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition"
               >
-                Next <ChevronRight className="w-5 h-5" />
+                {t('onboarding.next')} <ChevronRight className="w-5 h-5" />
               </button>
             </div>
           )}
@@ -166,11 +169,11 @@ export default function Onboarding({ onComplete }: any) {
           {/* Step 2: Diabetes Information */}
           {step === 2 && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-gray-900">Diabetes Information</h2>
+              <h2 className="text-2xl font-bold text-gray-900">{t('diabetes.title')}</h2>
 
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Diabetes Type
+                  {t('healthProfile.diabetesType')}
                 </label>
                 <select
                   value={formData.diabetesType}
@@ -181,7 +184,7 @@ export default function Onboarding({ onComplete }: any) {
                 >
                   {DIABETES_TYPES.map(type => (
                     <option key={type} value={type}>
-                      {type}
+                      {t(`healthProfile.types.${type}`)}
                     </option>
                   ))}
                 </select>
@@ -190,7 +193,7 @@ export default function Onboarding({ onComplete }: any) {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Target Glucose Min (mg/dL)
+                    {t('diabetes.min')}
                   </label>
                   <input
                     type="number"
@@ -203,7 +206,7 @@ export default function Onboarding({ onComplete }: any) {
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Target Glucose Max (mg/dL)
+                    {t('diabetes.max')}
                   </label>
                   <input
                     type="number"
@@ -218,7 +221,7 @@ export default function Onboarding({ onComplete }: any) {
 
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Daily Carb Limit (g)
+                  {t('diabetes.dailyCarbLimit')}
                 </label>
                 <input
                   type="number"
@@ -239,7 +242,7 @@ export default function Onboarding({ onComplete }: any) {
                   className="w-5 h-5 text-purple-600 rounded"
                 />
                 <label htmlFor="insulin" className="text-gray-700 font-medium">
-                  I use insulin
+                  {t('healthProfile.usesInsulin')}
                 </label>
               </div>
 
@@ -248,13 +251,13 @@ export default function Onboarding({ onComplete }: any) {
                   onClick={() => setStep(1)}
                   className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-900 py-3 rounded-lg font-semibold transition"
                 >
-                  Back
+                  {t('onboarding.previous')}
                 </button>
                 <button
                   onClick={() => setStep(3)}
                   className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition"
                 >
-                  Next <ChevronRight className="w-5 h-5" />
+                  {t('onboarding.next')} <ChevronRight className="w-5 h-5" />
                 </button>
               </div>
             </div>
@@ -263,23 +266,39 @@ export default function Onboarding({ onComplete }: any) {
           {/* Step 3: Allergies */}
           {step === 3 && (
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-gray-900">Food Allergies</h2>
-              <p className="text-gray-600">Select all your allergies. You can update this later.</p>
+              <h2 className="text-2xl font-bold text-gray-900">{t('allergiesSection.title')}</h2>
+              <p className="text-gray-600">{t('allergiesSection.selectAllergies')}</p>
 
               <div className="grid grid-cols-2 gap-3">
-                {ALLERGENS.map(allergen => (
-                  <button
-                    key={allergen}
-                    onClick={() => handleAllergenToggle(allergen)}
-                    className={`p-4 rounded-lg font-medium transition border-2 ${
-                      formData.allergies.includes(allergen)
-                        ? 'border-purple-600 bg-purple-50 text-purple-900'
-                        : 'border-gray-300 bg-gray-50 text-gray-700 hover:border-purple-400'
-                    }`}
-                  >
-                    {formData.allergies.includes(allergen) ? '✓ ' : ''}{allergen}
-                  </button>
-                ))}
+                {ALLERGENS.map(allergen => {
+                  // Map allergen names to translation keys
+                  const allergenKeyMap: { [key: string]: string } = {
+                    'Peanuts': 'peanuts',
+                    'Tree Nuts': 'treeNuts',
+                    'Milk': 'milk',
+                    'Eggs': 'eggs',
+                    'Soy': 'soy',
+                    'Wheat': 'wheat',
+                    'Fish': 'fish',
+                    'Shellfish': 'shellfish',
+                    'Sesame': 'sesame',
+                  }
+                  const translatedAllergen = t(`allergiesSection.common.${allergenKeyMap[allergen]}`)
+
+                  return (
+                    <button
+                      key={allergen}
+                      onClick={() => handleAllergenToggle(allergen)}
+                      className={`p-4 rounded-lg font-medium transition border-2 ${
+                        formData.allergies.includes(allergen)
+                          ? 'border-purple-600 bg-purple-50 text-purple-900'
+                          : 'border-gray-300 bg-gray-50 text-gray-700 hover:border-purple-400'
+                      }`}
+                    >
+                      {formData.allergies.includes(allergen) ? '✓ ' : ''}{translatedAllergen}
+                    </button>
+                  )
+                })}
               </div>
 
               <div className="flex gap-3">
@@ -287,14 +306,14 @@ export default function Onboarding({ onComplete }: any) {
                   onClick={() => setStep(2)}
                   className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-900 py-3 rounded-lg font-semibold transition"
                 >
-                  Back
+                  {t('onboarding.previous')}
                 </button>
                 <button
                   onClick={handleSubmit}
                   disabled={loading}
                   className="flex-1 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white py-3 rounded-lg font-semibold transition"
                 >
-                  {loading ? 'Saving...' : 'Complete Setup'}
+                  {loading ? t('buttons.saving') : t('onboarding.finish')}
                 </button>
               </div>
             </div>

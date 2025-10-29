@@ -1,21 +1,66 @@
 {
-  "welcome": "Welcome back",
-  "quickStats": {
-    "title": "Quick Stats",
-    "shoppingItems": "Shopping Items",
-    "safeProducts": "Safe Products",
-    "mealsPlanned": "Meals Planned",
-    "avgGI": "Avg GI"
+  "title": "Health Dashboard",
+  "subtitle": "Your personalized health insights",
+  "loading": "Loading your health insights...",
+  "noData": "No analytics data available yet.",
+  "noDataSubtitle": "Start using SafeCart to see your health insights!",
+  "period": {
+    "7d": "7d",
+    "14d": "14d",
+    "30d": "30d"
   },
-  "quickActions": {
-    "title": "Quick Actions",
-    "scanProduct": "Scan Product",
-    "viewLists": "View Lists",
-    "planMeals": "Plan Meals",
-    "discover": "Discover"
+  "stats": {
+    "safetyScore": "Safety Score",
+    "safeItems": "safe",
+    "totalItems": "total items",
+    "safeStreak": "Safe Streak",
+    "streakDays": "{{days}} days allergen-free!",
+    "streakStart": "Start your streak today!",
+    "carbControl": "Carb Control",
+    "avgDaily": "Avg {{carbs}}g / {{limit}}g daily",
+    "dangersAvoided": "Dangers Avoided",
+    "dangersFlagged": "Items flagged with allergen warnings"
+  },
+  "analytics": {
+    "wantMore": "Want More Insights?",
+    "wantMoreDesc": "View detailed analytics, trends, AI recommendations, and track your progress over time",
+    "viewAnalytics": "View Analytics"
+  },
+  "nutrition": {
+    "title": "Daily Nutrition Tracking",
+    "carbs": "Carbs:",
+    "protein": "Protein:",
+    "carbsGoal": "Carbs (goal: {{limit}}g)",
+    "proteinGoal": "Protein (goal: ~100g)"
+  },
+  "nutritionAverages": {
+    "title": "Nutrition Averages",
+    "dailyCarbs": "Daily Carbs",
+    "dailyProtein": "Daily Protein",
+    "dailyCalories": "Daily Calories",
+    "mealsTracked": "Meals Tracked"
+  },
+  "shopping": {
+    "title": "Shopping Activity",
+    "totalLists": "Total Lists",
+    "itemsAdded": "Items Added",
+    "completed": "Completed",
+    "completionRate": "Completion Rate"
+  },
+  "achievements": {
+    "title": "Achievements",
+    "perfectSafety": "Perfect Safety Record",
+    "weekStreak": "Week-Long Safe Streak",
+    "carbMaster": "Carb Control Master",
+    "activeShopper": "Active Shopper",
+    "keepGoing": "Keep using SafeCart to unlock achievements!"
   },
   "insights": {
-    "title": "Today's Insights",
-    "viewAnalytics": "View Detailed Analytics"
+    "perfectSafety": "Perfect safety score! All {{count}} items are safe for you.",
+    "dangerousDetected": "{{count}} dangerous items detected! Check allergen warnings carefully.",
+    "streakAchievement": "Amazing! {{days}}-day streak of allergen-safe shopping!",
+    "greatCarbControl": "Great carb control! You're staying within your budget.",
+    "reduceCarbsTip": "Consider reducing carbs by {{amount}}g per day.",
+    "tryMealPlanner": "Try the Meal Planner to get personalized diabetes-friendly recipes!"
   }
 }

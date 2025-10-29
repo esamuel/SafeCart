@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { productsAPI, usersAPI } from '@/lib/api'
 import { auth } from '@/lib/firebase'
 import { Search, Filter, Loader, AlertCircle, Heart, CheckCircle2 } from 'lucide-react'
@@ -28,6 +29,7 @@ const CATEGORIES = [
 ]
 
 export default function ProductDiscovery() {
+  const { t } = useTranslation('discover')
   const [searchQuery, setSearchQuery] = useState('')
   const [products, setProducts] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
@@ -183,13 +185,13 @@ export default function ProductDiscovery() {
     <div className="max-w-6xl mx-auto">
       <div className="flex items-center gap-3 mb-6">
         <Search className="w-8 h-8 text-purple-600" />
-        <h2 className="text-3xl font-bold">Product Discovery</h2>
+        <h2 className="text-3xl font-bold">{t('title')}</h2>
       </div>
 
       {error && (
         <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6 flex items-start gap-3">
           <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-          <p className="text-red-700">{error}</p>
+          <p className="text-red-700">{t('errors.search', { defaultValue: error })}</p>
         </div>
       )}
 
@@ -201,7 +203,7 @@ export default function ProductDiscovery() {
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             onKeyPress={e => e.key === 'Enter' && handleSearch()}
-            placeholder="Search products (e.g., almond milk, gluten-free bread)..."
+            placeholder={t('search.placeholder')}
             className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none"
           />
           <button
@@ -212,12 +214,12 @@ export default function ProductDiscovery() {
             {loading ? (
               <>
                 <Loader className="w-5 h-5 animate-spin" />
-                Searching...
+                {t('search.searching')}
               </>
             ) : (
               <>
                 <Search className="w-5 h-5" />
-                Search
+                {t('search.button')}
               </>
             )}
           </button>
@@ -226,14 +228,14 @@ export default function ProductDiscovery() {
             className="border-2 border-gray-300 hover:border-purple-600 text-gray-700 hover:text-purple-600 px-4 py-3 rounded-lg font-semibold flex items-center gap-2 transition"
           >
             <Filter className="w-5 h-5" />
-            Filters
+            {t('filters.title')}
           </button>
           {(searchQuery || selectedCategory || selectedAllergens.length > 0 || maxCarbs || products.length > 0) && (
             <button
               onClick={clearFilters}
               className="border-2 border-red-300 hover:border-red-600 text-red-600 hover:bg-red-50 px-4 py-3 rounded-lg font-semibold transition"
             >
-              Clear
+              {t('filters.clear')}
             </button>
           )}
         </div>

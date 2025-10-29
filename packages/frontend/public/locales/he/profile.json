@@ -1,6 +1,72 @@
 {
   "title": "פרופיל בריאות",
   "subtitle": "נהל את המידע הבריאותי שלך",
+  "profileTitle": "משתמש",
+  "personalInfo": {
+    "title": "מידע אישי",
+    "displayName": "שם תצוגה",
+    "displayNamePlaceholder": "השם המועדף שלך",
+    "age": "גיל",
+    "agePlaceholder": "25",
+    "height": "גובה (ס\"מ)",
+    "heightPlaceholder": "170",
+    "weight": "משקל (ק\"ג)",
+    "weightPlaceholder": "70",
+    "name": "שם",
+    "ageUnit": "שנים",
+    "heightUnit": "ס\"מ",
+    "weightUnit": "ק\"ג",
+    "noInfo": "עדיין לא נוסף מידע אישי"
+  },
+  "healthProfile": {
+    "title": "פרופיל בריאות",
+    "diabetesType": "סוג סוכרת",
+    "types": {
+      "Type 1": "סוג 1",
+      "Type 2": "סוג 2",
+      "Prediabetes": "פרה-סוכרת",
+      "Gestational": "הריונית",
+      "No Diabetes": "ללא סוכרת"
+    },
+    "targetGlucose": "טווח גלוקוז יעד (mg/dL)",
+    "min": "מינימום",
+    "max": "מקסימום",
+    "to": "עד",
+    "dailyCarbLimit": "מגבלת פחמימות יומית (גרם)",
+    "dailyCarbPlaceholder": "200",
+    "usesInsulin": "אני משתמש באינסולין",
+    "yes": "כן",
+    "no": "לא",
+    "targetGlucoseDisplay": "גלוקוז יעד",
+    "dailyCarbDisplay": "מגבלת פחמימות יומית",
+    "insulinUse": "שימוש באינסולין"
+  },
+  "allergies": {
+    "title": "אלרגיות ואי סבילות",
+    "selectAll": "בחר את כל הרלוונטיות:",
+    "noneSpecified": "לא צוינו אלרגיות"
+  },
+  "settings": {
+    "notifications": "הגדרות התראות",
+    "privacy": "פרטיות ואבטחה",
+    "logout": "התנתק"
+  },
+  "buttons": {
+    "edit": "ערוך",
+    "save": "שמור שינויים",
+    "saving": "שומר...",
+    "cancel": "בטל"
+  },
+  "profile": {
+    "edit": "ערוך",
+    "save": "שמור שינויים",
+    "saving": "שומר...",
+    "saved": "הפרופיל נשמר בהצלחה!",
+    "error": "שמירת הפרופיל נכשלה"
+  },
+  "errors": {
+    "noUser": "לא מחובר. אנא התחבר."
+  },
   "onboarding": {
     "welcome": "ברוכים הבאים ל-SafeCart",
     "subtitle": "בואו נגדיר את פרופיל הבריאות שלך",
@@ -40,7 +106,7 @@
     "yes": "כן",
     "no": "לא"
   },
-  "allergies": {
+  "allergiesSection": {
     "title": "אלרגיות והגבלות תזונתיות",
     "selectAllergies": "בחר את האלרגיות שלך",
     "common": {
@@ -60,12 +126,5 @@
       "kosher": "כשר",
       "halal": "חלאל"
     }
-  },
-  "profile": {
-    "edit": "ערוך פרופיל",
-    "save": "שמור שינויים",
-    "saving": "שומר...",
-    "saved": "הפרופיל נשמר בהצלחה!",
-    "error": "שמירת הפרופיל נכשלה"
   }
 }

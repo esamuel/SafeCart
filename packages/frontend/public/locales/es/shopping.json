@@ -13,6 +13,8 @@
   "list": {
     "items": "artículos",
     "noItems": "Aún no hay artículos",
+    "itemsRemaining": "Quedan {{count}} artículos",
+    "summaryCompleted": "{{completed}} de {{total}} artículos completados",
     "addItem": "Añadir Artículo",
     "deleteList": "Eliminar Lista",
     "shareList": "Compartir Lista"
@@ -58,5 +60,20 @@
     "itemRemoved": "Artículo eliminado",
     "itemChecked": "Artículo marcado como comprado",
     "itemUnchecked": "Artículo marcado como no comprado"
+  },
+  "loading": "Cargando listas de compras...",
+  "errors": {
+    "load": "Error al cargar las listas de compras",
+    "createList": "Error al crear la lista",
+    "addItem": "Error al añadir el artículo",
+    "updateItem": "Error al actualizar el artículo",
+    "deleteItem": "Error al eliminar el artículo",
+    "updateQuantity": "Error al actualizar la cantidad",
+    "deleteList": "Error al eliminar la lista"
+  },
+  "safety": {
+    "safeForYou": "Seguro para ti",
+    "unknown": "Producto no encontrado en la base de datos",
+    "checking": "Comprobando..."
   }
 }

@@ -1,6 +1,8 @@
 {
   "title": "תכנון ארוחות",
   "subtitle": "תכנן את הארוחות שלך לשבוע",
+  "refresh": "רענן",
+  "loading": "טוען את תוכנית הארוחות האישית שלך...",
   "tabs": {
     "mealPlan": "תוכנית ארוחות",
     "recipes": "מתכונים"
@@ -13,6 +15,11 @@
     "swap": "החלף מתכון",
     "addToList": "הוסף לרשימת קניות",
     "carbBudget": "תקציב פחמימות יומי",
+    "avgPerMeal": "ממוצע לארוחה",
+    "totalCarbs": "סך פחמימות",
+    "percentOfLimit": "{{percent}}% מהגבול",
+    "servings": "{{count}} מנה",
+    "servings_plural": "{{count}} מנות",
     "carbsConsumed": "פחמימות שנצרכו",
     "remaining": "נותר",
     "dayOfWeek": {
@@ -62,8 +69,24 @@
   "shopping": {
     "generateList": "צור רשימת קניות מתוכנית הארוחות",
     "generating": "יוצר רשימת קניות...",
+    "newListName": "מרכיבי מתכון",
+    "newListDescription": "נוצר אוטומטית ממתכון",
+    "weeklyMealPlanName": "תוכנית ארוחות שבועית",
+    "weeklyMealPlanDescription": "נוצר אוטומטית מתכנון ארוחות",
+    "itemsAddedSuccess": "✅ נוספו {{count}} פריטים לרשימת הקניות שלך!",
+    "itemsAddedError": "נכשל בהוספה לרשימת הקניות: {{message}}",
+    "generateError": "יצירת רשימת קניות נכשלה: {{message}}",
+    "loginRequiredGenerate": "אנא התחבר כדי ליצור רשימת קניות",
     "success": "רשימת קניות נוצרה בהצלחה!",
     "error": "יצירת רשימת קניות נכשלה"
+  },
+  "errors": {
+    "loginRequired": "אנא התחבר כדי לצפות בתוכנית הארוחות שלך",
+    "loadFailed": "טעינת תוכנית הארוחות נכשלה",
+    "loadTitle": "טעינת תוכנית הארוחות נכשלה",
+    "recipeLoadFailed": "טעינת פרטי המתכון נכשלה",
+    "noRecipesFound": "לא נמצאו מתכונים בתוכנית הארוחות",
+    "loginRequiredAddToList": "אנא התחבר כדי להוסיף לרשימת הקניות"
   },
   "messages": {
     "planGenerated": "תוכנית ארוחות ל-7 ימים נוצרה!",
@@ -71,5 +94,14 @@
     "addedToList": "המרכיבים נוספו לרשימת הקניות",
     "noRecipes": "לא נמצאו מתכונים",
     "loadingRecipes": "טוען מתכונים..."
+  },
+  "personalizedPlan": {
+    "title": "התוכנית האישית שלך:",
+    "allergensFiltered": "כל הארוחות מסוננות לפי האלרגנים שלך: {{allergens}}",
+    "carbBudget": "תקציב פחמימות יומי: {{budget}}גרם",
+    "daysPlanned": "{{days}} ימים של ארוחות מתאימות לסוכרת מתוכננות",
+    "smartRecipes": "מתכונים חכמים עם איכות פחמימות מעולה",
+    "autoGenerate": "צור אוטומטית רשימת קניות עם כל המרכיבים",
+    "none": "אין"
   }
 }

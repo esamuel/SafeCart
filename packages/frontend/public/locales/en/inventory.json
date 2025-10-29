@@ -1,6 +1,74 @@
 {
-  "title": "Inventory",
+  "title": "My Inventory",
   "subtitle": "Track your pantry items",
-  "coming": "Coming Soon",
-  "description": "Inventory management feature is under development"
+  "loading": "Loading inventory...",
+  "buttons": {
+    "quickScan": "Quick Scan",
+    "addItem": "Add Item"
+  },
+  "stats": {
+    "totalItems": "Total Items",
+    "expiringSoon": "Expiring Soon",
+    "expired": "Expired",
+    "lowStock": "Low Stock"
+  },
+  "search": {
+    "placeholder": "Search inventory..."
+  },
+  "filters": {
+    "all": "All",
+    "locations": {
+      "pantry": "Pantry",
+      "fridge": "Fridge",
+      "freezer": "Freezer",
+      "other": "Other"
+    }
+  },
+  "empty": {
+    "title": "No items in inventory",
+    "description": "Start by scanning barcodes or adding items manually",
+    "action": "Start Quick Scan Mode"
+  },
+  "badges": {
+    "lowStock": "Low Stock"
+  },
+  "status": {
+    "noExpiration": "No expiration",
+    "expired": "Expired",
+    "expiresToday": "Expires today!",
+    "expiresTomorrow": "Expires tomorrow",
+    "daysLeft": "{{count}} days left",
+    "daysRemaining": "{{count}} days",
+    "fresh": "Fresh"
+  },
+  "delete": {
+    "confirm": "Remove this item from inventory?",
+    "error": "Failed to delete item"
+  },
+  "scanning": {
+    "title": "Quick Scan Mode",
+    "description": "Scan barcodes as you unpack groceries. Items are added instantly with smart defaults!",
+    "itemsScanned": "Items scanned: {{count}}",
+    "barcode": "Barcode",
+    "barcodePlaceholder": "Enter or scan barcode...",
+    "quantity": "Quantity",
+    "location": "Location",
+    "scanning": "Scanning...",
+    "scanAndAdd": "Scan & Add",
+    "success": "Item added! Scan next item or click Done.",
+    "errors": {
+      "barcodeRequired": "Please enter a barcode",
+      "productNotFound": "Product not found. Try manual entry instead."
+    }
+  },
+  "modals": {
+    "addItem": {
+      "title": "Add Item Manually",
+      "description": "Manual entry form coming soon! Use Quick Scan for now."
+    },
+    "editItem": {
+      "title": "Edit: {{name}}",
+      "description": "Edit form coming soon!"
+    }
+  }
 }

@@ -1,6 +1,68 @@
 {
-  "title": "Ajustes",
-  "subtitle": "Personaliza tu experiencia",
+  "title": "Configuración",
+  "subtitle": "Personaliza tu experiencia en SafeCart",
+  "navigation": {
+    "title": "Pestañas de Navegación",
+    "description": "Elige qué pestañas mostrar en la navegación inferior",
+    "visible": "visible",
+    "required": "Requerido",
+    "tabNames": {
+      "home": "Inicio",
+      "scanner": "Escáner",
+      "shopping": "Listas de Compras",
+      "meals": "Planificador de Comidas",
+      "inventory": "Inventario",
+      "discover": "Descubrimiento de Productos",
+      "analytics": "Análisis",
+      "community": "Comunidad",
+      "profile": "Perfil"
+    },
+    "tabDescriptions": {
+      "home": "Panel con estadísticas rápidas",
+      "scanner": "Escanear códigos de barras de productos",
+      "shopping": "Gestionar tus listas de compras",
+      "meals": "Planificar comidas aptas para diabéticos",
+      "inventory": "Rastrear artículos de despensa",
+      "discover": "Navegar productos seguros",
+      "analytics": "Insights detallados de salud y recomendaciones de IA",
+      "community": "Compartir consejos y recetas",
+      "profile": "Tu perfil de salud y configuración"
+    },
+    "tips": {
+      "title": "💡 Consejo:",
+      "text": "Oculta las pestañas que no usas para simplificar tu navegación. Siempre puedes volver a mostrarlas más tarde. La pestaña Analytics siempre estará accesible desde el botón \"Ver Analytics\" en la página de Inicio, incluso si está oculta."
+    },
+    "alerts": {
+      "requiredTab": "La pestaña {{tab}} es requerida y no se puede ocultar"
+    },
+    "confirmation": {
+      "reset": "¿Restablecer todas las pestañas a la visibilidad por defecto?"
+    }
+  },
+  "buttons": {
+    "save": "Guardar Cambios",
+    "saving": "Guardando...",
+    "saved": "¡Guardado!",
+    "reset": "Restablecer a Predeterminado"
+  },
+  "sections": {
+    "profile": {
+      "title": "Tu Perfil",
+      "description": "Gestiona tu perfil de salud e información personal"
+    },
+    "notifications": {
+      "title": "Notificaciones",
+      "description": "Gestiona alertas y recordatorios"
+    },
+    "privacy": {
+      "title": "Privacidad y Seguridad",
+      "description": "Controla tus datos y permisos"
+    },
+    "appearance": {
+      "title": "Apariencia",
+      "description": "Tema, colores y opciones de visualización"
+    }
+  },
   "tabs": {
     "general": "General",
     "profile": "Perfil",
@@ -13,7 +75,7 @@
     "alwaysVisible": "Siempre visible",
     "save": "Guardar Cambios",
     "saving": "Guardando...",
-    "saved": "¡Ajustes guardados!",
+    "saved": "¡Configuración guardada!",
     "reset": "Restablecer a Predeterminado"
   },
   "profile": {

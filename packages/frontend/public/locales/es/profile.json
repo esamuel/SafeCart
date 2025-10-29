@@ -1,6 +1,72 @@
 {
   "title": "Perfil de Salud",
   "subtitle": "Administra tu información de salud",
+  "profileTitle": "Usuario",
+  "personalInfo": {
+    "title": "Información Personal",
+    "displayName": "Nombre para Mostrar",
+    "displayNamePlaceholder": "Tu nombre preferido",
+    "age": "Edad",
+    "agePlaceholder": "25",
+    "height": "Altura (cm)",
+    "heightPlaceholder": "170",
+    "weight": "Peso (kg)",
+    "weightPlaceholder": "70",
+    "name": "Nombre",
+    "ageUnit": "años",
+    "heightUnit": "cm",
+    "weightUnit": "kg",
+    "noInfo": "Aún no se ha agregado información personal"
+  },
+  "healthProfile": {
+    "title": "Perfil de Salud",
+    "diabetesType": "Tipo de Diabetes",
+    "types": {
+      "Type 1": "Tipo 1",
+      "Type 2": "Tipo 2",
+      "Prediabetes": "Prediabetes",
+      "Gestational": "Gestacional",
+      "No Diabetes": "Sin Diabetes"
+    },
+    "targetGlucose": "Rango Objetivo de Glucosa en Sangre (mg/dL)",
+    "min": "Mín",
+    "max": "Máx",
+    "to": "a",
+    "dailyCarbLimit": "Límite Diario de Carbohidratos (gramos)",
+    "dailyCarbPlaceholder": "200",
+    "usesInsulin": "Uso insulina",
+    "yes": "Sí",
+    "no": "No",
+    "targetGlucoseDisplay": "Glucosa Objetivo",
+    "dailyCarbDisplay": "Límite Diario de Carbohidratos",
+    "insulinUse": "Uso de Insulina"
+  },
+  "allergies": {
+    "title": "Alergias e Intolerancias",
+    "selectAll": "Selecciona todas las que apliquen:",
+    "noneSpecified": "No se especificaron alergias"
+  },
+  "settings": {
+    "notifications": "Configuración de Notificaciones",
+    "privacy": "Privacidad y Seguridad",
+    "logout": "Cerrar Sesión"
+  },
+  "buttons": {
+    "edit": "Editar",
+    "save": "Guardar Cambios",
+    "saving": "Guardando...",
+    "cancel": "Cancelar"
+  },
+  "profile": {
+    "edit": "Editar",
+    "save": "Guardar Cambios",
+    "saving": "Guardando...",
+    "saved": "¡Perfil guardado exitosamente!",
+    "error": "Error al guardar el perfil"
+  },
+  "errors": {
+    "noUser": "No has iniciado sesión. Por favor inicia sesión."
+  },
   "onboarding": {
     "welcome": "Bienvenido a SafeCart",
     "subtitle": "Configuremos tu perfil de salud",
@@ -40,7 +106,7 @@
     "yes": "Sí",
     "no": "No"
   },
-  "allergies": {
+  "allergiesSection": {
     "title": "Alergias y Restricciones Dietéticas",
     "selectAllergies": "Selecciona tus alergias",
     "common": {
@@ -60,12 +126,5 @@
       "kosher": "Kosher",
       "halal": "Halal"
     }
-  },
-  "profile": {
-    "edit": "Editar Perfil",
-    "save": "Guardar Cambios",
-    "saving": "Guardando...",
-    "saved": "¡Perfil guardado exitosamente!",
-    "error": "Error al guardar el perfil"
   }
 }

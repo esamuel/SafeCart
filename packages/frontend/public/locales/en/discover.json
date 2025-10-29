@@ -2,46 +2,74 @@
   "title": "Product Discovery",
   "subtitle": "Find safe products for you",
   "search": {
-    "placeholder": "Search products...",
+    "placeholder": "Search products (e.g., almond milk, gluten-free bread)...",
     "searching": "Searching...",
-    "noResults": "No products found",
-    "results": "results"
+    "button": "Search",
+    "noResults": "No products found. Try a different search!",
+    "browseAll": "Browse All Products (50+)"
   },
   "filters": {
     "title": "Filters",
-    "clear": "Clear All",
-    "apply": "Apply Filters",
+    "clear": "Clear",
     "category": "Category",
-    "dietary": "Dietary",
-    "allergens": "Allergens",
-    "glycemicIndex": "Glycemic Index",
+    "avoidAllergens": "Avoid Allergens",
+    "maxCarbs": "Max Carbs (g)",
+    "maxCarbsPlaceholder": "Leave empty for no limit",
     "categories": {
-      "all": "All Products",
-      "dairy": "Dairy",
-      "proteins": "Proteins",
-      "grains": "Grains",
-      "vegetables": "Vegetables",
-      "fruits": "Fruits",
-      "snacks": "Snacks"
-    },
-    "gi": {
-      "low": "Low GI (< 55)",
-      "medium": "Medium GI (55-70)",
-      "high": "High GI (> 70)"
+      "Dairy": "Dairy",
+      "Produce": "Produce",
+      "Meat & Seafood": "Meat & Seafood",
+      "Bakery": "Bakery",
+      "Snacks": "Snacks",
+      "Beverages": "Beverages",
+      "Pantry": "Pantry",
+      "Frozen": "Frozen"
     }
   },
-  "product": {
-    "viewDetails": "View Details",
-    "addToList": "Add to List",
-    "nutrition": "Nutrition",
-    "ingredients": "Ingredients",
-    "safeForYou": "Safe for you",
-    "checkAllergens": "Check allergens",
-    "contains": "Contains"
+  "results": {
+    "found": "Found {{count}} products",
+    "loading": "Searching products...",
+    "empty": {
+      "title": "Start searching for products you love!",
+      "description": "Search by product name, brand, or ingredient. Use filters to match your dietary needs."
+    },
+    "noResults": "No products found. Try a different search!"
   },
-  "browse": {
-    "all": "Browse All Products",
-    "showing": "Showing",
-    "products": "products"
+  "product": {
+    "safety": {
+      "safe": "Safe",
+      "checkLabels": "Check Labels",
+      "danger": "Danger!"
+    },
+    "dangerWarning": "⚠️ Contains Your Allergens!",
+    "containsAllergens": "This product contains: {{allergens}}",
+    "nutrition": {
+      "netCarbs": "Net Carbs",
+      "sugar": "Sugar",
+      "protein": "Protein",
+      "calories": "Calories"
+    },
+    "contains": "Contains:",
+    "allergens": {
+      "peanuts": "Peanuts",
+      "tree_nuts": "Tree Nuts",
+      "milk": "Milk",
+      "eggs": "Eggs",
+      "soy": "Soy",
+      "wheat": "Wheat",
+      "fish": "Fish",
+      "shellfish": "Shellfish"
+    }
+  },
+  "errors": {
+    "search": "Please enter a search term or select filters to browse products",
+    "searchFailed": "Failed to search products: {{message}}"
+  },
+  "badges": {
+    "gi": "GI",
+    "gl": "GL",
+    "netCarbs": "g",
+    "sugar": "g",
+    "protein": "g"
   }
 }

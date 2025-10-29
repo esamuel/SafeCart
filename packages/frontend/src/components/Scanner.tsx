@@ -1,17 +1,20 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Search, AlertCircle, CheckCircle, Loader, Camera, Copy } from 'lucide-react'
 import { productsAPI, shoppingListsAPI } from '@/lib/api'
 import { auth } from '@/lib/firebase'
 
 export default function Scanner({ products }: any) {
+  const { t } = useTranslation('scanner')
   const [barcode, setBarcode] = useState('')
   const [scannedProduct, setScannedProduct] = useState<any>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [cameraActive, setCameraActive] = useState(false)
   const [cameraError, setCameraError] = useState('')
+  const [cameraErrorCode, setCameraErrorCode] = useState<string | null>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const streamRef = useRef<MediaStream | null>(null)
   const [addingToList, setAddingToList] = useState(false)
@@ -21,16 +24,19 @@ export default function Scanner({ products }: any) {
   const startCamera = async () => {
     try {
       setCameraError('')
+      setCameraErrorCode(null)
 
       // Check if getUserMedia is available
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        setCameraError('Camera API not supported on this device. Please use manual entry below.')
+        setCameraError(t('cameraError.notSupported'))
+        setCameraErrorCode('notSupported')
         return
       }
 
       // Check if we're on HTTPS (required for camera access on mobile)
       if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
-        setCameraError('Camera requires secure connection (HTTPS). Please use manual barcode entry below, or access via HTTPS.')
+        setCameraError(t('cameraError.httpsRequired'))
+        setCameraErrorCode('httpsRequired')
         return
       }
 
@@ -51,13 +57,17 @@ export default function Scanner({ products }: any) {
 
       // Provide specific error messages based on error type
       if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
-        setCameraError('Camera access denied. Please allow camera permissions in your browser settings and try again.')
+        setCameraError(t('cameraError.permissionDenied'))
+        setCameraErrorCode('permissionDenied')
       } else if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
-        setCameraError('No camera found on this device. Please use manual barcode entry below.')
+        setCameraError(t('cameraError.noCamera'))
+        setCameraErrorCode('noCamera')
       } else if (err.name === 'NotReadableError' || err.name === 'TrackStartError') {
-        setCameraError('Camera is already in use by another app. Please close other apps and try again.')
+        setCameraError(t('cameraError.inUse'))
+        setCameraErrorCode('inUse')
       } else if (err.name === 'OverconstrainedError' || err.name === 'ConstraintNotSatisfiedError') {
-        setCameraError('Camera constraints not supported. Trying again with default settings...')
+        setCameraError(t('cameraError.constraintsFailed'))
+        setCameraErrorCode('constraintsFailed')
         // Retry with minimal constraints
         try {
           const stream = await navigator.mediaDevices.getUserMedia({
@@ -68,14 +78,18 @@ export default function Scanner({ products }: any) {
             streamRef.current = stream
             setCameraActive(true)
             setCameraError('')
+            setCameraErrorCode(null)
           }
         } catch (retryErr) {
-          setCameraError('Unable to access camera. Please use manual barcode entry below.')
+          setCameraError(t('cameraError.unknown'))
+          setCameraErrorCode('unknown')
         }
       } else if (err.name === 'SecurityError') {
-        setCameraError('Camera access blocked by security settings. Try accessing via HTTPS or use manual entry.')
+        setCameraError(t('cameraError.securityError'))
+        setCameraErrorCode('securityError')
       } else {
-        setCameraError(`Unable to access camera: ${err.message || 'Unknown error'}. Please use manual barcode entry below.`)
+        setCameraError(t('cameraError.unknown'))
+        setCameraErrorCode('unknown')
       }
     }
   }
@@ -107,7 +121,7 @@ export default function Scanner({ products }: any) {
       if (localProduct) {
         setScannedProduct(localProduct)
       } else {
-        setError('Product not found. Try another barcode.')
+        setError(t('results.productNotFound'))
         setScannedProduct(null)
       }
     } finally {
@@ -136,7 +150,7 @@ export default function Scanner({ products }: any) {
           quantity: 1,
           unit: 'unit',
         })
-        alert('✅ Product added to your new shopping list!')
+        alert(t('results.addedToNewList'))
       } else {
         // Add to the first list
         await shoppingListsAPI.addItem(lists[0]._id, {
@@ -144,12 +158,12 @@ export default function Scanner({ products }: any) {
           quantity: 1,
           unit: 'unit',
         })
-        alert('✅ Product added to shopping list!')
+        alert(t('results.addedSuccess'))
       }
       
       console.log('Product added to shopping list:', scannedProduct.name)
     } catch (err: any) {
-      setError('Failed to add to shopping list: ' + err.message)
+      setError(t('results.addedError', { defaultValue: 'Failed to add to shopping list: {{message}}', message: err.message }))
       console.error(err)
     } finally {
       setAddingToList(false)
@@ -158,15 +172,14 @@ export default function Scanner({ products }: any) {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h2 className="text-3xl font-bold mb-2">Scan Product</h2>
-      <p className="text-gray-600 mb-6">Use your camera or enter barcode manually</p>
+      <h2 className="text-3xl font-bold mb-2">{t('title')}</h2>
+      <p className="text-gray-600 mb-6">{t('subtitle')}</p>
 
       {/* Info Box - Camera Requirements */}
       {!cameraActive && (
         <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 mb-6">
           <p className="text-blue-800 text-sm">
-            <strong>💡 Tip:</strong> Camera access requires HTTPS on mobile devices.
-            If camera doesn't work, you can always use manual barcode entry below - it works just as well!
+            <strong>💡 {t('infoTitle', { defaultValue: 'Tip:' })}</strong> {t('infoTip')}
           </p>
         </div>
       )}
@@ -177,20 +190,14 @@ export default function Scanner({ products }: any) {
             <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
             <p className="text-red-700 text-sm font-medium">{cameraError}</p>
           </div>
-          {cameraError.includes('HTTPS') && (
+          {cameraErrorCode === 'httpsRequired' && (
             <div className="mt-3 pt-3 border-t border-red-200">
-              <p className="text-red-600 text-xs">
-                <strong>Why?</strong> Mobile browsers require a secure connection (HTTPS) for camera access.
-                You can still use manual barcode entry below, or ask your administrator to enable HTTPS.
-              </p>
+              <p className="text-red-600 text-xs">{t('cameraError.whyHttps')}</p>
             </div>
           )}
-          {cameraError.includes('permissions') && (
+          {cameraErrorCode === 'permissionDenied' && (
             <div className="mt-3 pt-3 border-t border-red-200">
-              <p className="text-red-600 text-xs">
-                <strong>How to fix:</strong> Go to your browser settings → Site permissions → Camera →
-                Allow access for this site, then refresh and try again.
-              </p>
+              <p className="text-red-600 text-xs">{t('cameraError.howToFix')}</p>
             </div>
           )}
         </div>
@@ -217,7 +224,7 @@ export default function Scanner({ products }: any) {
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-white text-center">
                 <Camera className="w-8 h-8 mx-auto mb-2 animate-pulse" />
-                <p className="text-sm">Point camera at barcode</p>
+                <p className="text-sm">{t('camera.pointAtBarcode')}</p>
               </div>
             </div>
           </div>
@@ -238,7 +245,7 @@ export default function Scanner({ products }: any) {
             className="flex-1 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl flex items-center justify-center gap-2 transition font-semibold"
           >
             <Camera className="w-5 h-5" />
-            Stop Camera
+            {t('camera.stop')}
           </button>
         ) : (
           <button
@@ -246,21 +253,21 @@ export default function Scanner({ products }: any) {
             className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl flex items-center justify-center gap-2 transition font-semibold"
           >
             <Camera className="w-5 h-5" />
-            Start Camera
+            {t('camera.start')}
           </button>
         )}
       </div>
 
       {/* Manual Barcode Input */}
       <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
-        <p className="text-sm text-gray-600 mb-3 font-semibold">Manual Entry</p>
+        <p className="text-sm text-gray-600 mb-3 font-semibold">{t('manualEntry.title')}</p>
         <div className="flex gap-3">
           <input
             type="text"
             value={barcode}
             onChange={e => setBarcode(e.target.value)}
             onKeyPress={e => e.key === 'Enter' && handleScan()}
-            placeholder="Enter barcode or scan..."
+            placeholder={t('manualEntry.placeholder')}
             disabled={loading}
             className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none transition disabled:bg-gray-100"
           />
@@ -272,12 +279,12 @@ export default function Scanner({ products }: any) {
             {loading ? (
               <>
                 <Loader className="w-5 h-5 animate-spin" />
-                Scanning...
+                {t('manualEntry.scanning')}
               </>
             ) : (
               <>
                 <Search className="w-5 h-5" />
-                Scan
+                {t('manualEntry.scanButton')}
               </>
             )}
           </button>
@@ -293,18 +300,18 @@ export default function Scanner({ products }: any) {
             </div>
             <div className="flex-1">
               <h3 className="text-lg font-bold">{scannedProduct.name}</h3>
-              <p className="text-gray-600 text-sm">UPC: {scannedProduct.barcode || scannedProduct.upc}</p>
+              <p className="text-gray-600 text-sm">{t('results.upc')}: {scannedProduct.barcode || scannedProduct.upc}</p>
             </div>
             <div>
               {scannedProduct.safe !== false ? (
                 <div className="bg-green-100 text-green-700 px-4 py-2 rounded-full font-semibold text-sm flex items-center gap-1">
                   <CheckCircle className="w-4 h-4" />
-                  SAFE
+                  {t('results.badges.safe', { defaultValue: 'SAFE' })}
                 </div>
               ) : (
                 <div className="bg-red-100 text-red-700 px-4 py-2 rounded-full font-semibold text-sm flex items-center gap-1">
                   <AlertCircle className="w-4 h-4" />
-                  CHECK
+                  {t('results.badges.check', { defaultValue: 'CHECK' })}
                 </div>
               )}
             </div>
@@ -313,27 +320,27 @@ export default function Scanner({ products }: any) {
           {/* Nutrition Grid */}
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div className="bg-gray-100 p-4 rounded-xl text-center">
-              <p className="text-gray-600 text-sm mb-1">Net Carbs</p>
+              <p className="text-gray-600 text-sm mb-1">{t('results.nutrition.netCarbs')}</p>
               <p className="text-3xl font-bold text-purple-600">
-                {scannedProduct.carbs || scannedProduct.nutrition?.netCarbs || 'N/A'}g
+                {scannedProduct.carbs || scannedProduct.nutrition?.netCarbs || t('results.na', { defaultValue: 'N/A' })}g
               </p>
             </div>
             <div className="bg-gray-100 p-4 rounded-xl text-center">
-              <p className="text-gray-600 text-sm mb-1">Glycemic Index</p>
+              <p className="text-gray-600 text-sm mb-1">{t('results.nutrition.glycemicIndex')}</p>
               <p className="text-3xl font-bold text-purple-600">
-                {scannedProduct.gi || scannedProduct.diabetesInfo?.glycemicIndex || 'N/A'}
+                {scannedProduct.gi || scannedProduct.diabetesInfo?.glycemicIndex || t('results.na', { defaultValue: 'N/A' })}
               </p>
             </div>
             <div className="bg-gray-100 p-4 rounded-xl text-center">
-              <p className="text-gray-600 text-sm mb-1">Sugar</p>
+              <p className="text-gray-600 text-sm mb-1">{t('results.nutrition.sugar')}</p>
               <p className="text-3xl font-bold text-purple-600">
-                {scannedProduct.sugar || scannedProduct.nutrition?.sugar || 'N/A'}g
+                {scannedProduct.sugar || scannedProduct.nutrition?.sugar || t('results.na', { defaultValue: 'N/A' })}g
               </p>
             </div>
             <div className="bg-gray-100 p-4 rounded-xl text-center">
-              <p className="text-gray-600 text-sm mb-1">GL Score</p>
+              <p className="text-gray-600 text-sm mb-1">{t('results.nutrition.glScore')}</p>
               <p className="text-3xl font-bold text-purple-600">
-                {scannedProduct.gl || scannedProduct.diabetesInfo?.glycemicLoad || 'N/A'}
+                {scannedProduct.gl || scannedProduct.diabetesInfo?.glycemicLoad || t('results.na', { defaultValue: 'N/A' })}
               </p>
             </div>
           </div>
@@ -352,7 +359,7 @@ export default function Scanner({ products }: any) {
             if (allergenArray.length > 0) {
               return (
                 <div className="mb-6">
-                  <p className="text-sm font-semibold text-gray-700 mb-3">Allergens:</p>
+                  <p className="text-sm font-semibold text-gray-700 mb-3">{t('results.allergens')}:</p>
                   <div className="flex flex-wrap gap-2">
                     {allergenArray.map((allergen: string) => (
                       <span
@@ -378,14 +385,14 @@ export default function Scanner({ products }: any) {
               }}
               className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-900 py-3 rounded-xl font-semibold transition"
             >
-              Scan Another
+              {t('results.actions.scanAnother')}
             </button>
             <button
               onClick={addToShoppingList}
               disabled={addingToList}
               className="flex-1 bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900 text-white py-3 rounded-xl font-semibold transition disabled:opacity-50"
             >
-              {addingToList ? 'Adding...' : 'Add to Shopping List'}
+              {addingToList ? t('results.actions.adding') : t('results.actions.addToList')}
             </button>
           </div>
         </div>

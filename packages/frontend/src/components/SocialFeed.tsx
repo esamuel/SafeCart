@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Heart, Bookmark, MessageCircle, Send, User } from 'lucide-react'
 import { socialAPI } from '@/lib/api'
 import { auth } from '@/lib/firebase'
@@ -32,6 +33,7 @@ interface Comment {
 }
 
 export default function SocialFeed() {
+  const { t } = useTranslation('community')
   const [posts, setPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState('all')
@@ -136,7 +138,7 @@ export default function SocialFeed() {
 
   const handleCreatePost = async () => {
     if (!user || !newPost.title.trim() || !newPost.content.trim()) {
-      alert('Please fill in title and content')
+      alert(t('errors.fillRequired'))
       return
     }
 
@@ -158,7 +160,7 @@ export default function SocialFeed() {
       loadFeed()
     } catch (error) {
       console.error('Error creating post:', error)
-      alert('Failed to create post. Please try again.')
+      alert(t('errors.createFailed'))
     }
   }
 
@@ -184,11 +186,15 @@ export default function SocialFeed() {
     }
   }
 
+  const getTypeName = (type: string) => {
+    return t(`postTypes.${type}`, { defaultValue: type.replace('_', ' ') })
+  }
+
   return (
     <div className="max-w-2xl mx-auto">
       {/* Header */}
       <div className="bg-white rounded-xl shadow-md p-6 mb-6">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Community Feed</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">{t('title')}</h1>
 
         {/* Filter tabs */}
         <div className="flex gap-2 flex-wrap mb-4">
@@ -202,7 +208,7 @@ export default function SocialFeed() {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              {f.replace('_', ' ').charAt(0).toUpperCase() + f.replace('_', ' ').slice(1)}
+              {t(`filters.${f}`, { defaultValue: f.replace('_', ' ').charAt(0).toUpperCase() + f.replace('_', ' ').slice(1) })}
             </button>
           ))}
         </div>
@@ -212,7 +218,7 @@ export default function SocialFeed() {
           onClick={() => setShowNewPost(true)}
           className="w-full py-3 bg-gradient-to-r from-purple-600 to-purple-800 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-purple-900 transition"
         >
-          Share something with the community
+          {t('createPost.shareButton')}
         </button>
       </div>
 
@@ -220,54 +226,54 @@ export default function SocialFeed() {
       {showNewPost && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-lg w-full p-6 shadow-2xl">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">Create Post</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('createPost.title')}</h2>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Type</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">{t('createPost.type')}</label>
                 <select
                   value={newPost.type}
                   onChange={(e) => setNewPost({ ...newPost, type: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
                 >
-                  <option value="tip">Tip</option>
-                  <option value="recipe">Recipe</option>
-                  <option value="success_story">Success Story</option>
-                  <option value="meal_plan">Meal Plan</option>
+                  <option value="tip">{t('postTypes.tip')}</option>
+                  <option value="recipe">{t('postTypes.recipe')}</option>
+                  <option value="success_story">{t('postTypes.success_story')}</option>
+                  <option value="meal_plan">{t('postTypes.meal_plan')}</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Title</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">{t('createPost.titleLabel')}</label>
                 <input
                   type="text"
                   value={newPost.title}
                   onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-                  placeholder="Give your post a catchy title..."
+                  placeholder={t('createPost.titlePlaceholder')}
                   maxLength={200}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Content</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">{t('createPost.contentLabel')}</label>
                 <textarea
                   value={newPost.content}
                   onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 h-32"
-                  placeholder="Share your thoughts, tips, or success story..."
+                  placeholder={t('createPost.contentPlaceholder')}
                   maxLength={2000}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Tags (comma-separated)</label>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">{t('createPost.tagsLabel')}</label>
                 <input
                   type="text"
                   value={newPost.tags}
                   onChange={(e) => setNewPost({ ...newPost, tags: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
-                  placeholder="diabetic, low-carb, gluten-free..."
+                  placeholder={t('createPost.tagsPlaceholder')}
                 />
               </div>
 
@@ -276,13 +282,13 @@ export default function SocialFeed() {
                   onClick={handleCreatePost}
                   className="flex-1 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition"
                 >
-                  Post
+                  {t('createPost.post')}
                 </button>
                 <button
                   onClick={() => setShowNewPost(false)}
                   className="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-medium transition"
                 >
-                  Cancel
+                  {t('createPost.cancel')}
                 </button>
               </div>
             </div>
@@ -294,12 +300,12 @@ export default function SocialFeed() {
       {loading ? (
         <div className="text-center py-12">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-purple-600 border-t-transparent"></div>
-          <p className="mt-4 text-gray-600">Loading community posts...</p>
+          <p className="mt-4 text-gray-600">{t('loading')}</p>
         </div>
       ) : posts.length === 0 ? (
         <div className="bg-white rounded-xl shadow-md p-12 text-center">
-          <p className="text-gray-600 text-lg mb-4">No posts yet in this category.</p>
-          <p className="text-gray-500">Be the first to share something!</p>
+          <p className="text-gray-600 text-lg mb-4">{t('empty.title')}</p>
+          <p className="text-gray-500">{t('empty.subtitle')}</p>
         </div>
       ) : (
         <>
@@ -322,7 +328,7 @@ export default function SocialFeed() {
                   </p>
                 </div>
                 <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getTypeColor(post.type)}`}>
-                  {getTypeEmoji(post.type)} {post.type.replace('_', ' ')}
+                  {getTypeEmoji(post.type)} {getTypeName(post.type)}
                 </span>
               </div>
 
@@ -400,7 +406,7 @@ export default function SocialFeed() {
                       type="text"
                       value={commentText}
                       onChange={(e) => setCommentText(e.target.value)}
-                      placeholder="Write a comment..."
+                      placeholder={t('post.commentPlaceholder')}
                       className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500"
                       onKeyPress={(e) => {
                         if (e.key === 'Enter') {
@@ -426,7 +432,7 @@ export default function SocialFeed() {
               onClick={loadMore}
               className="w-full py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-medium transition"
             >
-              Load More
+              {t('post.loadMore')}
             </button>
           )}
         </>
