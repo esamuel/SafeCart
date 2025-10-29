@@ -220,15 +220,21 @@ const analyzeSafety = (product, healthProfile) => {
 // Main scan endpoint
 router.post('/scan', async (req, res) => {
   try {
-    const { barcode, userId } = req.body
+    const { barcode, userId, testRegion } = req.body
 
     if (!barcode) {
       return res.status(400).json({ error: 'Barcode is required' })
     }
 
-    // 1. Detect user region
-    const ipAddress = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress || '127.0.0.1'
-    const userRegion = await getUserRegion(userId, ipAddress)
+    // 1. Detect user region (allow manual override for testing)
+    let userRegion
+    if (testRegion) {
+      userRegion = testRegion
+      console.log(`Using test region: ${testRegion}`)
+    } else {
+      const ipAddress = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress || '127.0.0.1'
+      userRegion = await getUserRegion(userId, ipAddress)
+    }
 
     console.log(`Scanning barcode ${barcode} for region ${userRegion}`)
 
