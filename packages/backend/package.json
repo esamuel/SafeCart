@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "build": "echo 'Backend ready for deployment'",
-    "start": "node src/index.js",
+    "start": "node start.js",
     "seed": "node src/seeds/products.js",
     "seed:all": "node src/seeds/seedAll.js",
     "seed:recipes": "node src/seeds/recipes.js",
