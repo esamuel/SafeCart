@@ -1,6 +1,6 @@
 [build]
   base = "packages/frontend/"
-  command = "mkdir -p out && echo '<!DOCTYPE html><html><head><title>SafeCart Test</title></head><body><h1>SafeCart Deployment Test</h1><p>✅ If you see this, deployment is working!</p></body></html>' > out/index.html"
+  command = "npm run build"
   publish = "out"
 
 [build.environment]
