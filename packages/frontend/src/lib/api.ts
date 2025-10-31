@@ -1,28 +1,16 @@
 import { auth } from './firebase'
 
-// Determine API URL based on environment - must be evaluated at runtime
-const getApiUrl = (): string => {
-  // Always respect explicit config first
-  if (process.env.NEXT_PUBLIC_API_URL) {
-    return process.env.NEXT_PUBLIC_API_URL
-  }
-
-  // Browser runtime
+// Determine API URL based on environment
+const getApiUrl = () => {
   if (typeof window !== 'undefined') {
-    const hostname = window.location.hostname
-    const isLocal = hostname === 'localhost' || hostname === '127.0.0.1'
-
-    if (isLocal) {
-      return 'http://localhost:5002/api'
-    }
-
-    // Production: use same-origin /api (Netlify redirects to functions)
-    return '/api'
+    // Browser environment - use localhost with correct port
+    return 'http://localhost:5002/api'
   }
-
-  // SSR/build time: prefer /api for production builds
-  return '/api'
+  // Server environment
+  return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5002/api'
 }
+
+const API_BASE_URL = getApiUrl()
 
 // Get Firebase token
 async function getAuthToken() {
@@ -34,7 +22,7 @@ async function getAuthToken() {
 // Auth API
 export const authAPI = {
   verify: async (token: string) => {
-    const response = await fetch(`${getApiUrl()}/auth/verify`, {
+    const response = await fetch(`${API_BASE_URL}/auth/verify`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token }),
@@ -48,7 +36,7 @@ export const authAPI = {
 export const usersAPI = {
   getProfile: async (userId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/users/${userId}`, {
+    const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch profile')
@@ -59,10 +47,9 @@ export const usersAPI = {
     console.log('[API] saveHealthProfile called with userId:', userId)
     try {
       const token = await getAuthToken()
-      const url = `${getApiUrl()}/users/${userId}/health-profile`
-      console.log('[API] Got auth token, making request to:', url)
+      console.log('[API] Got auth token, making request to:', `${API_BASE_URL}/users/${userId}/health-profile`)
 
-      const response = await fetch(url, {
+      const response = await fetch(`${API_BASE_URL}/users/${userId}/health-profile`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +77,7 @@ export const usersAPI = {
 
   updatePreferences: async (userId: string, preferences: any) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/users/${userId}/preferences`, {
+    const response = await fetch(`${API_BASE_URL}/users/${userId}/preferences`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -115,25 +102,25 @@ export const productsAPI = {
         }
       })
     }
-    const response = await fetch(`${getApiUrl()}/products?${params}`)
+    const response = await fetch(`${API_BASE_URL}/products?${params}`)
     if (!response.ok) throw new Error('Failed to search products')
     return response.json()
   },
 
   getByBarcode: async (barcode: string) => {
-    const response = await fetch(`${getApiUrl()}/products/barcode/${barcode}`)
+    const response = await fetch(`${API_BASE_URL}/products/barcode/${barcode}`)
     if (!response.ok) throw new Error('Product not found')
     return response.json()
   },
 
   getById: async (productId: string) => {
-    const response = await fetch(`${getApiUrl()}/products/${productId}`)
+    const response = await fetch(`${API_BASE_URL}/products/${productId}`)
     if (!response.ok) throw new Error('Product not found')
     return response.json()
   },
 
   checkSafety: async (productId: string, allergies: string[]) => {
-    const response = await fetch(`${getApiUrl()}/products/check-safety/${productId}`, {
+    const response = await fetch(`${API_BASE_URL}/products/check-safety/${productId}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ allergies }),
@@ -147,7 +134,7 @@ export const productsAPI = {
 export const mealsAPI = {
   getUserMeals: async (userId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/meals/user/${userId}`, {
+    const response = await fetch(`${API_BASE_URL}/meals/user/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch meals')
@@ -156,7 +143,7 @@ export const mealsAPI = {
 
   getMealsByDateRange: async (userId: string, startDate: string, endDate: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/meals/user/${userId}/range?startDate=${startDate}&endDate=${endDate}`, {
+    const response = await fetch(`${API_BASE_URL}/meals/user/${userId}/range?startDate=${startDate}&endDate=${endDate}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch meals')
@@ -165,7 +152,7 @@ export const mealsAPI = {
 
   createMeal: async (mealData: any) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/meals`, {
+    const response = await fetch(`${API_BASE_URL}/meals`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -179,7 +166,7 @@ export const mealsAPI = {
 
   updateMeal: async (mealId: string, mealData: any) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/meals/${mealId}`, {
+    const response = await fetch(`${API_BASE_URL}/meals/${mealId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -193,7 +180,7 @@ export const mealsAPI = {
 
   deleteMeal: async (mealId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/meals/${mealId}`, {
+    const response = await fetch(`${API_BASE_URL}/meals/${mealId}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -203,7 +190,7 @@ export const mealsAPI = {
 
   getNutritionSummary: async (userId: string, date: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/meals/user/${userId}/nutrition/${date}`, {
+    const response = await fetch(`${API_BASE_URL}/meals/user/${userId}/nutrition/${date}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch nutrition summary')
@@ -215,20 +202,20 @@ export const mealsAPI = {
 export const recipesAPI = {
   getAll: async (filters?: any) => {
     const params = new URLSearchParams(filters || {})
-    const response = await fetch(`${getApiUrl()}/recipes?${params}`)
+    const response = await fetch(`${API_BASE_URL}/recipes?${params}`)
     if (!response.ok) throw new Error('Failed to fetch recipes')
     return response.json()
   },
 
   getById: async (recipeId: string) => {
-    const response = await fetch(`${getApiUrl()}/recipes/${recipeId}`)
+    const response = await fetch(`${API_BASE_URL}/recipes/${recipeId}`)
     if (!response.ok) throw new Error('Recipe not found')
     return response.json()
   },
 
   getSafeRecipes: async (userId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/recipes/safe/${userId}`, {
+    const response = await fetch(`${API_BASE_URL}/recipes/safe/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch safe recipes')
@@ -240,7 +227,7 @@ export const recipesAPI = {
     const params = new URLSearchParams()
     if (mealType) params.append('mealType', mealType)
 
-    const response = await fetch(`${getApiUrl()}/recipes/recommendations/${userId}?${params}`, {
+    const response = await fetch(`${API_BASE_URL}/recipes/recommendations/${userId}?${params}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch recommendations')
@@ -253,7 +240,7 @@ export const recipesAPI = {
     if (startDate) params.append('startDate', startDate)
     if (endDate) params.append('endDate', endDate)
 
-    const response = await fetch(`${getApiUrl()}/recipes/meal-plan/${userId}?${params}`, {
+    const response = await fetch(`${API_BASE_URL}/recipes/meal-plan/${userId}?${params}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch meal plan')
@@ -262,7 +249,7 @@ export const recipesAPI = {
 
   generateShoppingList: async (recipeIds: string[]) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/recipes/generate-shopping-list`, {
+    const response = await fetch(`${API_BASE_URL}/recipes/generate-shopping-list`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -279,7 +266,7 @@ export const recipesAPI = {
 export const analyticsAPI = {
   getDashboard: async (userId: string, days = 7) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/analytics/dashboard/${userId}?days=${days}`, {
+    const response = await fetch(`${API_BASE_URL}/analytics/dashboard/${userId}?days=${days}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch dashboard analytics')
@@ -288,7 +275,7 @@ export const analyticsAPI = {
 
   getNutritionChart: async (userId: string, days = 7) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/analytics/nutrition-chart/${userId}?days=${days}`, {
+    const response = await fetch(`${API_BASE_URL}/analytics/nutrition-chart/${userId}?days=${days}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch nutrition chart')
@@ -300,7 +287,7 @@ export const analyticsAPI = {
 export const shoppingListsAPI = {
   getUserLists: async (userId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/shopping-lists/user/${userId}`, {
+    const response = await fetch(`${API_BASE_URL}/shopping-lists/user/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch shopping lists')
@@ -309,7 +296,7 @@ export const shoppingListsAPI = {
 
   getList: async (listId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/shopping-lists/${listId}`, {
+    const response = await fetch(`${API_BASE_URL}/shopping-lists/${listId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch shopping list')
@@ -318,7 +305,7 @@ export const shoppingListsAPI = {
 
   create: async (userId: string, name: string, description?: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/shopping-lists`, {
+    const response = await fetch(`${API_BASE_URL}/shopping-lists`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -332,7 +319,7 @@ export const shoppingListsAPI = {
 
   addItem: async (listId: string, item: any) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/shopping-lists/${listId}/items`, {
+    const response = await fetch(`${API_BASE_URL}/shopping-lists/${listId}/items`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -346,7 +333,7 @@ export const shoppingListsAPI = {
 
   updateItem: async (listId: string, itemIndex: number, updates: any) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/shopping-lists/${listId}/items/${itemIndex}`, {
+    const response = await fetch(`${API_BASE_URL}/shopping-lists/${listId}/items/${itemIndex}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -360,7 +347,7 @@ export const shoppingListsAPI = {
 
   deleteItem: async (listId: string, itemIndex: number) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/shopping-lists/${listId}/items/${itemIndex}`, {
+    const response = await fetch(`${API_BASE_URL}/shopping-lists/${listId}/items/${itemIndex}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -370,7 +357,7 @@ export const shoppingListsAPI = {
 
   delete: async (listId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/shopping-lists/${listId}`, {
+    const response = await fetch(`${API_BASE_URL}/shopping-lists/${listId}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -391,7 +378,7 @@ export const sharesAPI = {
     userName: string
   }) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/shares`, {
+    const response = await fetch(`${API_BASE_URL}/shares`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -404,14 +391,14 @@ export const sharesAPI = {
   },
 
   get: async (shareToken: string) => {
-    const response = await fetch(`${getApiUrl()}/shares/${shareToken}`)
+    const response = await fetch(`${API_BASE_URL}/shares/${shareToken}`)
     if (!response.ok) throw new Error('Failed to fetch shared resource')
     return response.json()
   },
 
   copy: async (shareToken: string, userId: string, userName: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/shares/${shareToken}/copy`, {
+    const response = await fetch(`${API_BASE_URL}/shares/${shareToken}/copy`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -425,7 +412,7 @@ export const sharesAPI = {
 
   update: async (shareToken: string, items: any[], userId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/shares/${shareToken}/update`, {
+    const response = await fetch(`${API_BASE_URL}/shares/${shareToken}/update`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -439,7 +426,7 @@ export const sharesAPI = {
 
   revoke: async (shareToken: string, userId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/shares/${shareToken}`, {
+    const response = await fetch(`${API_BASE_URL}/shares/${shareToken}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -453,7 +440,7 @@ export const sharesAPI = {
 
   getUserShares: async (userId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/shares/user/${userId}`, {
+    const response = await fetch(`${API_BASE_URL}/shares/user/${userId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch user shares')
@@ -472,7 +459,7 @@ export const socialAPI = {
     if (userId) params.append('userId', userId)
     if (tags) params.append('tags', tags)
 
-    const response = await fetch(`${getApiUrl()}/social/feed?${params}`)
+    const response = await fetch(`${API_BASE_URL}/social/feed?${params}`)
     if (!response.ok) throw new Error('Failed to fetch feed')
     return response.json()
   },
@@ -489,7 +476,7 @@ export const socialAPI = {
     visibility?: 'public' | 'followers' | 'private'
   }) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/social/posts`, {
+    const response = await fetch(`${API_BASE_URL}/social/posts`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -503,14 +490,14 @@ export const socialAPI = {
 
   getPost: async (postId: string, userId?: string) => {
     const params = userId ? `?userId=${userId}` : ''
-    const response = await fetch(`${getApiUrl()}/social/posts/${postId}${params}`)
+    const response = await fetch(`${API_BASE_URL}/social/posts/${postId}${params}`)
     if (!response.ok) throw new Error('Failed to fetch post')
     return response.json()
   },
 
   likePost: async (postId: string, userId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/social/posts/${postId}/like`, {
+    const response = await fetch(`${API_BASE_URL}/social/posts/${postId}/like`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -524,7 +511,7 @@ export const socialAPI = {
 
   bookmarkPost: async (postId: string, userId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/social/posts/${postId}/bookmark`, {
+    const response = await fetch(`${API_BASE_URL}/social/posts/${postId}/bookmark`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -538,7 +525,7 @@ export const socialAPI = {
 
   addComment: async (postId: string, userId: string, userName: string, content: string, userAvatar?: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/social/posts/${postId}/comments`, {
+    const response = await fetch(`${API_BASE_URL}/social/posts/${postId}/comments`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -552,7 +539,7 @@ export const socialAPI = {
 
   deletePost: async (postId: string, userId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/social/posts/${postId}`, {
+    const response = await fetch(`${API_BASE_URL}/social/posts/${postId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -569,7 +556,7 @@ export const socialAPI = {
       page: page.toString(),
       limit: limit.toString(),
     })
-    const response = await fetch(`${getApiUrl()}/social/users/${userId}/posts?${params}`)
+    const response = await fetch(`${API_BASE_URL}/social/users/${userId}/posts?${params}`)
     if (!response.ok) throw new Error('Failed to fetch user posts')
     return response.json()
   },
@@ -580,7 +567,7 @@ export const socialAPI = {
       page: page.toString(),
       limit: limit.toString(),
     })
-    const response = await fetch(`${getApiUrl()}/social/users/${userId}/bookmarks?${params}`, {
+    const response = await fetch(`${API_BASE_URL}/social/users/${userId}/bookmarks?${params}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch bookmarks')
@@ -589,7 +576,7 @@ export const socialAPI = {
 
   follow: async (followerId: string, followingId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/social/follow`, {
+    const response = await fetch(`${API_BASE_URL}/social/follow`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -603,7 +590,7 @@ export const socialAPI = {
 
   unfollow: async (followerId: string, followingId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/social/follow`, {
+    const response = await fetch(`${API_BASE_URL}/social/follow`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -617,37 +604,8 @@ export const socialAPI = {
 
   getUserStats: async (userId: string, viewerId?: string) => {
     const params = viewerId ? `?viewerId=${viewerId}` : ''
-    const response = await fetch(`${getApiUrl()}/social/users/${userId}/stats${params}`)
+    const response = await fetch(`${API_BASE_URL}/social/users/${userId}/stats${params}`)
     if (!response.ok) throw new Error('Failed to fetch user stats')
-    return response.json()
-  },
-}
-
-// Scanner API
-export const scannerAPI = {
-  scan: async (barcode: string, userId?: string) => {
-    const response = await fetch(`${getApiUrl()}/scanner/scan`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ barcode, userId }),
-    })
-    if (!response.ok) throw new Error('Failed to scan product')
-    return response.json()
-  },
-
-  addManual: async (barcode: string, productData: any, userId: string, region: string) => {
-    const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/scanner/add-manual`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ barcode, productData, userId, region }),
-    })
-    if (!response.ok) throw new Error('Failed to add manual product')
     return response.json()
   },
 }
@@ -672,7 +630,7 @@ export const inventoryAPI = {
     notes?: string
   }) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/inventory`, {
+    const response = await fetch(`${API_BASE_URL}/inventory`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -692,7 +650,7 @@ export const inventoryAPI = {
     if (filters?.status) params.append('status', filters.status)
     if (filters?.search) params.append('search', filters.search)
 
-    const response = await fetch(`${getApiUrl()}/inventory/${userId}?${params}`, {
+    const response = await fetch(`${API_BASE_URL}/inventory/${userId}?${params}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch inventory')
@@ -701,7 +659,7 @@ export const inventoryAPI = {
 
   getItem: async (userId: string, itemId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/inventory/${userId}/${itemId}`, {
+    const response = await fetch(`${API_BASE_URL}/inventory/${userId}/${itemId}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch item')
@@ -710,7 +668,7 @@ export const inventoryAPI = {
 
   update: async (itemId: string, updates: any) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/inventory/${itemId}`, {
+    const response = await fetch(`${API_BASE_URL}/inventory/${itemId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -724,7 +682,7 @@ export const inventoryAPI = {
 
   delete: async (itemId: string, userId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/inventory/${itemId}`, {
+    const response = await fetch(`${API_BASE_URL}/inventory/${itemId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -738,7 +696,7 @@ export const inventoryAPI = {
 
   batchAdd: async (userId: string, items: any[]) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/inventory/batch`, {
+    const response = await fetch(`${API_BASE_URL}/inventory/batch`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -752,7 +710,7 @@ export const inventoryAPI = {
 
   getExpiring: async (userId: string, days = 3) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/inventory/${userId}/expiring?days=${days}`, {
+    const response = await fetch(`${API_BASE_URL}/inventory/${userId}/expiring?days=${days}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch expiring items')
@@ -761,7 +719,7 @@ export const inventoryAPI = {
 
   getExpired: async (userId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/inventory/${userId}/expired`, {
+    const response = await fetch(`${API_BASE_URL}/inventory/${userId}/expired`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch expired items')
@@ -770,7 +728,7 @@ export const inventoryAPI = {
 
   getLowStock: async (userId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/inventory/${userId}/low-stock`, {
+    const response = await fetch(`${API_BASE_URL}/inventory/${userId}/low-stock`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch low stock items')
@@ -779,7 +737,7 @@ export const inventoryAPI = {
 
   generateRestockList: async (userId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/inventory/${userId}/restock-list`, {
+    const response = await fetch(`${API_BASE_URL}/inventory/${userId}/restock-list`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -792,7 +750,7 @@ export const inventoryAPI = {
 
   getStats: async (userId: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/inventory/${userId}/stats`, {
+    const response = await fetch(`${API_BASE_URL}/inventory/${userId}/stats`, {
       headers: { Authorization: `Bearer ${token}` },
     })
     if (!response.ok) throw new Error('Failed to fetch stats')
@@ -801,7 +759,7 @@ export const inventoryAPI = {
 
   scanBarcode: async (userId: string, barcode: string, quantity: number, location: string) => {
     const token = await getAuthToken()
-    const response = await fetch(`${getApiUrl()}/inventory/scan`, {
+    const response = await fetch(`${API_BASE_URL}/inventory/scan`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

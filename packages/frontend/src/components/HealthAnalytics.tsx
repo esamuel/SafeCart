@@ -1,9 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
 import { Activity, TrendingUp, TrendingDown, AlertCircle, Check, Target, Flame } from 'lucide-react'
-import { analyticsAPI } from '@/lib/api'
 
 interface AnalyticsSummary {
   totalItems: number
@@ -36,7 +34,6 @@ interface Analytics {
 }
 
 export default function HealthAnalytics({ user }: any) {
-  const { t } = useTranslation('analytics')
   const [analytics, setAnalytics] = useState<Analytics | null>(null)
   const [loading, setLoading] = useState(true)
   const [days, setDays] = useState(7)
@@ -57,10 +54,20 @@ export default function HealthAnalytics({ user }: any) {
     console.log('[Analytics] Loading analytics for user:', userId)
     setLoading(true)
     try {
-      console.log('[Analytics] Fetching analytics for', days, 'days')
-      const data = await analyticsAPI.getDashboard(userId, days)
-      console.log('[Analytics] Data received:', data)
-      setAnalytics(data)
+      const url = `http://localhost:5002/api/analytics/dashboard/${userId}?days=${days}`
+      console.log('[Analytics] Fetching:', url)
+
+      const response = await fetch(url)
+      console.log('[Analytics] Response status:', response.status)
+
+      if (response.ok) {
+        const data = await response.json()
+        console.log('[Analytics] Data received:', data)
+        setAnalytics(data)
+      } else {
+        const errorText = await response.text()
+        console.error('[Analytics] Failed to load:', response.status, errorText)
+      }
     } catch (error) {
       console.error('[Analytics] Error loading analytics:', error)
     } finally {
@@ -81,15 +88,15 @@ export default function HealthAnalytics({ user }: any) {
     return (
       <div className="text-center p-12">
         <Activity className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-        <h3 className="text-xl font-bold text-gray-900 mb-2">{t('emptyState.title')}</h3>
+        <h3 className="text-xl font-bold text-gray-900 mb-2">No Data Yet</h3>
         <p className="text-gray-600">
-          {t('emptyState.description')}
+          Start scanning products and tracking meals to see your health analytics!
         </p>
         <button
           onClick={() => loadAnalytics()}
           className="mt-4 bg-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-purple-700"
         >
-          {t('emptyState.retry')}
+          Retry Loading
         </button>
       </div>
     )
@@ -103,8 +110,8 @@ export default function HealthAnalytics({ user }: any) {
     <div className="max-w-4xl mx-auto pb-24">
       {/* Header */}
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">{t('title')}</h2>
-        <p className="text-gray-600">{t('subtitle')}</p>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Health Analytics</h2>
+        <p className="text-gray-600">Your personalized health insights and trends</p>
 
         {/* Time Range Selector */}
         <div className="flex gap-2 mt-4">
@@ -118,7 +125,7 @@ export default function HealthAnalytics({ user }: any) {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              {t('timeRange.days', { count: d })}
+              {d} Days
             </button>
           ))}
         </div>
@@ -134,9 +141,9 @@ export default function HealthAnalytics({ user }: any) {
               {summary.safetyScore}%
             </span>
           </div>
-          <p className="text-sm font-semibold text-green-800">{t('metrics.safetyScore')}</p>
+          <p className="text-sm font-semibold text-green-800">Safety Score</p>
           <p className="text-xs text-green-600 mt-1">
-            {summary.safeItems} {t('metrics.safeItems')} / {summary.totalItems} {t('metrics.items')}
+            {summary.safeItems} safe / {summary.totalItems} items
           </p>
         </div>
 
@@ -148,8 +155,8 @@ export default function HealthAnalytics({ user }: any) {
               {summary.currentStreak}
             </span>
           </div>
-          <p className="text-sm font-semibold text-orange-800">{t('metrics.streak')}</p>
-          <p className="text-xs text-orange-600 mt-1">{t('metrics.streakSubtext')}</p>
+          <p className="text-sm font-semibold text-orange-800">Day Streak</p>
+          <p className="text-xs text-orange-600 mt-1">Safe shopping days</p>
         </div>
 
         {/* Carbs Today */}
@@ -160,9 +167,9 @@ export default function HealthAnalytics({ user }: any) {
               {nutrition.avgDailyCarbs}g
             </span>
           </div>
-          <p className="text-sm font-semibold text-blue-800">{t('metrics.avgCarbs')}</p>
+          <p className="text-sm font-semibold text-blue-800">Avg Daily Carbs</p>
           <p className="text-xs text-blue-600 mt-1">
-            {t('metrics.of')} {nutrition.dailyCarbLimit}g {t('metrics.limit')}
+            of {nutrition.dailyCarbLimit}g limit
           </p>
         </div>
 
@@ -174,8 +181,8 @@ export default function HealthAnalytics({ user }: any) {
               {nutrition.mealsTracked}
             </span>
           </div>
-          <p className="text-sm font-semibold text-purple-800">{t('metrics.mealsLogged')}</p>
-          <p className="text-xs text-purple-600 mt-1">{t('timeRange.days', { count: days })}</p>
+          <p className="text-sm font-semibold text-purple-800">Meals Logged</p>
+          <p className="text-xs text-purple-600 mt-1">Last {days} days</p>
         </div>
       </div>
 
@@ -183,7 +190,7 @@ export default function HealthAnalytics({ user }: any) {
       <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
         <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
           <Target className="w-5 h-5 text-purple-600" />
-          {t('carbBudget.title')}
+          Daily Carb Budget
         </h3>
 
         <div className="mb-4">
@@ -221,17 +228,17 @@ export default function HealthAnalytics({ user }: any) {
         <div className="grid grid-cols-3 gap-4 text-center">
           <div className="bg-gray-50 p-3 rounded-xl">
             <p className="text-2xl font-bold text-gray-900">{nutrition.avgDailyCarbs}g</p>
-            <p className="text-xs text-gray-600">{t('carbBudget.dailyAvg')}</p>
+            <p className="text-xs text-gray-600">Daily Avg</p>
           </div>
           <div className="bg-gray-50 p-3 rounded-xl">
             <p className="text-2xl font-bold text-gray-900">
               {Math.max(0, nutrition.dailyCarbLimit - nutrition.avgDailyCarbs)}g
             </p>
-            <p className="text-xs text-gray-600">{t('carbBudget.remaining')}</p>
+            <p className="text-xs text-gray-600">Remaining</p>
           </div>
           <div className="bg-gray-50 p-3 rounded-xl">
             <p className="text-2xl font-bold text-gray-900">{nutrition.avgDailyProtein}g</p>
-            <p className="text-xs text-gray-600">{t('carbBudget.protein')}</p>
+            <p className="text-xs text-gray-600">Protein</p>
           </div>
         </div>
       </div>
@@ -241,55 +248,41 @@ export default function HealthAnalytics({ user }: any) {
         <div className="bg-white p-6 rounded-2xl shadow-lg mb-6">
           <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
             <Activity className="w-5 h-5 text-purple-600" />
-            {t('insights.title')}
+            Insights & Recommendations
           </h3>
 
           <div className="space-y-3">
-            {insights.map((insight, index) => {
-              // Map common insight messages to translation keys
-              let translatedMessage = insight.message
-              
-              // Try to translate common insights
-              if (insight.message.includes('Perfect safety score')) {
-                translatedMessage = t('insights.perfectSafety', { count: summary.totalItems })
-              } else if (insight.message.includes('Great carb control') || insight.message.includes('staying within your budget')) {
-                translatedMessage = t('insights.greatCarbControl')
-              } else if (insight.message.includes('Meal Planner') || insight.message.includes('diabetes-friendly')) {
-                translatedMessage = t('insights.tryMealPlanner')
-              }
-              
-              return (
-                <div
-                  key={index}
-                  className={`p-4 rounded-xl border-2 ${
-                    insight.type === 'success'
-                      ? 'bg-green-50 border-green-200'
-                      : insight.type === 'warning'
-                      ? 'bg-orange-50 border-orange-200'
-                      : insight.type === 'achievement'
-                      ? 'bg-purple-50 border-purple-200'
-                      : 'bg-blue-50 border-blue-200'
-                  }`}
-                >
-                  <div className="flex items-start gap-3">
-                    <span className="text-2xl">{insight.icon}</span>
-                    <div className="flex-1">
-                      <p className={`font-semibold ${
-                        insight.type === 'success'
-                          ? 'text-green-800'
-                          : insight.type === 'warning'
-                          ? 'text-orange-800'
-                          : insight.type === 'achievement'
-                          ? 'text-purple-800'
-                          : 'text-blue-800'
-                      }`}>
-                        {translatedMessage}
-                      </p>
-                    </div>
+            {insights.map((insight, index) => (
+              <div
+                key={index}
+                className={`p-4 rounded-xl border-2 ${
+                  insight.type === 'success'
+                    ? 'bg-green-50 border-green-200'
+                    : insight.type === 'warning'
+                    ? 'bg-orange-50 border-orange-200'
+                    : insight.type === 'achievement'
+                    ? 'bg-purple-50 border-purple-200'
+                    : 'bg-blue-50 border-blue-200'
+                }`}
+              >
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">{insight.icon}</span>
+                  <div className="flex-1">
+                    <p className={`font-semibold ${
+                      insight.type === 'success'
+                        ? 'text-green-800'
+                        : insight.type === 'warning'
+                        ? 'text-orange-800'
+                        : insight.type === 'achievement'
+                        ? 'text-purple-800'
+                        : 'text-blue-800'
+                    }`}>
+                      {insight.message}
+                    </p>
                   </div>
                 </div>
-              )
-            })}
+              </div>
+            ))}
           </div>
         </div>
       )}
@@ -301,20 +294,14 @@ export default function HealthAnalytics({ user }: any) {
             <AlertCircle className="w-8 h-8 text-red-600 flex-shrink-0" />
             <div>
               <h3 className="font-bold text-lg text-red-900 mb-2">
-                {t('dangerZone.title')}
+                Allergen Warning!
               </h3>
               <p className="text-red-800 mb-3">
-                {t('dangerZone.description', { count: summary.dangerousItems }).split(/\{\{count\}\}/).map((part, i, arr) => 
-                  i === arr.length - 1 ? part : (
-                    <span key={i}>
-                      {part}
-                      <span className="font-bold">{summary.dangerousItems}</span>
-                    </span>
-                  )
-                )}
+                We detected <span className="font-bold">{summary.dangerousItems} dangerous items</span> in
+                your shopping lists that contain allergens you're sensitive to.
               </p>
               <button className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-semibold transition">
-                {t('dangerZone.button')}
+                Review Dangerous Items
               </button>
             </div>
           </div>
@@ -323,22 +310,22 @@ export default function HealthAnalytics({ user }: any) {
 
       {/* Summary Stats */}
       <div className="bg-gradient-to-br from-purple-600 to-purple-800 text-white p-6 rounded-2xl shadow-lg">
-        <h3 className="font-bold text-lg mb-4">{t('summary.title', { days })}</h3>
+        <h3 className="font-bold text-lg mb-4">Summary (Last {days} Days)</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-purple-200 text-sm mb-1">{t('summary.itemsScanned')}</p>
+            <p className="text-purple-200 text-sm mb-1">Items Scanned</p>
             <p className="text-3xl font-bold">{summary.totalItems}</p>
           </div>
           <div>
-            <p className="text-purple-200 text-sm mb-1">{t('summary.safeItems')}</p>
+            <p className="text-purple-200 text-sm mb-1">Safe Items</p>
             <p className="text-3xl font-bold text-green-300">{summary.safeItems}</p>
           </div>
           <div>
-            <p className="text-purple-200 text-sm mb-1">{t('summary.mealsTracked')}</p>
+            <p className="text-purple-200 text-sm mb-1">Meals Tracked</p>
             <p className="text-3xl font-bold">{nutrition.mealsTracked}</p>
           </div>
           <div>
-            <p className="text-purple-200 text-sm mb-1">{t('summary.safetyScore')}</p>
+            <p className="text-purple-200 text-sm mb-1">Safety Score</p>
             <p className="text-3xl font-bold text-green-300">{summary.safetyScore}%</p>
           </div>
         </div>
