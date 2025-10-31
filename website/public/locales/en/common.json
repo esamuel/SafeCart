@@ -116,6 +116,150 @@
     "cancelAnytime": "Cancel anytime",
     "moneyBack": "30-day money-back guarantee"
   },
+  "featuresPage": {
+    "title": "All Features",
+    "subtitle": "Discover everything SafeCart can do for you",
+    "detailed": {
+      "scan": {
+        "title": "Advanced Barcode Scanning",
+        "description": "Our state-of-the-art scanner works with millions of products worldwide. Simply point your camera at any barcode and get instant results about ingredients, allergens, and nutritional information."
+      },
+      "allergen": {
+        "title": "Comprehensive Allergen Detection",
+        "description": "Set up your allergen profile once and get automatic warnings every time you scan a product. We cover all major allergens including nuts, dairy, gluten, soy, eggs, fish, shellfish, and more."
+      },
+      "diabetes": {
+        "title": "Smart Diabetes Management",
+        "description": "Track carbohydrates, sugar content, and glycemic index. Get personalized recommendations based on your diabetes type and blood sugar targets. Export reports to share with your healthcare provider."
+      },
+      "multilingual": {
+        "title": "True Multi-Language Experience",
+        "description": "SafeCart speaks your language. Full support for English, Hebrew, and Spanish with accurate translations and culturally appropriate content. More languages coming soon."
+      },
+      "history": {
+        "title": "Smart Scan History",
+        "description": "Never lose track of what you've scanned. Build custom shopping lists, mark favorites, and quickly re-check products you buy regularly. All synced across your devices."
+      },
+      "offline": {
+        "title": "Reliable Offline Access",
+        "description": "No internet? No problem. Access all your previously scanned products and your saved lists even when you're offline. Perfect for shopping in stores with poor signal."
+      }
+    }
+  },
+  "about": {
+    "title": "About SafeCart",
+    "subtitle": "Making grocery shopping safer for everyone",
+    "mission": {
+      "title": "Our Mission",
+      "description": "SafeCart was created to help people with allergies and diabetes shop with confidence. We believe everyone deserves to know exactly what's in their food without spending hours reading labels."
+    },
+    "story": {
+      "title": "Our Story",
+      "description": "Founded in 2024, SafeCart was born from personal experience. Our founder's child has severe allergies, and grocery shopping became a time-consuming and stressful task. We built SafeCart to make this process simple, fast, and reliable for families everywhere."
+    },
+    "values": {
+      "title": "Our Values",
+      "privacy": "Privacy First - Your health data stays private and secure",
+      "accuracy": "Accuracy - We maintain the most up-to-date product database",
+      "accessibility": "Accessibility - Health information should be available to everyone"
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Got questions? We've got answers",
+    "questions": [
+      {
+        "q": "How does the barcode scanner work?",
+        "a": "Simply open the SafeCart app, tap the scan button, and point your camera at any product barcode. Our app will instantly look up the product and check it against your health profile."
+      },
+      {
+        "q": "How accurate is the allergen detection?",
+        "a": "We maintain a comprehensive database updated daily with official product information. However, we always recommend checking product labels directly as formulations can change."
+      },
+      {
+        "q": "Does SafeCart work offline?",
+        "a": "Yes! Once you've scanned a product, it's saved in your history and accessible offline. You can also download product lists for offline use."
+      },
+      {
+        "q": "What allergens does SafeCart detect?",
+        "a": "SafeCart detects all major allergens including peanuts, tree nuts, milk, eggs, fish, shellfish, soy, wheat/gluten, sesame, and more."
+      },
+      {
+        "q": "Can I use SafeCart for multiple family members?",
+        "a": "Yes! The Family plan allows up to 5 profiles, perfect for managing different family members' allergens and dietary needs."
+      },
+      {
+        "q": "Is my health information secure?",
+        "a": "Absolutely. We use bank-level encryption and never share your personal health information with third parties. Your data is yours."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We'd love to hear from you",
+    "form": {
+      "name": "Your Name",
+      "email": "Email Address",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send Message"
+    },
+    "info": {
+      "email": "Email",
+      "emailAddress": "support@safecart.app",
+      "response": "We typically respond within 24 hours"
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last Updated: January 2024",
+    "intro": "At SafeCart, your privacy is our priority. This policy explains how we collect, use, and protect your information.",
+    "sections": [
+      {
+        "title": "Information We Collect",
+        "content": "We collect information you provide when creating an account (email, name), health profile data (allergens, dietary restrictions), and product scan history."
+      },
+      {
+        "title": "How We Use Your Information",
+        "content": "Your information is used solely to provide SafeCart services: checking products against your health profile, maintaining scan history, and improving our app."
+      },
+      {
+        "title": "Data Security",
+        "content": "We use industry-standard encryption to protect your data. Your health information is never shared with third parties without your explicit consent."
+      },
+      {
+        "title": "Your Rights",
+        "content": "You have the right to access, modify, or delete your personal data at any time through the app settings or by contacting us."
+      }
+    ]
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last Updated: January 2024",
+    "intro": "By using SafeCart, you agree to these terms. Please read them carefully.",
+    "sections": [
+      {
+        "title": "Acceptance of Terms",
+        "content": "By accessing and using SafeCart, you accept and agree to be bound by these Terms of Service."
+      },
+      {
+        "title": "Use of Service",
+        "content": "SafeCart is intended for personal, non-commercial use. You agree to use the service only for lawful purposes and in accordance with these terms."
+      },
+      {
+        "title": "Health Information Disclaimer",
+        "content": "SafeCart provides information to assist with food choices but is not a substitute for professional medical advice. Always verify product labels and consult healthcare providers for medical decisions."
+      },
+      {
+        "title": "User Accounts",
+        "content": "You are responsible for maintaining the confidentiality of your account and for all activities under your account."
+      },
+      {
+        "title": "Modifications",
+        "content": "We reserve the right to modify these terms at any time. Continued use of SafeCart constitutes acceptance of modified terms."
+      }
+    ]
+  },
   "footer": {
     "tagline": "Your trusted shopping safety companion",
     "product": "Product",

@@ -116,6 +116,150 @@
     "cancelAnytime": "Cancela en cualquier momento",
     "moneyBack": "Garantía de devolución de dinero de 30 días"
   },
+  "featuresPage": {
+    "title": "Todas las Características",
+    "subtitle": "Descubre todo lo que SafeCart puede hacer por ti",
+    "detailed": {
+      "scan": {
+        "title": "Escaneo Avanzado de Códigos de Barras",
+        "description": "Nuestro escáner de última generación funciona con millones de productos en todo el mundo. Simplemente apunta tu cámara a cualquier código de barras y obtén resultados instantáneos sobre ingredientes, alérgenos e información nutricional."
+      },
+      "allergen": {
+        "title": "Detección Integral de Alérgenos",
+        "description": "Configura tu perfil de alérgenos una vez y recibe advertencias automáticas cada vez que escaneas un producto. Cubrimos todos los alérgenos principales incluyendo nueces, lácteos, gluten, soya, huevos, pescado, mariscos y más."
+      },
+      "diabetes": {
+        "title": "Gestión Inteligente de la Diabetes",
+        "description": "Rastrea carbohidratos, contenido de azúcar e índice glucémico. Obtén recomendaciones personalizadas basadas en tu tipo de diabetes y objetivos de azúcar en sangre. Exporta informes para compartir con tu proveedor de salud."
+      },
+      "multilingual": {
+        "title": "Experiencia Verdaderamente Multilingüe",
+        "description": "SafeCart habla tu idioma. Soporte completo para inglés, hebreo y español con traducciones precisas y contenido culturalmente apropiado. Más idiomas próximamente."
+      },
+      "history": {
+        "title": "Historial Inteligente de Escaneos",
+        "description": "Nunca pierdas el rastro de lo que has escaneado. Crea listas de compras personalizadas, marca favoritos y verifica rápidamente productos que compras regularmente. Todo sincronizado en tus dispositivos."
+      },
+      "offline": {
+        "title": "Acceso Confiable Sin Conexión",
+        "description": "¿Sin internet? No hay problema. Accede a todos tus productos escaneados anteriormente y tus listas guardadas incluso cuando estés sin conexión. Perfecto para comprar en tiendas con señal débil."
+      }
+    }
+  },
+  "about": {
+    "title": "Acerca de SafeCart",
+    "subtitle": "Haciendo las compras de comestibles más seguras para todos",
+    "mission": {
+      "title": "Nuestra Misión",
+      "description": "SafeCart fue creado para ayudar a personas con alergias y diabetes a comprar con confianza. Creemos que todos merecen saber exactamente qué hay en su comida sin pasar horas leyendo etiquetas."
+    },
+    "story": {
+      "title": "Nuestra Historia",
+      "description": "Fundado en 2024, SafeCart nació de una experiencia personal. El hijo de nuestro fundador tiene alergias severas, y las compras de comestibles se convirtieron en una tarea que consume tiempo y es estresante. Construimos SafeCart para hacer este proceso simple, rápido y confiable para familias en todas partes."
+    },
+    "values": {
+      "title": "Nuestros Valores",
+      "privacy": "Privacidad Primero - Tus datos de salud permanecen privados y seguros",
+      "accuracy": "Precisión - Mantenemos la base de datos de productos más actualizada",
+      "accessibility": "Accesibilidad - La información de salud debe estar disponible para todos"
+    }
+  },
+  "faq": {
+    "title": "Preguntas Frecuentes",
+    "subtitle": "¿Tienes preguntas? Tenemos respuestas",
+    "questions": [
+      {
+        "q": "¿Cómo funciona el escáner de códigos de barras?",
+        "a": "Simplemente abre la aplicación SafeCart, toca el botón de escaneo y apunta tu cámara a cualquier código de barras de producto. Nuestra aplicación buscará instantáneamente el producto y lo verificará contra tu perfil de salud."
+      },
+      {
+        "q": "¿Qué tan precisa es la detección de alérgenos?",
+        "a": "Mantenemos una base de datos completa actualizada diariamente con información oficial de productos. Sin embargo, siempre recomendamos verificar las etiquetas de productos directamente ya que las formulaciones pueden cambiar."
+      },
+      {
+        "q": "¿SafeCart funciona sin conexión?",
+        "a": "¡Sí! Una vez que hayas escaneado un producto, se guarda en tu historial y es accesible sin conexión. También puedes descargar listas de productos para uso sin conexión."
+      },
+      {
+        "q": "¿Qué alérgenos detecta SafeCart?",
+        "a": "SafeCart detecta todos los alérgenos principales incluyendo cacahuetes, frutos secos, leche, huevos, pescado, mariscos, soya, trigo/gluten, sésamo y más."
+      },
+      {
+        "q": "¿Puedo usar SafeCart para múltiples miembros de la familia?",
+        "a": "¡Sí! El plan Familiar permite hasta 5 perfiles, perfecto para gestionar diferentes alérgenos y necesidades dietéticas de los miembros de la familia."
+      },
+      {
+        "q": "¿Es segura mi información de salud?",
+        "a": "Absolutamente. Usamos encriptación de nivel bancario y nunca compartimos tu información de salud personal con terceros. Tus datos son tuyos."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contáctanos",
+    "subtitle": "Nos encantaría saber de ti",
+    "form": {
+      "name": "Tu Nombre",
+      "email": "Dirección de Correo",
+      "subject": "Asunto",
+      "message": "Mensaje",
+      "send": "Enviar Mensaje"
+    },
+    "info": {
+      "email": "Correo",
+      "emailAddress": "support@safecart.app",
+      "response": "Típicamente respondemos dentro de 24 horas"
+    }
+  },
+  "privacy": {
+    "title": "Política de Privacidad",
+    "lastUpdated": "Última actualización: Enero 2024",
+    "intro": "En SafeCart, tu privacidad es nuestra prioridad. Esta política explica cómo recopilamos, usamos y protegemos tu información.",
+    "sections": [
+      {
+        "title": "Información que Recopilamos",
+        "content": "Recopilamos información que proporcionas al crear una cuenta (correo electrónico, nombre), datos del perfil de salud (alérgenos, restricciones dietéticas) e historial de escaneo de productos."
+      },
+      {
+        "title": "Cómo Usamos Tu Información",
+        "content": "Tu información se usa únicamente para proporcionar servicios de SafeCart: verificar productos contra tu perfil de salud, mantener el historial de escaneo y mejorar nuestra aplicación."
+      },
+      {
+        "title": "Seguridad de Datos",
+        "content": "Utilizamos encriptación estándar de la industria para proteger tus datos. Tu información de salud nunca se comparte con terceros sin tu consentimiento explícito."
+      },
+      {
+        "title": "Tus Derechos",
+        "content": "Tienes derecho a acceder, modificar o eliminar tus datos personales en cualquier momento a través de la configuración de la aplicación o contactándonos."
+      }
+    ]
+  },
+  "terms": {
+    "title": "Términos de Servicio",
+    "lastUpdated": "Última actualización: Enero 2024",
+    "intro": "Al usar SafeCart, aceptas estos términos. Por favor léelos cuidadosamente.",
+    "sections": [
+      {
+        "title": "Aceptación de Términos",
+        "content": "Al acceder y usar SafeCart, aceptas y acuerdas estar sujeto a estos Términos de Servicio."
+      },
+      {
+        "title": "Uso del Servicio",
+        "content": "SafeCart está destinado para uso personal y no comercial. Aceptas usar el servicio solo para propósitos legales y de acuerdo con estos términos."
+      },
+      {
+        "title": "Descargo de Responsabilidad sobre Información de Salud",
+        "content": "SafeCart proporciona información para ayudar con las elecciones de alimentos pero no es un sustituto del consejo médico profesional. Siempre verifica las etiquetas de productos y consulta a proveedores de salud para decisiones médicas."
+      },
+      {
+        "title": "Cuentas de Usuario",
+        "content": "Eres responsable de mantener la confidencialidad de tu cuenta y de todas las actividades bajo tu cuenta."
+      },
+      {
+        "title": "Modificaciones",
+        "content": "Nos reservamos el derecho de modificar estos términos en cualquier momento. El uso continuado de SafeCart constituye la aceptación de los términos modificados."
+      }
+    ]
+  },
   "footer": {
     "tagline": "Tu compañero de confianza para compras seguras",
     "product": "Producto",
