@@ -8,9 +8,11 @@
 
 # Functions
 [functions]
-  directory = "netlify/functions"
+  # When using a base directory, paths are resolved relative to it.
+  # Our functions live at repo-root/netlify/functions, so step out of base.
+  directory = "../netlify/functions"
   node_bundler = "esbuild"
-  included_files = ["netlify/functions/**"]
+  included_files = ["../netlify/functions/**"]
 
 # API redirects - MUST come first to override static fallback
 [[redirects]]

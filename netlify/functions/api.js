@@ -11,12 +11,15 @@ const ShoppingList = require('../../packages/backend/src/models/ShoppingList')
 const app = express()
 
 // Middleware
+// Allow the deployed site URL by default; fall back to permissive during local dev.
+const allowedOrigin = process.env.ALLOWED_ORIGIN || process.env.URL || process.env.DEPLOY_PRIME_URL || '*'
 app.use(cors({
-  origin: '*',
+  origin: allowedOrigin,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
 }))
-app.use(express.json())
+app.use(express.json()
 
 // MongoDB Connection
 const mongoUri = process.env.MONGODB_URI
