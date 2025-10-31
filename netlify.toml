@@ -1,7 +1,10 @@
 [build]
   base = "packages/frontend/"
-  command = "echo 'Build test' && mkdir -p .next && echo 'test page' > .next/index.html"
+  command = "npm run build"
   publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 [build.environment]
   NODE_VERSION = "18"
