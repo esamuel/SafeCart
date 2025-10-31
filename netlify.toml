@@ -1,6 +1,6 @@
 [build]
-  base = "packages/frontend"
-  command = "npm install && npm run build"
+  base = "packages/frontend/"
+  command = "npm run build"
   publish = ".next"
 
 [[plugins]]
@@ -9,21 +9,19 @@
 [build.environment]
   NODE_VERSION = "18"
 
-# Netlify Functions configuration (for API)
+# Functions
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-# Redirects for API routes
+# API redirects
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
 
-# Headers for CORS
-[[headers]]
-  for = "/api/*"
-  [headers.values]
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
-    Access-Control-Allow-Headers = "Content-Type, Authorization"
+# SPA fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
