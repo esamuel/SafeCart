@@ -5,6 +5,9 @@ packages/*/node_modules/
 # Build outputs
 .next/
 packages/frontend/.next/
+out/
+packages/frontend/out/
+website/out/
 dist/
 build/
 coverage/

@@ -1,0 +1,128 @@
+{
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "pricing": "Pricing",
+    "about": "About",
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "Shop Safely with SafeCart",
+    "subtitle": "Your personal shopping assistant for allergen detection and diabetes management",
+    "cta": "Download Now",
+    "learnMore": "Learn More"
+  },
+  "features": {
+    "title": "Powerful Features",
+    "subtitle": "Everything you need to shop safely and confidently",
+    "scan": {
+      "title": "Barcode Scanner",
+      "description": "Instantly scan products to check for allergens and nutritional information"
+    },
+    "allergen": {
+      "title": "Allergen Detection",
+      "description": "Get immediate warnings about ingredients you're allergic to"
+    },
+    "diabetes": {
+      "title": "Diabetes Management",
+      "description": "Track carbs, sugar, and make informed choices for blood sugar control"
+    },
+    "multilingual": {
+      "title": "Multi-Language Support",
+      "description": "Available in English, Hebrew, and Spanish for your convenience"
+    },
+    "history": {
+      "title": "Scan History",
+      "description": "Keep track of all your scanned products and build your safe shopping list"
+    },
+    "offline": {
+      "title": "Offline Mode",
+      "description": "Access your saved products even without internet connection"
+    }
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "step1": {
+      "title": "Create Your Profile",
+      "description": "Set up your health profile with allergens and dietary restrictions"
+    },
+    "step2": {
+      "title": "Scan Products",
+      "description": "Use your phone camera to scan product barcodes while shopping"
+    },
+    "step3": {
+      "title": "Shop Safely",
+      "description": "Get instant alerts and make informed decisions about what you buy"
+    }
+  },
+  "cta": {
+    "title": "Ready to Shop Safely?",
+    "subtitle": "Join thousands of users who trust SafeCart for their shopping needs",
+    "download": "Download SafeCart"
+  },
+  "pricing": {
+    "title": "Simple, Transparent Pricing",
+    "subtitle": "Choose the plan that works best for you and your family",
+    "free": {
+      "name": "Free",
+      "price": "0",
+      "description": "Perfect for trying out SafeCart",
+      "features": [
+        "Basic barcode scanning",
+        "Up to 3 allergen alerts",
+        "Scan history (30 days)",
+        "Multi-language support",
+        "Community support"
+      ],
+      "cta": "Get Started"
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "4.99",
+      "description": "For individuals with specific dietary needs",
+      "features": [
+        "Unlimited barcode scanning",
+        "Unlimited allergen alerts",
+        "Unlimited scan history",
+        "Advanced diabetes tracking",
+        "Offline mode",
+        "Priority support",
+        "Export reports"
+      ],
+      "cta": "Start Free Trial",
+      "badge": "Most Popular"
+    },
+    "family": {
+      "name": "Family",
+      "price": "9.99",
+      "description": "Perfect for families with multiple profiles",
+      "features": [
+        "Everything in Pro",
+        "Up to 5 family profiles",
+        "Shared shopping lists",
+        "Family health dashboard",
+        "Meal planning suggestions",
+        "Premium support",
+        "Early access to new features"
+      ],
+      "cta": "Start Free Trial",
+      "badge": "Best Value"
+    },
+    "perMonth": "/month",
+    "billedMonthly": "Billed monthly",
+    "allPlansInclude": "All plans include",
+    "securePayment": "Secure payment processing",
+    "cancelAnytime": "Cancel anytime",
+    "moneyBack": "30-day money-back guarantee"
+  },
+  "footer": {
+    "tagline": "Your trusted shopping safety companion",
+    "product": "Product",
+    "company": "Company",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "copyright": "© 2024 SafeCart. All rights reserved."
+  }
+}

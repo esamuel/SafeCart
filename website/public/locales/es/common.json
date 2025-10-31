@@ -1,0 +1,128 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "features": "Características",
+    "pricing": "Precios",
+    "about": "Acerca de",
+    "faq": "Preguntas Frecuentes",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "title": "Compra con Seguridad con SafeCart",
+    "subtitle": "Tu asistente personal de compras para detección de alérgenos y manejo de diabetes",
+    "cta": "Descargar Ahora",
+    "learnMore": "Saber Más"
+  },
+  "features": {
+    "title": "Características Poderosas",
+    "subtitle": "Todo lo que necesitas para comprar con seguridad y confianza",
+    "scan": {
+      "title": "Escáner de Códigos de Barras",
+      "description": "Escanea productos instantáneamente para verificar alérgenos e información nutricional"
+    },
+    "allergen": {
+      "title": "Detección de Alérgenos",
+      "description": "Recibe advertencias inmediatas sobre ingredientes a los que eres alérgico"
+    },
+    "diabetes": {
+      "title": "Manejo de Diabetes",
+      "description": "Controla carbohidratos, azúcar y toma decisiones informadas para el control del azúcar en sangre"
+    },
+    "multilingual": {
+      "title": "Soporte Multilingüe",
+      "description": "Disponible en inglés, hebreo y español para tu comodidad"
+    },
+    "history": {
+      "title": "Historial de Escaneos",
+      "description": "Rastrea todos tus productos escaneados y construye tu lista de compras segura"
+    },
+    "offline": {
+      "title": "Modo Sin Conexión",
+      "description": "Accede a tus productos guardados incluso sin conexión a internet"
+    }
+  },
+  "howItWorks": {
+    "title": "Cómo Funciona",
+    "step1": {
+      "title": "Crea Tu Perfil",
+      "description": "Configura tu perfil de salud con alérgenos y restricciones dietéticas"
+    },
+    "step2": {
+      "title": "Escanea Productos",
+      "description": "Usa la cámara de tu teléfono para escanear códigos de barras mientras compras"
+    },
+    "step3": {
+      "title": "Compra con Seguridad",
+      "description": "Recibe alertas instantáneas y toma decisiones informadas sobre lo que compras"
+    }
+  },
+  "cta": {
+    "title": "¿Listo para Comprar con Seguridad?",
+    "subtitle": "Únete a miles de usuarios que confían en SafeCart para sus necesidades de compras",
+    "download": "Descargar SafeCart"
+  },
+  "pricing": {
+    "title": "Precios Simples y Transparentes",
+    "subtitle": "Elige el plan que mejor funcione para ti y tu familia",
+    "free": {
+      "name": "Gratis",
+      "price": "0",
+      "description": "Perfecto para probar SafeCart",
+      "features": [
+        "Escaneo básico de códigos de barras",
+        "Hasta 3 alertas de alérgenos",
+        "Historial de escaneos (30 días)",
+        "Soporte multilingüe",
+        "Soporte comunitario"
+      ],
+      "cta": "Comenzar"
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "4.99",
+      "description": "Para personas con necesidades dietéticas específicas",
+      "features": [
+        "Escaneo ilimitado de códigos de barras",
+        "Alertas ilimitadas de alérgenos",
+        "Historial ilimitado de escaneos",
+        "Seguimiento avanzado de diabetes",
+        "Modo sin conexión",
+        "Soporte prioritario",
+        "Exportar reportes"
+      ],
+      "cta": "Iniciar Prueba Gratuita",
+      "badge": "Más Popular"
+    },
+    "family": {
+      "name": "Familia",
+      "price": "9.99",
+      "description": "Perfecto para familias con múltiples perfiles",
+      "features": [
+        "Todo lo incluido en Pro",
+        "Hasta 5 perfiles familiares",
+        "Listas de compras compartidas",
+        "Panel de salud familiar",
+        "Sugerencias de planificación de comidas",
+        "Soporte premium",
+        "Acceso anticipado a nuevas funciones"
+      ],
+      "cta": "Iniciar Prueba Gratuita",
+      "badge": "Mejor Valor"
+    },
+    "perMonth": "/mes",
+    "billedMonthly": "Facturación mensual",
+    "allPlansInclude": "Todos los planes incluyen",
+    "securePayment": "Procesamiento seguro de pagos",
+    "cancelAnytime": "Cancela en cualquier momento",
+    "moneyBack": "Garantía de devolución de dinero de 30 días"
+  },
+  "footer": {
+    "tagline": "Tu compañero de confianza para compras seguras",
+    "product": "Producto",
+    "company": "Compañía",
+    "legal": "Legal",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos de Servicio",
+    "copyright": "© 2024 SafeCart. Todos los derechos reservados."
+  }
+}
