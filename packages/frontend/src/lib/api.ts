@@ -2,16 +2,37 @@ import { auth } from './firebase'
 
 // Determine API URL based on environment
 const getApiUrl = () => {
-  if (typeof window !== 'undefined') {
-    // Browser environment - use current hostname with backend port
-    const hostname = window.location.hostname
-    return `http://${hostname}:5002/api`
+  // Always respect explicit config first
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL
   }
-  // Server environment
-  return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5002/api'
+
+  if (typeof window !== 'undefined') {
+    const hostname = window.location.hostname
+    const isLocal = hostname === 'localhost' || hostname === '127.0.0.1'
+
+    // Local dev hits the Express server directly
+    if (isLocal) return 'http://localhost:5002/api'
+
+    // Production uses same-origin path; Netlify redirects /api/* to functions
+    return '/api'
+  }
+
+  // Server/build environment (fallback to local backend)
+  return 'http://localhost:5002/api'
 }
 
-const API_BASE_URL = getApiUrl()
+let API_BASE_URL = getApiUrl()
+
+// Safety: never use http on an https page
+if (typeof window !== 'undefined') {
+  const isHttpsPage = window.location.protocol === 'https:'
+  const isHttpApi = typeof API_BASE_URL === 'string' && API_BASE_URL.startsWith('http://')
+  if (isHttpsPage && isHttpApi) {
+    // Use same-origin Netlify redirect in production
+    API_BASE_URL = '/api'
+  }
+}
 
 // Get Firebase token
 async function getAuthToken() {
