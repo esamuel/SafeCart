@@ -10,9 +10,22 @@
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
+  included_files = ["netlify/functions/**"]
 
-# API redirects
+# API redirects - exclude from static handling
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
+  status = 200
+
+# Test function
+[[redirects]]
+  from = "/test"
+  to = "/.netlify/functions/api-test"
+  status = 200
+
+# Handle all other routes with static files
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
   status = 200
