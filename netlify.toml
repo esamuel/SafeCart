@@ -12,7 +12,7 @@
   node_bundler = "esbuild"
   included_files = ["netlify/functions/**"]
 
-# API redirects - exclude from static handling
+# API redirects - MUST come first to override static fallback
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
@@ -24,7 +24,7 @@
   to = "/.netlify/functions/api-test"
   status = 200
 
-# Handle all other routes with static files
+# Handle all other routes with static files (MUST come last)
 [[redirects]]
   from = "/*"
   to = "/index.html"
