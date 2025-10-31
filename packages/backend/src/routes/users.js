@@ -60,9 +60,15 @@ router.post('/:userId/health-profile', async (req, res) => {
     }
 
     if (!user) {
-      const allUsers = await User.find({}).select('_id firebaseId email')
-      console.log('[HEALTH PROFILE] User not found! Available users:', allUsers)
-      return res.status(404).json({ error: 'User not found' })
+      // Create user if doesn't exist (fallback when auth/verify isn't called)
+      console.log('[HEALTH PROFILE] User not found, creating new user with Firebase ID:', req.params.userId)
+      user = new User({
+        firebaseId: req.params.userId,
+        email: req.body.email || `user_${req.params.userId}@safecart.app`,
+        name: displayName || 'User',
+        healthProfiles: [],
+      })
+      // Don't save yet, will save after adding health profile below
     }
 
     console.log('[HEALTH PROFILE] Found user:', user.email)
