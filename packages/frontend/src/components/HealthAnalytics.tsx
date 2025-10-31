@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Activity, TrendingUp, TrendingDown, AlertCircle, Check, Target, Flame } from 'lucide-react'
+import { analyticsAPI } from '@/lib/api'
 
 interface AnalyticsSummary {
   totalItems: number
@@ -56,20 +57,10 @@ export default function HealthAnalytics({ user }: any) {
     console.log('[Analytics] Loading analytics for user:', userId)
     setLoading(true)
     try {
-      const url = `http://localhost:5002/api/analytics/dashboard/${userId}?days=${days}`
-      console.log('[Analytics] Fetching:', url)
-
-      const response = await fetch(url)
-      console.log('[Analytics] Response status:', response.status)
-
-      if (response.ok) {
-        const data = await response.json()
-        console.log('[Analytics] Data received:', data)
-        setAnalytics(data)
-      } else {
-        const errorText = await response.text()
-        console.error('[Analytics] Failed to load:', response.status, errorText)
-      }
+      console.log('[Analytics] Fetching analytics for', days, 'days')
+      const data = await analyticsAPI.getDashboard(userId, days)
+      console.log('[Analytics] Data received:', data)
+      setAnalytics(data)
     } catch (error) {
       console.error('[Analytics] Error loading analytics:', error)
     } finally {
