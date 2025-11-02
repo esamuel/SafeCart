@@ -4,12 +4,24 @@ const User = require('../models/User')
 const admin = require('firebase-admin')
 
 // Initialize Firebase Admin
-const serviceAccount = JSON.parse(process.env.FIREBASE_PRIVATE_KEY)
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    projectId: process.env.FIREBASE_PROJECT_ID,
-  })
+let serviceAccount = null
+if (process.env.FIREBASE_PRIVATE_KEY) {
+  try {
+    serviceAccount = JSON.parse(process.env.FIREBASE_PRIVATE_KEY)
+  } catch (e) {
+    console.warn('Warning: Could not parse FIREBASE_PRIVATE_KEY. Firebase features disabled.')
+  }
+}
+
+if (serviceAccount && !admin.apps.length) {
+  try {
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+      projectId: process.env.FIREBASE_PROJECT_ID,
+    })
+  } catch (e) {
+    console.warn('Warning: Could not initialize Firebase Admin:', e.message)
+  }
 }
 
 // Verify Firebase token and create/update user in database
