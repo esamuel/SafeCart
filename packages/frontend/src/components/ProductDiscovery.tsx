@@ -67,40 +67,53 @@ export default function ProductDiscovery() {
   }
 
   const handleSearch = async (browseAll = false) => {
-    // Allow search with just filters (no search query required)
-    if (!browseAll && !searchQuery.trim() && !selectedCategory && selectedAllergens.length === 0 && !maxCarbs) {
-      setError('Please enter a search term or select filters to browse products')
-      return
-    }
-
     try {
-      // Clear previous results before starting new search
+      // Clear previous results and errors before starting new search
       setProducts([])
-      setLoading(true)
       setError('')
+      setLoading(true)
       
       // Small delay to ensure UI update
       await new Promise(resolve => setTimeout(resolve, 50))
 
       const filters: any = {}
+      
+      // For "Browse All", add a limit to get initial products
+      if (browseAll) {
+        filters.limit = 50
+      }
+      
       if (selectedCategory) filters.category = selectedCategory
       if (selectedAllergens.length > 0) filters.allergen = selectedAllergens[0]
       if (maxCarbs) filters.maxCarbs = parseInt(maxCarbs)
 
-      // If no search query but filters exist, use empty string to get all matching filters
-      const query = searchQuery.trim() || ''
+      // If browsing all or filters exist, use empty query
+      // Otherwise require a search term
+      const query = browseAll ? '' : searchQuery.trim()
+      
+      if (!browseAll && !query && !selectedCategory && selectedAllergens.length === 0 && !maxCarbs) {
+        setError('Please enter a search term or select filters to browse products')
+        setLoading(false)
+        return
+      }
 
-      console.log('Searching with:', { query, filters }) // Debug log
+      console.log('Searching with:', { query, filters, browseAll }) // Debug log
 
       const results = await productsAPI.search(query, filters)
 
       console.log('Results received:', results?.length || 0) // Debug log
 
       // Ensure results is an array
-      setProducts(Array.isArray(results) ? results : [])
+      const productsArray = Array.isArray(results) ? results : []
+      setProducts(productsArray)
+      
+      if (productsArray.length === 0 && browseAll) {
+        setError('No products available in the database yet.')
+      }
     } catch (err: any) {
-      setError('Failed to search products: ' + err.message)
+      setError('Failed to search products. ' + (err.message || 'Please try again.'))
       console.error('Search error:', err)
+      setProducts([])
     } finally {
       setLoading(false)
     }
