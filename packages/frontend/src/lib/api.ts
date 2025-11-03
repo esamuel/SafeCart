@@ -2,13 +2,23 @@ import { auth } from './firebase'
 
 // Determine API URL based on environment
 const getApiUrl = () => {
-  if (typeof window !== 'undefined') {
-    // Browser environment - use current hostname with backend port
-    const hostname = window.location.hostname
-    return `http://${hostname}:5002/api`
+  // Use environment variable if set (for production)
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL
   }
-  // Server environment
-  return process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5002/api'
+  
+  if (typeof window !== 'undefined') {
+    // Browser environment - check if localhost
+    const hostname = window.location.hostname
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      return 'http://localhost:5002/api'
+    }
+    // Production - use Render backend
+    return 'https://safecart-backend-j3ry.onrender.com/api'
+  }
+  
+  // Server environment fallback
+  return 'http://localhost:5002/api'
 }
 
 const API_BASE_URL = getApiUrl()
