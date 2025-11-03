@@ -32,6 +32,12 @@ router.post('/verify', async (req, res) => {
       return res.status(400).json({ error: 'Token required' })
     }
 
+    // Check if Firebase is initialized
+    if (!admin.apps.length) {
+      console.error('Firebase Admin not initialized - missing FIREBASE_PRIVATE_KEY')
+      return res.status(500).json({ error: 'Authentication service not configured' })
+    }
+
     // Verify token with Firebase Admin SDK
     const decodedToken = await admin.auth().verifyIdToken(token)
     const firebaseId = decodedToken.uid
