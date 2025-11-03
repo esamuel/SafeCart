@@ -22,33 +22,10 @@ export default function Home() {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       try {
         if (currentUser) {
-          // Verify token with backend and create/update user in database
-          const token = await currentUser.getIdToken()
-          try {
-            const result = await authAPI.verify(token)
-            setDbUser(result.user)
-            setUser(currentUser)
-            setError('')
-            
-            // Check if user has health profile
-            try {
-              const profile = await usersAPI.getProfile(currentUser.uid)
-              if (!profile.healthProfiles || profile.healthProfiles.length === 0) {
-                setShowOnboarding(true)
-              }
-            } catch (profileErr) {
-              // If we can't fetch profile, show onboarding
-              setShowOnboarding(true)
-            }
-          } catch (backendError: any) {
-            console.error('Backend auth verification failed:', backendError)
-            // Even if backend fails, we can still use Firebase user
-            // This allows the app to work even if backend is down
-            setUser(currentUser)
-            setDbUser(null)
-            setShowOnboarding(true)
-            console.warn('Continuing with Firebase auth only (backend verification failed)')
-          }
+          // Just set the user, don't fetch profile yet
+          setUser(currentUser)
+          setError('')
+          // Profile will be checked by Dashboard when it loads
         } else {
           setUser(null)
           setDbUser(null)
@@ -102,15 +79,6 @@ export default function Home() {
     return <Auth />
   }
 
-  if (showOnboarding) {
-    return (
-      <Onboarding
-        onComplete={() => {
-          setShowOnboarding(false)
-        }}
-      />
-    )
-  }
-
-  return <Dashboard user={dbUser || user} />
+  // Dashboard will handle profile checks and onboarding
+  return <Dashboard user={user} />
 }
