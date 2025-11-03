@@ -1,12 +1,15 @@
 'use client'
 
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import '@/lib/i18n'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth'
 import { auth } from '@/lib/firebase'
 import { AlertCircle, Eye, EyeOff } from 'lucide-react'
 import Logo from './Logo'
 
 export default function Auth() {
+  const { t } = useTranslation('auth')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isSignUp, setIsSignUp] = useState(false)
@@ -44,12 +47,12 @@ export default function Auth() {
 
     try {
       if (!resetEmail) {
-        setError('Please enter your email address')
+        setError(t('resetPassword.errorEmpty'))
         setLoading(false)
         return
       }
       await sendPasswordResetEmail(auth, resetEmail)
-      setSuccess('Password reset email sent! Check your inbox.')
+      setSuccess(t('resetPassword.successMessage'))
       setResetEmail('')
       setTimeout(() => {
         setShowForgotPassword(false)
@@ -69,7 +72,7 @@ export default function Auth() {
           <div className="flex justify-center mb-4">
             <Logo size="large" variant="colored" />
           </div>
-          <p className="text-gray-600 mt-2">Shop safely with allergies & diabetes</p>
+          <p className="text-gray-600 mt-2">{t('tagline')}</p>
         </div>
 
         {error && (
@@ -91,21 +94,21 @@ export default function Auth() {
             <form onSubmit={handleAuth} className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Email
+                  {t('email')}
                 </label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none transition"
-                  placeholder="you@example.com"
+                  placeholder={t('emailPlaceholder')}
                   required
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Password
+                  {t('password')}
                 </label>
                 <div className="relative">
                   <input
@@ -113,7 +116,7 @@ export default function Auth() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none transition pr-12"
-                    placeholder="••••••••"
+                    placeholder={t('passwordPlaceholder')}
                     required
                   />
                   <button
@@ -135,7 +138,7 @@ export default function Auth() {
                 disabled={loading}
                 className="w-full bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900 text-white font-semibold py-3 rounded-xl transition transform hover:scale-105 disabled:opacity-50"
               >
-                {loading ? 'Loading...' : isSignUp ? 'Sign Up' : 'Sign In'}
+                {loading ? t('loading') : isSignUp ? t('signUp') : t('signIn')}
               </button>
             </form>
 
@@ -145,17 +148,17 @@ export default function Auth() {
                   onClick={() => setShowForgotPassword(true)}
                   className="w-full text-purple-600 hover:text-purple-700 font-semibold text-sm py-2 transition"
                 >
-                  Forgot Password?
+                  {t('forgotPassword')}
                 </button>
               )}
               <div className="text-center">
                 <p className="text-gray-600 text-sm">
-                  {isSignUp ? 'Already have an account?' : "Don't have an account?"}
+                  {isSignUp ? t('alreadyHaveAccount') : t('dontHaveAccount')}
                   <button
                     onClick={() => setIsSignUp(!isSignUp)}
                     className="ml-1 text-purple-600 hover:text-purple-700 font-semibold"
                   >
-                    {isSignUp ? 'Sign In' : 'Sign Up'}
+                    {isSignUp ? t('signIn') : t('signUp')}
                   </button>
                 </p>
               </div>
@@ -165,18 +168,18 @@ export default function Auth() {
           <>
             <form onSubmit={handlePasswordReset} className="space-y-4">
               <p className="text-gray-600 text-sm mb-4">
-                Enter your email address and we'll send you a link to reset your password.
+                {t('resetPassword.description')}
               </p>
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Email Address
+                  {t('resetPassword.emailLabel')}
                 </label>
                 <input
                   type="email"
                   value={resetEmail}
                   onChange={(e) => setResetEmail(e.target.value)}
                   className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-600 focus:border-transparent outline-none transition"
-                  placeholder="you@example.com"
+                  placeholder={t('emailPlaceholder')}
                   required
                 />
               </div>
@@ -186,7 +189,7 @@ export default function Auth() {
                 disabled={loading}
                 className="w-full bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900 text-white font-semibold py-3 rounded-xl transition transform hover:scale-105 disabled:opacity-50"
               >
-                {loading ? 'Sending...' : 'Send Reset Link'}
+                {loading ? t('resetPassword.sending') : t('resetPassword.sendButton')}
               </button>
             </form>
 
@@ -199,7 +202,7 @@ export default function Auth() {
                 }}
                 className="text-purple-600 hover:text-purple-700 font-semibold text-sm"
               >
-                Back to Sign In
+                {t('resetPassword.backToSignIn')}
               </button>
             </div>
           </>

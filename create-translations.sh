@@ -1,0 +1,69 @@
+#!/bin/bash
+
+# Create Spanish shopping.json
+cat > /Users/samueleskenasy/safecart/packages/frontend/public/locales/es/shopping.json << 'EOF'
+{
+  "title": "Listas de Compras",
+  "subtitle": "Administra tus listas de compras",
+  "createList": {
+    "button": "Crear Nueva Lista",
+    "title": "Crear Lista de Compras",
+    "nameLabel": "Nombre de la Lista",
+    "namePlaceholder": "Mi Lista de Compras",
+    "descriptionLabel": "Descripción (opcional)",
+    "descriptionPlaceholder": "Compras semanales...",
+    "creating": "Creando..."
+  },
+  "list": {
+    "items": "artículos",
+    "noItems": "Aún no hay artículos",
+    "addItem": "Añadir Artículo",
+    "deleteList": "Eliminar Lista",
+    "shareList": "Compartir Lista"
+  },
+  "addItem": {
+    "title": "Añadir Artículo",
+    "nameLabel": "Nombre del Artículo",
+    "namePlaceholder": "Leche de almendras, pan, etc.",
+    "quantityLabel": "Cantidad",
+    "unitLabel": "Unidad",
+    "units": {
+      "unit": "unidad",
+      "kg": "kg",
+      "g": "g",
+      "lb": "lb",
+      "oz": "oz",
+      "l": "L",
+      "ml": "mL"
+    },
+    "adding": "Añadiendo..."
+  },
+  "item": {
+    "checked": "Comprado",
+    "unchecked": "No comprado",
+    "delete": "Eliminar"
+  },
+  "empty": {
+    "title": "Aún No Hay Listas de Compras",
+    "description": "¡Crea tu primera lista de compras para comenzar!",
+    "action": "Crear Lista"
+  },
+  "allergenWarning": {
+    "title": "Advertencia de Alérgeno",
+    "contains": "Este producto contiene",
+    "youAreAllergicTo": "Eres alérgico a",
+    "proceed": "Añadir de Todos Modos",
+    "cancel": "Cancelar"
+  },
+  "messages": {
+    "listCreated": "¡Lista de compras creada!",
+    "listDeleted": "Lista de compras eliminada",
+    "itemAdded": "Artículo añadido a la lista",
+    "itemRemoved": "Artículo eliminado",
+    "itemChecked": "Artículo marcado como comprado",
+    "itemUnchecked": "Artículo marcado como no comprado"
+  }
+}
+EOF
+
+echo "✅ Created Spanish shopping translations"

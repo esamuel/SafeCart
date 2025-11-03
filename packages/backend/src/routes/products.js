@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     }
 
     if (category) query.category = category
-    if (allergen) query['allergens.contains'] = { $ne: allergen }
+    if (allergen) query['allergens.contains'] = { $nin: [allergen] }
     if (maxCarbs) query['nutrition.netCarbs'] = { $lte: parseInt(maxCarbs) }
 
     const products = await Product.find(query).limit(50)

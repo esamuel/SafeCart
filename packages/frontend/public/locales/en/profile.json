@@ -1,0 +1,130 @@
+{
+  "title": "Health Profile",
+  "subtitle": "Manage your health information",
+  "profileTitle": "User",
+  "personalInfo": {
+    "title": "Personal Information",
+    "displayName": "Display Name",
+    "displayNamePlaceholder": "Your preferred name",
+    "age": "Age",
+    "agePlaceholder": "25",
+    "height": "Height (cm)",
+    "heightPlaceholder": "170",
+    "weight": "Weight (kg)",
+    "weightPlaceholder": "70",
+    "name": "Name",
+    "ageUnit": "years",
+    "heightUnit": "cm",
+    "weightUnit": "kg",
+    "noInfo": "No personal information added yet"
+  },
+  "healthProfile": {
+    "title": "Health Profile",
+    "diabetesType": "Diabetes Type",
+    "types": {
+      "Type 1": "Type 1",
+      "Type 2": "Type 2",
+      "Prediabetes": "Prediabetes",
+      "Gestational": "Gestational",
+      "No Diabetes": "No Diabetes"
+    },
+    "targetGlucose": "Target Blood Glucose Range (mg/dL)",
+    "min": "Min",
+    "max": "Max",
+    "to": "to",
+    "dailyCarbLimit": "Daily Carb Limit (grams)",
+    "dailyCarbPlaceholder": "200",
+    "usesInsulin": "I use insulin",
+    "yes": "Yes",
+    "no": "No",
+    "targetGlucoseDisplay": "Target Blood Glucose",
+    "dailyCarbDisplay": "Daily Carb Limit",
+    "insulinUse": "Insulin Use"
+  },
+  "allergies": {
+    "title": "Allergies & Intolerances",
+    "selectAll": "Select all that apply:",
+    "noneSpecified": "No allergies specified"
+  },
+  "settings": {
+    "notifications": "Notification Settings",
+    "privacy": "Privacy & Security",
+    "logout": "Logout"
+  },
+  "buttons": {
+    "edit": "Edit",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "cancel": "Cancel"
+  },
+  "profile": {
+    "edit": "Edit",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "saved": "Profile saved successfully!",
+    "error": "Failed to save profile"
+  },
+  "errors": {
+    "noUser": "Not logged in. Please sign in."
+  },
+  "onboarding": {
+    "welcome": "Welcome to SafeCart",
+    "subtitle": "Let's set up your health profile",
+    "step": "Step",
+    "of": "of",
+    "next": "Next",
+    "previous": "Back",
+    "finish": "Complete Setup",
+    "skip": "Skip for now"
+  },
+  "basicInfo": {
+    "title": "Basic Information",
+    "displayName": "Display Name",
+    "displayNamePlaceholder": "Your name",
+    "age": "Age",
+    "agePlaceholder": "Your age",
+    "height": "Height (cm)",
+    "heightPlaceholder": "170",
+    "weight": "Weight (kg)",
+    "weightPlaceholder": "70"
+  },
+  "diabetes": {
+    "title": "Diabetes Information",
+    "type": "Diabetes Type",
+    "types": {
+      "none": "No Diabetes",
+      "prediabetes": "Prediabetes",
+      "type1": "Type 1",
+      "type2": "Type 2",
+      "gestational": "Gestational"
+    },
+    "targetGlucose": "Target Glucose Range",
+    "min": "Min (mg/dL)",
+    "max": "Max (mg/dL)",
+    "dailyCarbLimit": "Daily Carb Limit (g)",
+    "usesInsulin": "Uses Insulin",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "allergiesSection": {
+    "title": "Allergies & Intolerances",
+    "selectAllergies": "Select your allergies",
+    "common": {
+      "peanuts": "Peanuts",
+      "treeNuts": "Tree Nuts",
+      "milk": "Milk/Dairy",
+      "eggs": "Eggs",
+      "wheat": "Wheat/Gluten",
+      "soy": "Soy",
+      "fish": "Fish",
+      "shellfish": "Shellfish",
+      "sesame": "Sesame"
+    },
+    "dietary": {
+      "vegetarian": "Vegetarian",
+      "vegan": "Vegan",
+      "kosher": "Kosher",
+      "halal": "Halal"
+    }
+  }
+}

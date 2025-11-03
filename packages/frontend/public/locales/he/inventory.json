@@ -1,0 +1,74 @@
+{
+  "title": "המלאי שלי",
+  "subtitle": "עקוב אחר פריטי המזווה שלך",
+  "loading": "טוען מלאי...",
+  "buttons": {
+    "quickScan": "סריקה מהירה",
+    "addItem": "הוסף פריט"
+  },
+  "stats": {
+    "totalItems": "פריטים בסך הכל",
+    "expiringSoon": "מתפוגג בקרוב",
+    "expired": "פג תוקף",
+    "lowStock": "מלאי נמוך"
+  },
+  "search": {
+    "placeholder": "חפש במלאי..."
+  },
+  "filters": {
+    "all": "הכל",
+    "locations": {
+      "pantry": "מזווה",
+      "fridge": "מקרר",
+      "freezer": "מקפיא",
+      "other": "אחר"
+    }
+  },
+  "empty": {
+    "title": "אין פריטים במלאי",
+    "description": "התחל בסריקת ברקודים או בהוספת פריטים ידנית",
+    "action": "התחל מצב סריקה מהירה"
+  },
+  "badges": {
+    "lowStock": "מלאי נמוך"
+  },
+  "status": {
+    "noExpiration": "ללא תאריך תפוגה",
+    "expired": "פג תוקף",
+    "expiresToday": "פג תוקף היום!",
+    "expiresTomorrow": "פג תוקף מחר",
+    "daysLeft": "נותרו {{count}} ימים",
+    "daysRemaining": "{{count}} ימים",
+    "fresh": "טרי"
+  },
+  "delete": {
+    "confirm": "הסר פריט זה מהמלאי?",
+    "error": "מחיקת הפריט נכשלה"
+  },
+  "scanning": {
+    "title": "מצב סריקה מהירה",
+    "description": "סרוק ברקודים בזמן שאתה מפרק קניות. פריטים מתווספים מיד עם ברירות מחדל חכמות!",
+    "itemsScanned": "פריטים שנסרקו: {{count}}",
+    "barcode": "ברקוד",
+    "barcodePlaceholder": "הזן או סרוק ברקוד...",
+    "quantity": "כמות",
+    "location": "מיקום",
+    "scanning": "סורק...",
+    "scanAndAdd": "סרוק והוסף",
+    "success": "פריט נוסף! סרוק את הפריט הבא או לחץ על סיום.",
+    "errors": {
+      "barcodeRequired": "אנא הזן ברקוד",
+      "productNotFound": "מוצר לא נמצא. נסה הזנה ידנית במקום."
+    }
+  },
+  "modals": {
+    "addItem": {
+      "title": "הוסף פריט ידנית",
+      "description": "טופס הזנה ידנית בקרוב! השתמש בסריקה מהירה לעכשיו."
+    },
+    "editItem": {
+      "title": "ערוך: {{name}}",
+      "description": "טופס עריכה בקרוב!"
+    }
+  }
+}

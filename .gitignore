@@ -16,6 +16,12 @@ coverage/
 # Logs
 npm-debug.log*
 yarn-error.log*
+*.log
+*.pid
+backend.log
+frontend.log
+backend.pid
+frontend.pid
 
 # Tooling
 .turbo/

@@ -1,0 +1,61 @@
+{
+  "app": {
+    "name": "SafeCart",
+    "tagline": "קניות בטוחות, חיים בביטחון"
+  },
+  "navigation": {
+    "home": "בית",
+    "scanner": "סריקה",
+    "shopping": "רשימות",
+    "meals": "ארוחות",
+    "inventory": "מלאי",
+    "discover": "גלה",
+    "analytics": "ניתוח",
+    "community": "קהילה",
+    "settings": "הגדרות"
+  },
+  "buttons": {
+    "save": "שמור",
+    "cancel": "בטל",
+    "delete": "מחק",
+    "edit": "ערוך",
+    "add": "הוסף",
+    "scan": "סרוק",
+    "search": "חפש",
+    "back": "חזור",
+    "next": "הבא",
+    "close": "סגור",
+    "ok": "אישור",
+    "done": "סיים",
+    "create": "צור",
+    "update": "עדכן",
+    "logout": "התנתק"
+  },
+  "safety": {
+    "safe": "בטוח",
+    "danger": "סכנה",
+    "unknown": "לא ידוע",
+    "contains": "מכיל",
+    "mayContain": "עשוי להכיל",
+    "allergenWarning": "⚠️ סכנה: מכיל {{allergen}} - יש לך אלרגיה!",
+    "safeForYou": "✅ בטוח עבורך",
+    "checkAllergens": "אנא בדוק אלרגנים"
+  },
+  "common": {
+    "loading": "טוען...",
+    "error": "שגיאה",
+    "success": "הצלחה",
+    "warning": "אזהרה",
+    "info": "מידע",
+    "yes": "כן",
+    "no": "לא",
+    "or": "או",
+    "and": "ו"
+  },
+  "language": {
+    "select": "בחר שפה",
+    "english": "אנגלית",
+    "hebrew": "עברית",
+    "spanish": "ספרדית"
+  }
+}

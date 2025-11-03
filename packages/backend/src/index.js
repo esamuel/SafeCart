@@ -26,6 +26,12 @@ app.use('/api/products', require('./routes/products'))
 app.use('/api/users', require('./routes/users'))
 app.use('/api/shopping-lists', require('./routes/shoppingLists'))
 app.use('/api/meals', require('./routes/meals'))
+app.use('/api/recipes', require('./routes/recipes'))
+app.use('/api/analytics', require('./routes/analytics'))
+app.use('/api/shares', require('./routes/shares'))
+app.use('/api/social', require('./routes/social'))
+app.use('/api/inventory', require('./routes/inventory'))
+app.use('/api/scanner', require('./routes/scanner'))
 
 // Health check
 app.get('/health', (req, res) => {
@@ -39,6 +45,7 @@ app.use((err, req, res, next) => {
 })
 
 const PORT = process.env.PORT || 5002
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`)
+  console.log(`Server accessible at http://localhost:${PORT} or http://<your-ip>:${PORT}`)
 })

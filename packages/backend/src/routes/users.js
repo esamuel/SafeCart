@@ -21,6 +21,7 @@ router.get('/:userId', async (req, res) => {
       age: user.age,
       height: user.height,
       weight: user.weight,
+      region: user.region,
       healthProfiles: user.healthProfiles,
       preferences: user.preferences,
     })
@@ -32,11 +33,15 @@ router.get('/:userId', async (req, res) => {
 // Create or update health profile
 router.post('/:userId/health-profile', async (req, res) => {
   try {
+    console.log('[HEALTH PROFILE] Save request for userId:', req.params.userId)
+    console.log('[HEALTH PROFILE] Request body:', JSON.stringify(req.body, null, 2))
+
     const {
       displayName,
       age,
       height,
       weight,
+      region,
       diabetesType,
       allergies,
       targetGlucoseMin,
@@ -47,19 +52,27 @@ router.post('/:userId/health-profile', async (req, res) => {
 
     // Try to find by MongoDB ID first, then by firebaseId
     let user = await User.findById(req.params.userId).catch(() => null)
+    console.log('[HEALTH PROFILE] User found by MongoDB ID:', user ? user._id : 'null')
+
     if (!user) {
       user = await User.findOne({ firebaseId: req.params.userId })
+      console.log('[HEALTH PROFILE] User found by Firebase ID:', user ? user._id : 'null')
     }
 
     if (!user) {
+      const allUsers = await User.find({}).select('_id firebaseId email')
+      console.log('[HEALTH PROFILE] User not found! Available users:', allUsers)
       return res.status(404).json({ error: 'User not found' })
     }
+
+    console.log('[HEALTH PROFILE] Found user:', user.email)
 
     // Update personal information
     if (displayName !== undefined) user.displayName = displayName
     if (age !== undefined) user.age = age
     if (height !== undefined) user.height = height
     if (weight !== undefined) user.weight = weight
+    if (region !== undefined) user.region = region
 
     // Create health profile with proper structure
     const healthProfile = {
@@ -80,6 +93,8 @@ router.post('/:userId/health-profile', async (req, res) => {
     user.updatedAt = new Date()
     await user.save()
 
+    console.log('[HEALTH PROFILE] Successfully saved profile for user:', user.email)
+
     res.json({
       message: 'Profile saved successfully',
       user: {
@@ -92,7 +107,7 @@ router.post('/:userId/health-profile', async (req, res) => {
       healthProfile,
     })
   } catch (error) {
-    console.error('Error saving health profile:', error)
+    console.error('[HEALTH PROFILE] Error saving health profile:', error)
     res.status(400).json({ error: error.message })
   }
 })

@@ -1,0 +1,31 @@
+[build]
+  base = "packages/frontend/"
+  command = "npm run build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Functions
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  included_files = ["netlify/functions/**"]
+
+# API redirects - MUST come first to override static fallback
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
+# Test function
+[[redirects]]
+  from = "/test"
+  to = "/.netlify/functions/api-test"
+  status = 200
+
+# Handle all other routes with static files (MUST come last)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

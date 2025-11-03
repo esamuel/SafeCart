@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { auth } from '@/lib/firebase'
 import { onAuthStateChanged } from 'firebase/auth'
-import { authAPI } from '@/lib/api'
+import { authAPI, usersAPI } from '@/lib/api'
 import Dashboard from '@/components/Dashboard'
 import Auth from '@/components/Auth'
+import Onboarding from '@/components/Onboarding'
 import Logo from '@/components/Logo'
 
 export default function Home() {
@@ -14,36 +15,28 @@ export default function Home() {
   const [dbUser, setDbUser] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [showOnboarding, setShowOnboarding] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       try {
         if (currentUser) {
-          // Verify token with backend and create/update user in database
-          const token = await currentUser.getIdToken()
-          try {
-            const result = await authAPI.verify(token)
-            setDbUser(result.user)
-            setUser(currentUser)
-            setError('')
-          } catch (backendError: any) {
-            console.error('Backend auth verification failed:', backendError)
-            // Even if backend fails, we can still use Firebase user
-            // This allows the app to work even if backend is down
-            setUser(currentUser)
-            setDbUser(null)
-            console.warn('Continuing with Firebase auth only (backend verification failed)')
-          }
+          // Just set the user, don't fetch profile yet
+          setUser(currentUser)
+          setError('')
+          // Profile will be checked by Dashboard when it loads
         } else {
           setUser(null)
           setDbUser(null)
+          setShowOnboarding(false)
         }
       } catch (err: any) {
         console.error('Auth error:', err)
         setError(err.message)
         setUser(null)
         setDbUser(null)
+        setShowOnboarding(false)
       } finally {
         setLoading(false)
       }
@@ -82,5 +75,10 @@ export default function Home() {
     )
   }
 
-  return user ? <Dashboard user={dbUser || user} /> : <Auth />
+  if (!user) {
+    return <Auth />
+  }
+
+  // Dashboard will handle profile checks and onboarding
+  return <Dashboard user={user} />
 }

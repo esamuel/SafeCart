@@ -28,6 +28,11 @@ const userSchema = new mongoose.Schema({
     darkMode: { type: Boolean, default: false },
     language: { type: String, default: 'en' },
   },
+  region: {
+    type: String,
+    enum: ['US', 'IL', 'MX', 'AR', 'CL', 'CO', 'ES', 'PE', 'VE', 'OTHER'],
+    default: 'US'
+  },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 })
