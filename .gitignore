@@ -34,3 +34,4 @@ frontend.pid
 .idea/
 .vscode/
 
+.vercel
