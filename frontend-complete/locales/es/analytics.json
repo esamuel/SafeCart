@@ -1,0 +1,47 @@
+{
+  "title": "Análisis de Salud",
+  "subtitle": "Tus perspectivas y tendencias de salud personalizadas",
+  "emptyState": {
+    "title": "Sin Datos Aún",
+    "description": "¡Comienza a escanear productos y rastrear comidas para ver tu análisis de salud!",
+    "retry": "Reintentar Carga"
+  },
+  "timeRange": {
+    "days": "{{count}} Días"
+  },
+  "metrics": {
+    "safetyScore": "Puntuación de Seguridad",
+    "streak": "Racha de Días",
+    "streakSubtext": "Días de compras seguras",
+    "avgCarbs": "Carbohidratos Diarios Promedio",
+    "mealsLogged": "Comidas Registradas",
+    "safeItems": "seguro",
+    "items": "artículos",
+    "of": "de",
+    "limit": "límite"
+  },
+  "carbBudget": {
+    "title": "Presupuesto Diario de Carbohidratos",
+    "dailyAvg": "Promedio Diario",
+    "remaining": "Restante",
+    "protein": "Proteína"
+  },
+  "insights": {
+    "title": "Perspectivas y Recomendaciones",
+    "perfectSafety": "¡Puntuación de seguridad perfecta! Todos los {{count}} artículos son seguros para ti.",
+    "greatCarbControl": "¡Excelente control de carbohidratos! Te mantienes dentro de tu presupuesto.",
+    "tryMealPlanner": "¡Prueba el Planificador de Comidas para obtener recetas personalizadas adecuadas para diabetes!"
+  },
+  "dangerZone": {
+    "title": "¡Advertencia de Alérgeno!",
+    "description": "Detectamos {{count}} artículos peligrosos en tus listas de compras que contienen alérgenos a los que eres sensible.",
+    "button": "Revisar Artículos Peligrosos"
+  },
+  "summary": {
+    "title": "Resumen (Últimos {{days}} Días)",
+    "itemsScanned": "Artículos Escaneados",
+    "safeItems": "Artículos Seguros",
+    "mealsTracked": "Comidas Registradas",
+    "safetyScore": "Puntuación de Seguridad"
+  }
+}

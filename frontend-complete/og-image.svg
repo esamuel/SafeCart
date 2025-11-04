@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="shield-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg-gradient)"/>
+
+  <!-- Shield Logo (larger) -->
+  <g transform="translate(350, 200)">
+    <!-- Hexagonal Shield Shape -->
+    <path
+      d="M 0 10 L 55 35 L 55 100 L 0 135 L -55 100 L -55 35 Z"
+      fill="white"
+      opacity="0.95"
+    />
+
+    <!-- Shopping Cart -->
+    <g transform="translate(0, 20)">
+      <!-- Cart basket -->
+      <rect
+        x="-18"
+        y="-12"
+        width="28"
+        height="24"
+        rx="3"
+        fill="#667eea"
+        stroke="#667eea"
+        stroke-width="3"
+      />
+
+      <!-- Cart handle -->
+      <path
+        d="M -18 -12 L -15 -22"
+        stroke="#667eea"
+        stroke-width="3.5"
+        stroke-linecap="round"
+        fill="none"
+      />
+
+      <!-- Cart wheels -->
+      <circle cx="-12" cy="18" r="4" fill="#667eea" />
+      <circle cx="4" cy="18" r="4" fill="#667eea" />
+    </g>
+  </g>
+
+  <!-- SafeCart Text -->
+  <text x="500" y="330" font-family="system-ui, -apple-system, sans-serif" font-size="96" font-weight="bold" fill="white">
+    SafeCart
+  </text>
+
+  <!-- Tagline -->
+  <text x="500" y="410" font-family="system-ui, -apple-system, sans-serif" font-size="36" fill="white" opacity="0.9">
+    Shop safely, live confidently
+  </text>
+
+  <!-- Description -->
+  <text x="500" y="480" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="white" opacity="0.8">
+    AI-powered grocery shopping for allergies and diabetes
+  </text>
+
+  <!-- Decorative elements -->
+  <circle cx="950" cy="150" r="80" fill="white" opacity="0.1"/>
+  <circle cx="200" cy="500" r="60" fill="white" opacity="0.1"/>
+  <circle cx="1050" cy="450" r="100" fill="white" opacity="0.08"/>
+</svg>

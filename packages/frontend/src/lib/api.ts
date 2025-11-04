@@ -1,33 +1,18 @@
 import { auth } from './firebase'
 
-// Determine API URL based on environment - call this function each time to get fresh hostname
-const getApiUrl = () => {
-  // Use environment variable if set (for production)
-  if (process.env.NEXT_PUBLIC_API_URL) {
-    return process.env.NEXT_PUBLIC_API_URL
-  }
+// ============================================
+// SIMPLE API URL CONFIGURATION
+// ============================================
+// Always use production backend - no complex detection needed
+const API_URL = 'https://safecart-backend-j3ry.onrender.com/api'
 
-  if (typeof window !== 'undefined') {
-    // Browser environment - check if localhost
-    const hostname = window.location.hostname
-    console.log('[API] Current hostname:', hostname)
+// For local development ONLY: uncomment the line below and comment the line above
+// const API_URL = 'http://localhost:5002/api'
 
-    if (hostname === 'localhost' || hostname === '127.0.0.1') {
-      console.log('[API] Using localhost backend')
-      return 'http://localhost:5002/api'
-    }
-  }
-
-  // Production or server environment - use Render backend
-  console.log('[API] Using Render backend (production)')
-  return 'https://safecart-backend-j3ry.onrender.com/api'
-}
-
-// Helper function to get API base URL dynamically
+// Helper function to get API base URL
 const getAPIBaseURL = () => {
-  const url = getApiUrl()
-  console.log('[API] API Base URL:', url)
-  return url
+  console.log('[API] Using API URL:', API_URL)
+  return API_URL
 }
 
 // Get Firebase token

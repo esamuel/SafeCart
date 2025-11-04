@@ -1,0 +1,53 @@
+{
+  "title": "Escanear Producto",
+  "subtitle": "Usa tu cámara o ingresa el código de barras manualmente",
+  "infoTitle": "Consejo:",
+  "infoTip": "El acceso a la cámara requiere HTTPS en dispositivos móviles. Si la cámara no funciona, siempre puedes usar la entrada manual de código de barras a continuación - ¡funciona igual de bien!",
+  "cameraError": {
+    "notSupported": "API de cámara no compatible con este dispositivo. Por favor usa la entrada manual abajo.",
+    "httpsRequired": "La cámara requiere conexión segura (HTTPS). Por favor usa la entrada manual de código de barras abajo, o accede vía HTTPS.",
+    "permissionDenied": "Acceso a la cámara denegado. Por favor permite permisos de cámara en la configuración de tu navegador e intenta de nuevo.",
+    "noCamera": "No se encontró cámara en este dispositivo. Por favor usa la entrada manual abajo.",
+    "inUse": "La cámara ya está en uso por otra aplicación. Por favor cierra otras aplicaciones e intenta de nuevo.",
+    "constraintsFailed": "Restricciones de cámara no compatibles. Intentando de nuevo con configuración predeterminada...",
+    "securityError": "Acceso a la cámara bloqueado por configuración de seguridad. Intenta acceder vía HTTPS o usa entrada manual.",
+    "unknown": "No se puede acceder a la cámara. Por favor usa la entrada manual de código de barras abajo.",
+    "whyHttps": "¿Por qué? Los navegadores móviles requieren una conexión segura (HTTPS) para acceder a la cámara. Aún puedes usar la entrada manual de código de barras abajo, o pedirle a tu administrador que habilite HTTPS.",
+    "howToFix": "Cómo arreglar: Ve a la configuración de tu navegador → Permisos del sitio → Cámara → Permitir acceso para este sitio, luego actualiza e intenta de nuevo."
+  },
+  "camera": {
+    "start": "Iniciar Cámara",
+    "stop": "Detener Cámara",
+    "pointAtBarcode": "Apunta la cámara al código de barras"
+  },
+  "manualEntry": {
+    "title": "Entrada Manual",
+    "placeholder": "Ingresa código de barras o escanea...",
+    "scanButton": "Escanear",
+    "scanning": "Escaneando..."
+  },
+  "results": {
+    "na": "N/D",
+    "productNotFound": "Producto no encontrado. Intenta otro código de barras.",
+    "upc": "UPC",
+    "nutrition": {
+      "netCarbs": "Carbohidratos Netos",
+      "glycemicIndex": "Índice Glicémico",
+      "sugar": "Azúcar",
+      "glScore": "Puntuación GL"
+    },
+    "badges": {
+      "safe": "SEGURO",
+      "check": "REVISAR"
+    },
+    "allergens": "Alérgenos",
+    "actions": {
+      "scanAnother": "Escanear Otro",
+      "addToList": "Añadir a Lista de Compras",
+      "adding": "Añadiendo..."
+    },
+    "addedSuccess": "✅ ¡Producto añadido a la lista de compras!",
+    "addedToNewList": "✅ ¡Producto añadido a tu nueva lista de compras!",
+    "addedError": "Error al añadir a la lista de compras: {{message}}"
+  }
+}

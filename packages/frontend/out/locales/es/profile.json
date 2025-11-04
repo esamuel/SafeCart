@@ -1,0 +1,130 @@
+{
+  "title": "Perfil de Salud",
+  "subtitle": "Administra tu información de salud",
+  "profileTitle": "Usuario",
+  "personalInfo": {
+    "title": "Información Personal",
+    "displayName": "Nombre para Mostrar",
+    "displayNamePlaceholder": "Tu nombre preferido",
+    "age": "Edad",
+    "agePlaceholder": "25",
+    "height": "Altura (cm)",
+    "heightPlaceholder": "170",
+    "weight": "Peso (kg)",
+    "weightPlaceholder": "70",
+    "name": "Nombre",
+    "ageUnit": "años",
+    "heightUnit": "cm",
+    "weightUnit": "kg",
+    "noInfo": "Aún no se ha agregado información personal"
+  },
+  "healthProfile": {
+    "title": "Perfil de Salud",
+    "diabetesType": "Tipo de Diabetes",
+    "types": {
+      "Type 1": "Tipo 1",
+      "Type 2": "Tipo 2",
+      "Prediabetes": "Prediabetes",
+      "Gestational": "Gestacional",
+      "No Diabetes": "Sin Diabetes"
+    },
+    "targetGlucose": "Rango Objetivo de Glucosa en Sangre (mg/dL)",
+    "min": "Mín",
+    "max": "Máx",
+    "to": "a",
+    "dailyCarbLimit": "Límite Diario de Carbohidratos (gramos)",
+    "dailyCarbPlaceholder": "200",
+    "usesInsulin": "Uso insulina",
+    "yes": "Sí",
+    "no": "No",
+    "targetGlucoseDisplay": "Glucosa Objetivo",
+    "dailyCarbDisplay": "Límite Diario de Carbohidratos",
+    "insulinUse": "Uso de Insulina"
+  },
+  "allergies": {
+    "title": "Alergias e Intolerancias",
+    "selectAll": "Selecciona todas las que apliquen:",
+    "noneSpecified": "No se especificaron alergias"
+  },
+  "settings": {
+    "notifications": "Configuración de Notificaciones",
+    "privacy": "Privacidad y Seguridad",
+    "logout": "Cerrar Sesión"
+  },
+  "buttons": {
+    "edit": "Editar",
+    "save": "Guardar Cambios",
+    "saving": "Guardando...",
+    "cancel": "Cancelar"
+  },
+  "profile": {
+    "edit": "Editar",
+    "save": "Guardar Cambios",
+    "saving": "Guardando...",
+    "saved": "¡Perfil guardado exitosamente!",
+    "error": "Error al guardar el perfil"
+  },
+  "errors": {
+    "noUser": "No has iniciado sesión. Por favor inicia sesión."
+  },
+  "onboarding": {
+    "welcome": "Bienvenido a SafeCart",
+    "subtitle": "Configuremos tu perfil de salud",
+    "step": "Paso",
+    "of": "de",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "finish": "Finalizar",
+    "skip": "Omitir por ahora"
+  },
+  "basicInfo": {
+    "title": "Información Básica",
+    "displayName": "Nombre para Mostrar",
+    "displayNamePlaceholder": "Tu nombre",
+    "age": "Edad",
+    "agePlaceholder": "Tu edad",
+    "height": "Altura (cm)",
+    "heightPlaceholder": "170",
+    "weight": "Peso (kg)",
+    "weightPlaceholder": "70"
+  },
+  "diabetes": {
+    "title": "Información sobre Diabetes",
+    "type": "Tipo de Diabetes",
+    "types": {
+      "none": "Sin Diabetes",
+      "prediabetes": "Prediabetes",
+      "type1": "Tipo 1",
+      "type2": "Tipo 2",
+      "gestational": "Gestacional"
+    },
+    "targetGlucose": "Rango Objetivo de Glucosa",
+    "min": "Mín (mg/dL)",
+    "max": "Máx (mg/dL)",
+    "dailyCarbLimit": "Límite Diario de Carbohidratos (g)",
+    "usesInsulin": "Usa Insulina",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "allergiesSection": {
+    "title": "Alergias y Restricciones Dietéticas",
+    "selectAllergies": "Selecciona tus alergias",
+    "common": {
+      "peanuts": "Maní",
+      "treeNuts": "Frutos Secos",
+      "milk": "Leche/Lácteos",
+      "eggs": "Huevos",
+      "wheat": "Trigo/Gluten",
+      "soy": "Soja",
+      "fish": "Pescado",
+      "shellfish": "Mariscos",
+      "sesame": "Sésamo"
+    },
+    "dietary": {
+      "vegetarian": "Vegetariano",
+      "vegan": "Vegano",
+      "kosher": "Kosher",
+      "halal": "Halal"
+    }
+  }
+}

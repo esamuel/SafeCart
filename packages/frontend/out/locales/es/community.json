@@ -1,0 +1,45 @@
+{
+  "title": "Feed de la Comunidad",
+  "subtitle": "Comparte y descubre",
+  "loading": "Cargando publicaciones de la comunidad...",
+  "filters": {
+    "all": "Todos",
+    "recipe": "Receta",
+    "tip": "Consejo",
+    "success_story": "Historia de Éxito",
+    "following": "Siguiendo"
+  },
+  "createPost": {
+    "title": "Crear Publicación",
+    "shareButton": "Comparte algo con la comunidad",
+    "type": "Tipo",
+    "titleLabel": "Título",
+    "contentLabel": "Contenido",
+    "tagsLabel": "Etiquetas (separadas por comas)",
+    "titlePlaceholder": "Dale a tu publicación un título atractivo...",
+    "contentPlaceholder": "Comparte tus pensamientos, consejos o historia de éxito...",
+    "tagsPlaceholder": "diabético, bajo carb, sin gluten...",
+    "post": "Publicar",
+    "cancel": "Cancelar"
+  },
+  "postTypes": {
+    "recipe": "Receta",
+    "tip": "Consejo",
+    "success_story": "Historia de Éxito",
+    "meal_plan": "Plan de Comidas",
+    "shopping_list": "Lista de Compras"
+  },
+  "empty": {
+    "title": "Aún no hay publicaciones en esta categoría.",
+    "subtitle": "¡Sé el primero en compartir algo!"
+  },
+  "post": {
+    "comments": "comentarios",
+    "commentPlaceholder": "Escribe un comentario...",
+    "loadMore": "Cargar Más"
+  },
+  "errors": {
+    "fillRequired": "Por favor completa el título y el contenido",
+    "createFailed": "Error al crear la publicación. Por favor intenta de nuevo."
+  }
+}

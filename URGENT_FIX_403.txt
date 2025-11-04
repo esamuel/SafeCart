@@ -1,0 +1,98 @@
+🚨 URGENT: FIX 403 FORBIDDEN ERROR
+====================================
+
+Your iPhone can't load the app because the files are missing!
+
+---
+
+## 📋 STEP-BY-STEP FIX:
+
+### 1. Login to cPanel
+   - https://safecart.app:2083
+
+### 2. Open File Manager
+   - Click "File Manager" in cPanel
+
+### 3. Go to public_html
+   - Click "public_html" folder in left sidebar
+
+### 4. CHECK WHAT'S THERE:
+   - Do you see these folders/files?
+     - `_next/` folder
+     - `locales/` folder
+     - `index.html` file
+     - `.htaccess` file
+
+   **If you DON'T see index.html:**
+   → You need to upload and extract the zip!
+
+---
+
+## 🚀 UPLOAD THE FILES (DO THIS NOW):
+
+### A. Upload the Zip:
+   1. In public_html, click "Upload" button (top toolbar)
+   2. Drag `frontend-complete.zip` from your Mac
+   3. Wait for "100% complete"
+   4. Close upload tab
+
+### B. Extract the Zip:
+   1. Back in File Manager, find `frontend-complete.zip`
+   2. **Right-click** on the zip file
+   3. Select **"Extract"**
+   4. Make sure it says: Extract to: `/home/[username]/public_html`
+   5. Click **"Extract File(s)"** button
+   6. Wait for "Extraction Results"
+   7. Click "Close"
+
+### C. Verify Files Extracted:
+   1. Refresh File Manager (F5)
+   2. You should NOW see:
+      ✅ `_next/` folder
+      ✅ `locales/` folder
+      ✅ `index.html` file
+      ✅ `404.html` file
+      ✅ `.htaccess` file
+      ✅ `manifest.json` file
+
+### D. Delete the Zip:
+   1. Select `frontend-complete.zip`
+   2. Click "Delete" button
+   3. Confirm
+
+### E. Check Permissions (IMPORTANT):
+   1. Select `index.html`
+   2. Right-click → "Change Permissions"
+   3. Make sure it's set to **644** (Owner: Read+Write, Group: Read, World: Read)
+   4. Click "Change Permissions"
+
+---
+
+## 📱 TEST ON IPHONE:
+
+1. **Clear Safari cache:**
+   - Settings → Safari → Clear History and Website Data
+
+2. **Close Safari completely:**
+   - Swipe up and close Safari app
+
+3. **Open Safari and go to:**
+   - https://safecart.app
+
+4. **Should work now!** ✅
+
+---
+
+## 🔍 IF STILL NOT WORKING:
+
+Check in cPanel File Manager:
+- Make sure you're in `/public_html` (not a subfolder)
+- Make sure `index.html` exists
+- Make sure `.htaccess` exists
+- Make sure permissions are correct
+
+---
+
+**The issue is simple: The new files aren't on the server yet!**
+**Follow steps A-D above to upload and extract them.** 🚀
+

@@ -1,0 +1,45 @@
+{
+  "title": "Community Feed",
+  "subtitle": "Share and discover",
+  "loading": "Loading community posts...",
+  "filters": {
+    "all": "All",
+    "recipe": "Recipe",
+    "tip": "Tip",
+    "success_story": "Success Story",
+    "following": "Following"
+  },
+  "createPost": {
+    "title": "Create Post",
+    "shareButton": "Share something with the community",
+    "type": "Type",
+    "titleLabel": "Title",
+    "contentLabel": "Content",
+    "tagsLabel": "Tags (comma-separated)",
+    "titlePlaceholder": "Give your post a catchy title...",
+    "contentPlaceholder": "Share your thoughts, tips, or success story...",
+    "tagsPlaceholder": "diabetic, low-carb, gluten-free...",
+    "post": "Post",
+    "cancel": "Cancel"
+  },
+  "postTypes": {
+    "recipe": "Recipe",
+    "tip": "Tip",
+    "success_story": "Success Story",
+    "meal_plan": "Meal Plan",
+    "shopping_list": "Shopping List"
+  },
+  "empty": {
+    "title": "No posts yet in this category.",
+    "subtitle": "Be the first to share something!"
+  },
+  "post": {
+    "comments": "comments",
+    "commentPlaceholder": "Write a comment...",
+    "loadMore": "Load More"
+  },
+  "errors": {
+    "fillRequired": "Please fill in title and content",
+    "createFailed": "Failed to create post. Please try again."
+  }
+}

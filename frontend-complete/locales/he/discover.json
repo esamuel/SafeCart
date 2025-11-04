@@ -1,0 +1,75 @@
+{
+  "title": "גילוי מוצרים",
+  "subtitle": "מצא מוצרים בטוחים עבורך",
+  "search": {
+    "placeholder": "חפש מוצרים (למשל, חלב שקדים, לחם ללא גלוטן)...",
+    "searching": "מחפש...",
+    "button": "חפש",
+    "noResults": "לא נמצאו מוצרים. נסה חיפוש אחר!",
+    "browseAll": "עיין בכל המוצרים (50+)"
+  },
+  "filters": {
+    "title": "מסננים",
+    "clear": "נקה",
+    "category": "קטגוריה",
+    "avoidAllergens": "הימנע מאלרגנים",
+    "maxCarbs": "מקסימום פחמימות (גרם)",
+    "maxCarbsPlaceholder": "השאר ריק ללא הגבלה",
+    "categories": {
+      "Dairy": "מוצרי חלב",
+      "Produce": "מוצרים טריים",
+      "Meat & Seafood": "בשר ודגים",
+      "Bakery": "מאפייה",
+      "Snacks": "חטיפים",
+      "Beverages": "משקאות",
+      "Pantry": "מזווה",
+      "Frozen": "קפואים"
+    }
+  },
+  "results": {
+    "found": "נמצאו {{count}} מוצרים",
+    "loading": "מחפש מוצרים...",
+    "empty": {
+      "title": "התחל לחפש מוצרים שאתה אוהב!",
+      "description": "חפש לפי שם מוצר, מותג או מרכיב. השתמש במסננים כדי להתאים לצרכי התזונה שלך."
+    },
+    "noResults": "לא נמצאו מוצרים. נסה חיפוש אחר!"
+  },
+  "product": {
+    "safety": {
+      "safe": "בטוח",
+      "checkLabels": "בדוק תוויות",
+      "danger": "סכנה!"
+    },
+    "dangerWarning": "⚠️ מכיל את האלרגנים שלך!",
+    "containsAllergens": "מוצר זה מכיל: {{allergens}}",
+    "nutrition": {
+      "netCarbs": "פחמימות נטו",
+      "sugar": "סוכר",
+      "protein": "חלבון",
+      "calories": "קלוריות"
+    },
+    "contains": "מכיל:",
+    "allergens": {
+      "peanuts": "בוטנים",
+      "tree_nuts": "אגוזים",
+      "milk": "חלב",
+      "eggs": "ביצים",
+      "soy": "סויה",
+      "wheat": "חיטה",
+      "fish": "דגים",
+      "shellfish": "מאכלי ים"
+    }
+  },
+  "errors": {
+    "search": "אנא הזן מונח חיפוש או בחר מסננים כדי לעיין במוצרים",
+    "searchFailed": "חיפוש מוצרים נכשל: {{message}}"
+  },
+  "badges": {
+    "gi": "GI",
+    "gl": "GL",
+    "netCarbs": "גרם",
+    "sugar": "גרם",
+    "protein": "גרם"
+  }
+}
