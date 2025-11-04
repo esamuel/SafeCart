@@ -50,6 +50,12 @@ export default function Scanner({ products }: any) {
       if (videoRef.current) {
         videoRef.current.srcObject = stream
         streamRef.current = stream
+
+        // Ensure video plays on iPhone
+        videoRef.current.setAttribute('playsinline', 'true')
+        videoRef.current.setAttribute('webkit-playsinline', 'true')
+        await videoRef.current.play()
+
         setCameraActive(true)
       }
     } catch (err: any) {
@@ -76,6 +82,12 @@ export default function Scanner({ products }: any) {
           if (videoRef.current) {
             videoRef.current.srcObject = stream
             streamRef.current = stream
+
+            // Ensure video plays on iPhone
+            videoRef.current.setAttribute('playsinline', 'true')
+            videoRef.current.setAttribute('webkit-playsinline', 'true')
+            await videoRef.current.play()
+
             setCameraActive(true)
             setCameraError('')
             setCameraErrorCode(null)
@@ -225,12 +237,19 @@ export default function Scanner({ products }: any) {
             ref={videoRef}
             autoPlay
             playsInline
+            muted
+            webkit-playsinline="true"
+            x-webkit-airplay="deny"
             className="w-full h-full object-cover"
+            style={{
+              transform: 'scaleX(1)',
+              WebkitTransform: 'scaleX(1)',
+            }}
           />
           <div className="absolute top-0 left-0 right-0 bottom-0 border-4 border-purple-500 rounded-3xl pointer-events-none">
             <div className="absolute top-0 left-0 right-0 h-1 bg-purple-500 animate-pulse"></div>
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-white text-center">
+              <div className="text-white text-center bg-black bg-opacity-50 p-4 rounded-lg">
                 <Camera className="w-8 h-8 mx-auto mb-2 animate-pulse" />
                 <p className="text-sm">{t('camera.pointAtBarcode')}</p>
               </div>
