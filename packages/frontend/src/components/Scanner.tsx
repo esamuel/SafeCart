@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Search, AlertCircle, CheckCircle, Loader, Camera, Copy } from 'lucide-react'
 import { scannerAPI, shoppingListsAPI } from '@/lib/api'
 import { auth } from '@/lib/firebase'
+import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library'
 
 export default function Scanner({ products }: any) {
   const { t } = useTranslation('scanner')
@@ -18,8 +19,117 @@ export default function Scanner({ products }: any) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const streamRef = useRef<MediaStream | null>(null)
   const [addingToList, setAddingToList] = useState(false)
+  const [isMobileDevice, setIsMobileDevice] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const user = auth.currentUser
+
+  useEffect(() => {
+    // Detect mobile device
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    setIsMobileDevice(isIOS || isMobile)
+  }, [])
+
+  const handlePhotoCapture = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    try {
+      setLoading(true)
+      setError('')
+
+      // Create an image element to load the photo
+      const img = new Image()
+      const reader = new FileReader()
+
+      reader.onload = (e) => {
+        img.onload = async () => {
+          try {
+            // Create a canvas to draw the image
+            const canvas = document.createElement('canvas')
+            canvas.width = img.width
+            canvas.height = img.height
+            const ctx = canvas.getContext('2d')
+            
+            if (!ctx) {
+              throw new Error('Failed to get canvas context')
+            }
+
+            ctx.drawImage(img, 0, 0)
+
+            // Use ZXing to detect barcode
+            const codeReader = new BrowserMultiFormatReader()
+            
+            try {
+              const result = await codeReader.decodeFromCanvas(canvas)
+              
+              if (result && result.getText()) {
+                const detectedBarcode = result.getText()
+                console.log('Barcode detected:', detectedBarcode)
+                
+                // Set the barcode and automatically trigger scan
+                setBarcode(detectedBarcode)
+                setLoading(false)
+                
+                // Automatically scan the detected barcode
+                setTimeout(() => {
+                  handleScanWithBarcode(detectedBarcode)
+                }, 100)
+              }
+            } catch (err) {
+              if (err instanceof NotFoundException) {
+                setError(t('cameraError.noBarcodeFound', { defaultValue: 'No barcode found in the photo. Please try again or enter manually.' }))
+              } else {
+                throw err
+              }
+              setLoading(false)
+            }
+          } catch (err) {
+            console.error('Barcode detection error:', err)
+            setError(t('cameraError.photoError', { defaultValue: 'Failed to read barcode from photo. Please enter manually.' }))
+            setLoading(false)
+          }
+        }
+        img.src = e.target?.result as string
+      }
+
+      reader.readAsDataURL(file)
+    } catch (err) {
+      console.error('Photo capture error:', err)
+      setError(t('cameraError.photoError', { defaultValue: 'Failed to process photo. Please enter barcode manually.' }))
+      setLoading(false)
+    }
+  }
+
+  const handleScanWithBarcode = async (barcodeValue: string) => {
+    setError('')
+    setLoading(true)
+    try {
+      // Use the new scanner API with multi-region support
+      const result = await scannerAPI.scan(barcodeValue, user?.uid)
+
+      if (result.found) {
+        // Product found - show it with safety analysis
+        setScannedProduct({
+          ...result.product,
+          safetyAnalysis: result.safetyAnalysis,
+          region: result.region,
+          source: result.source
+        })
+      } else {
+        // Product not found - show error with option to add manually
+        setError(t('results.productNotFound') + ' ' + (result.message || ''))
+        setScannedProduct(null)
+      }
+    } catch (err: any) {
+      console.error('Scanner error:', err)
+      setError(err.message || t('results.productNotFound'))
+      setScannedProduct(null)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const startCamera = async () => {
     try {
@@ -121,32 +231,7 @@ export default function Scanner({ products }: any) {
   }, [])
 
   const handleScan = async () => {
-    setError('')
-    setLoading(true)
-    try {
-      // Use the new scanner API with multi-region support
-      const result = await scannerAPI.scan(barcode, user?.uid)
-
-      if (result.found) {
-        // Product found - show it with safety analysis
-        setScannedProduct({
-          ...result.product,
-          safetyAnalysis: result.safetyAnalysis,
-          region: result.region,
-          source: result.source
-        })
-      } else {
-        // Product not found - show error with option to add manually
-        setError(t('results.productNotFound') + ' ' + (result.message || ''))
-        setScannedProduct(null)
-      }
-    } catch (err: any) {
-      console.error('Scanner error:', err)
-      setError(err.message || t('results.productNotFound'))
-      setScannedProduct(null)
-    } finally {
-      setLoading(false)
-    }
+    await handleScanWithBarcode(barcode)
   }
 
   const addToShoppingList = async () => {
@@ -199,7 +284,10 @@ export default function Scanner({ products }: any) {
       {!cameraActive && (
         <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 mb-6">
           <p className="text-blue-800 text-sm">
-            <strong>💡 {t('infoTitle', { defaultValue: 'Tip:' })}</strong> {t('infoTip')}
+            <strong>💡 {t('infoTitle', { defaultValue: 'Tip:' })}</strong>{' '}
+            {isMobileDevice
+              ? t('infoTipMobile', { defaultValue: 'Tap "Take Photo" to use your camera, or enter the barcode number manually below.' })
+              : t('infoTip')}
           </p>
         </div>
       )}
@@ -266,22 +354,47 @@ export default function Scanner({ products }: any) {
 
       {/* Camera Controls */}
       <div className="flex gap-3 mb-6">
-        {cameraActive ? (
-          <button
-            onClick={stopCamera}
-            className="flex-1 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl flex items-center justify-center gap-2 transition font-semibold"
-          >
-            <Camera className="w-5 h-5" />
-            {t('camera.stop')}
-          </button>
+        {isMobileDevice ? (
+          // Mobile: Show "Take Photo" button
+          <>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              capture="environment"
+              onChange={handlePhotoCapture}
+              className="hidden"
+            />
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={loading}
+              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl flex items-center justify-center gap-2 transition font-semibold disabled:opacity-50"
+            >
+              <Camera className="w-5 h-5" />
+              {t('camera.takePhoto', { defaultValue: 'Take Photo' })}
+            </button>
+          </>
         ) : (
-          <button
-            onClick={startCamera}
-            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl flex items-center justify-center gap-2 transition font-semibold"
-          >
-            <Camera className="w-5 h-5" />
-            {t('camera.start')}
-          </button>
+          // Desktop: Show camera stream controls
+          <>
+            {cameraActive ? (
+              <button
+                onClick={stopCamera}
+                className="flex-1 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl flex items-center justify-center gap-2 transition font-semibold"
+              >
+                <Camera className="w-5 h-5" />
+                {t('camera.stop')}
+              </button>
+            ) : (
+              <button
+                onClick={startCamera}
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl flex items-center justify-center gap-2 transition font-semibold"
+              >
+                <Camera className="w-5 h-5" />
+                {t('camera.start')}
+              </button>
+            )}
+          </>
         )}
       </div>
 

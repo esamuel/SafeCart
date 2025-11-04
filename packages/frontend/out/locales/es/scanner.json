@@ -13,7 +13,9 @@
     "securityError": "Acceso a la cámara bloqueado por configuración de seguridad. Intenta acceder vía HTTPS o usa entrada manual.",
     "unknown": "No se puede acceder a la cámara. Por favor usa la entrada manual de código de barras abajo.",
     "whyHttps": "¿Por qué? Los navegadores móviles requieren una conexión segura (HTTPS) para acceder a la cámara. Aún puedes usar la entrada manual de código de barras abajo, o pedirle a tu administrador que habilite HTTPS.",
-    "howToFix": "Cómo arreglar: Ve a la configuración de tu navegador → Permisos del sitio → Cámara → Permitir acceso para este sitio, luego actualiza e intenta de nuevo."
+    "howToFix": "Cómo arreglar: Ve a la configuración de tu navegador → Permisos del sitio → Cámara → Permitir acceso para este sitio, luego actualiza e intenta de nuevo.",
+    "noBarcodeFound": "No se encontró código de barras en la foto. Por favor intenta de nuevo o ingresa manualmente.",
+    "photoError": "Error al leer código de barras de la foto. Por favor ingresa manualmente."
   },
   "camera": {
     "start": "Iniciar Cámara",

@@ -13,7 +13,9 @@
     "securityError": "Camera access blocked by security settings. Try accessing via HTTPS or use manual entry.",
     "unknown": "Unable to access camera. Please use manual barcode entry below.",
     "whyHttps": "Why? Mobile browsers require a secure connection (HTTPS) for camera access. You can still use manual barcode entry below, or ask your administrator to enable HTTPS.",
-    "howToFix": "How to fix: Go to your browser settings → Site permissions → Camera → Allow access for this site, then refresh and try again."
+    "howToFix": "How to fix: Go to your browser settings → Site permissions → Camera → Allow access for this site, then refresh and try again.",
+    "noBarcodeFound": "No barcode found in the photo. Please try again or enter manually.",
+    "photoError": "Failed to read barcode from photo. Please enter manually."
   },
   "camera": {
     "start": "Start Camera",
